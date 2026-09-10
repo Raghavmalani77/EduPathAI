@@ -23,42 +23,40 @@ flowchart TD
     classDef store fill:#ECEFF1,stroke:#455A64,stroke-width:2px,color:#263238;
     classDef fut fill:#E1F5FE,stroke:#0288D1,stroke-width:2px,color:#01579B;
 
-    subgraph P1 ["Phase 1: Ingestion & Raw Data Lake"]
+    subgraph P1 ["PHASE 1: DATA INGESTION & RAW DATA LAKE [COMPLETED]"]
         direction LR
-        B1["<b>1. DATA SOURCES</b><br/>• Jobs: Arbeitnow (176)<br/>• Students: xAPI (480)<br/>• Courses: 28 Bridges<br/>• Skills: 66 Inventory<br/><b>[COMPLETED]</b>"]:::comp
-        B2["<b>2. DATA INGESTION</b><br/>• Web Scrapers & LMS Parser<br/>• BeautifulSoup & Regex<br/>• Ingestion Validation<br/><b>[COMPLETED]</b>"]:::comp
-        B3["<b>3. RAW STORAGE</b><br/>• raw_jobs.csv<br/>• raw_students_lms.csv<br/>• raw_courses.csv<br/><b>[COMPLETED]</b>"]:::store
+        B1["<b>1. DATA SOURCES</b><br/>• Jobs: Arbeitnow (176)<br/>• Students: xAPI (480)<br/>• Courses: 28 Bridges<br/>• Skills: 66 Inventory"]:::comp
+        B2["<b>2. DATA INGESTION LAYER</b><br/>• Web Scrapers & LMS Parser<br/>• BeautifulSoup & Regex Pipeline<br/>• Schema Validation Engine"]:::comp
+        B3["<b>3. RAW DATA STORAGE</b><br/>• raw_jobs.csv (176 records)<br/>• raw_students_lms.csv (480)<br/>• raw_courses.csv (28 records)"]:::store
         B1 --> B2 --> B3
     end
 
-    subgraph P2 ["Phase 2: Preprocessing, Feature Store & Core AI"]
+    subgraph P2 ["PHASE 2: PREPROCESSING, FEATURE STORE & CORE AI [COMPLETED]"]
         direction LR
-        B4["<b>4. PREPROCESSING</b><br/>• 16 Career Mapping<br/>• StandardScaler GPA<br/>• Bloom's Proficiencies<br/>• Stratified 5-Fold CV<br/><b>[COMPLETED]</b>"]:::comp
-        B5["<b>5. FEATURE STORE</b><br/>• Structured CSV Records<br/>• 66-D Skill Vectors<br/>• S-BERT 384-D Embeds<br/><b>[COMPLETED]</b>"]:::store
-        B6["<b>6. CORE AI ENGINE</b><br/>• RF Predictor (87.5% CV)<br/>• K-Means Cluster (K=3)<br/>• Cosine Job Matcher<br/>• Hybrid S-BERT Rec<br/>• Explainable AI (XAI)<br/><b>[COMPLETED]</b>"]:::comp
+        B4["<b>4. PREPROCESSING & PIPELINE</b><br/>• 16 Career Pathway Mapping<br/>• StandardScaler GPA & LMS<br/>• Bloom's Proficiencies [0.0-1.0]<br/>• Stratified 5-Fold CV"]:::comp
+        B5["<b>5. FEATURE STORE (STRUCTURED)</b><br/>• students_employability.csv<br/>• learning_engagement.csv<br/>• Continuous 66-D Skill Vectors<br/>• S-BERT 384-D Course Embeddings"]:::store
+        B6["<b>6. CORE AI ENGINE</b><br/>• Random Forest (87.5% CV Acc)<br/>• K-Means Clusterer (K=3)<br/>• Weighted Cosine Job Matcher<br/>• Dense S-BERT + Greedy Set Cover"]:::comp
         B4 --> B5 --> B6
     end
 
-    subgraph P3 ["Phase 3: Recommendations, Dashboard & Testing"]
+    subgraph P3 ["PHASE 3: SCORES, DASHBOARD & ML VALIDATION [LIVE & PRODUCTION]"]
         direction LR
-        B7["<b>7. SCORES REPO</b><br/>• Predicted Pathways JSON<br/>• Matched Jobs & Ranks<br/>• Gaps & Top-3 Courses<br/>• XAI Justifications<br/><b>[COMPLETED]</b>"]:::store
-        B8["<b>8. WEB DASHBOARD</b><br/>• Streamlit UI (Port 8501)<br/>• Continuous Radar Chart<br/>• Semantic Course Badges<br/>• XAI Explanation Panel<br/><b>[LIVE / CURRENT]</b>"]:::curr
-        B11["<b>11. ML TESTING & DRIFT</b><br/>• Multi-Class ROC-AUC (0.9910)<br/>• Recall@3: 76.8% Validation<br/>• KS-Test & PSI Tracking<br/>• Rolling Concept Drift<br/><b>[COMPLETED]</b>"]:::comp
-        B7 --> B8
-        B8 -.-> B11
+        B7["<b>7. SCORES REPOSITORY</b><br/>• Predicted Career Pathways<br/>• Matched Job Suitability %<br/>• Missing Skill-Gaps Deltas<br/>• Top-3 Course Bridges (76.8%)"]:::store
+        B8["<b>8. WEB DASHBOARD</b><br/>• Streamlit UI (Port 8501)<br/>• Interactive Radar Chart<br/>• Semantic Course Match Badges<br/>• Dynamic XAI Reasoning Panel"]:::curr
+        B11["<b>11. ML TESTING & DRIFT MONITOR</b><br/>• Multi-Class ROC-AUC (0.9910)<br/>• PR@K Validation Suite<br/>• KS-Test Feature Drift & PSI<br/>• Rolling Concept Drift Tracker"]:::comp
+        B7 --> B8 --> B11
     end
 
-    subgraph P4 ["Phase 4: Future Integrations & Automation"]
+    subgraph P4 ["PHASE 4: INTEGRATIONS & AUTOMATION PIPELINE [FUTURE SCOPE]"]
         direction LR
-        B9["<b>9. EXTERNAL CONSUMERS</b><br/>• University LMS Canvas<br/>• Placement Cell Portal<br/>• Webhook Alerts<br/><b>[FUTURE SCOPE]</b>"]:::fut
-        B10["<b>10. AUTO PIPELINE</b><br/>• Auto Retrain Triggers<br/>• Scraper Daemons<br/>• Drift Watchdog<br/><b>[FUTURE SCOPE]</b>"]:::fut
+        B9["<b>9. EXTERNAL CONSUMERS</b><br/>• University LMS (Canvas / Moodle)<br/>• Placement Cell & Advisor Portal<br/>• Automated Alert Webhooks"]:::fut
+        B10["<b>10. AUTOMATION PIPELINE</b><br/>• Automated Retraining Triggers<br/>• Scheduled Scraper Daemons<br/>• Real-Time Drift Watchdog"]:::fut
         B9 --> B10
     end
 
-    B3 --> B4
-    B6 --> B7
-    B8 -.-> B9
-    B11 -.-> B10
+    P1 -->|"Raw Extracted Data"| P2
+    P2 -->|"Engineered Features & Trained AI Models"| P3
+    P3 -.->|"External APIs & Production Retraining"| P4
 ```
 
 ---
