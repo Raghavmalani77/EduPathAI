@@ -1,5 +1,5 @@
-Model,Accuracy,Precision,Recall,F1-Score
-Logistic Regression,100.0,100.0,100.0,100.0
-Random Forest,100.0,100.0,100.0,100.0
-XGBoost,100.0,100.0,100.0,100.0
-Decision Tree,91.67,89.39,91.67,89.88
+Model,5-Fold CV Accuracy,5-Fold CV F1-Score,Test Accuracy (%),Test Precision (%),Test Recall (%),Test F1-Score (%)
+Random Forest,86.67% ± 1.53%,86.58% ± 1.31%,86.46,88.48,86.46,86.94
+XGBoost,85.42% ± 2.72%,84.58% ± 3.0%,86.46,89.09,86.46,86.9
+Logistic Regression,87.08% ± 2.92%,86.63% ± 2.73%,84.38,87.87,84.38,85.54
+Decision Tree,83.54% ± 3.32%,83.22% ± 2.98%,82.29,86.21,82.29,82.79

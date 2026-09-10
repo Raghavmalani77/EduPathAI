@@ -5,7 +5,7 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, StratifiedKFold
 from sklearn.preprocessing import StandardScaler, LabelEncoder, label_binarize
 from sklearn.metrics import (
     accuracy_score, precision_score, recall_score, f1_score,
@@ -103,14 +103,45 @@ def main():
     models = {
         "Logistic Regression": LogisticRegression(max_iter=1000, random_state=42),
         "Decision Tree": DecisionTreeClassifier(max_depth=10, random_state=42),
-        "Random Forest": RandomForestClassifier(n_estimators=100, max_depth=12, random_state=42),
-        "XGBoost": XGBClassifier(n_estimators=100, max_depth=6, learning_rate=0.1, eval_metric='mlogloss', random_state=42)
+        "Random Forest": RandomForestClassifier(n_estimators=100, max_depth=12, n_jobs=-1, random_state=42),
+        "XGBoost": XGBClassifier(n_estimators=100, max_depth=6, learning_rate=0.1, eval_metric='mlogloss', n_jobs=-1, random_state=42)
     }
+
+    # 5-Fold Stratified Cross-Validation
+    print("\nExecuting 5-Fold Stratified Cross-Validation (480 samples)...")
+    skf = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+    cv_records = {}
+
+    for name, model in models.items():
+        fold_accs = []
+        fold_f1s = []
+        for train_idx, val_idx in skf.split(X, y):
+            X_fold_tr, X_fold_val = X.iloc[train_idx].copy(), X.iloc[val_idx].copy()
+            y_fold_tr, y_fold_val = y[train_idx], y[val_idx]
+            
+            if name == "Logistic Regression":
+                fold_scaler = StandardScaler()
+                X_fold_tr[num_cols] = fold_scaler.fit_transform(X_fold_tr[num_cols])
+                X_fold_val[num_cols] = fold_scaler.transform(X_fold_val[num_cols])
+                model.fit(X_fold_tr, y_fold_tr)
+                f_preds = model.predict(X_fold_val)
+            else:
+                model.fit(X_fold_tr, y_fold_tr)
+                f_preds = model.predict(X_fold_val)
+                
+            fold_accs.append(accuracy_score(y_fold_val, f_preds))
+            fold_f1s.append(f1_score(y_fold_val, f_preds, average='weighted', zero_division=0))
+            
+        cv_records[name] = {
+            "cv_acc": f"{round(np.mean(fold_accs)*100, 2)}% ± {round(np.std(fold_accs)*100, 2)}%",
+            "cv_f1": f"{round(np.mean(fold_f1s)*100, 2)}% ± {round(np.std(fold_f1s)*100, 2)}%"
+        }
 
     classification_eval = []
     roc_data = {}
     best_cm = None
 
+    print("\nEvaluating on 20% Holdout Test Set (96 samples)...")
     for name, model in models.items():
         if name == "Logistic Regression":
             model.fit(X_train_scaled, y_train)
@@ -138,14 +169,17 @@ def main():
 
         classification_eval.append({
             "Model": name,
-            "Accuracy": round(acc * 100, 2),
-            "Precision": round(prec * 100, 2),
-            "Recall": round(rec * 100, 2),
-            "F1 Score": round(f1 * 100, 2),
+            "5-Fold CV Accuracy": cv_records[name]["cv_acc"],
+            "5-Fold CV F1-Score": cv_records[name]["cv_f1"],
+            "Test Accuracy (%)": round(acc * 100, 2),
+            "Test Precision (%)": round(prec * 100, 2),
+            "Test Recall (%)": round(rec * 100, 2),
+            "Test F1-Score (%)": round(f1 * 100, 2),
             "ROC-AUC": round(roc_auc, 4)
         })
 
     class_eval_df = pd.DataFrame(classification_eval)
+    class_eval_df = class_eval_df.sort_values(by="Test F1-Score (%)", ascending=False)
     print(class_eval_df.to_string(index=False))
 
     # =========================================================================

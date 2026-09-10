@@ -1,0 +1,19 @@
+# DRIFT MONITORING AND VALIDATION REPORT
+
+## 1. COVARIATE FEATURE DRIFT
+Feature,KS-Statistic,p-value,KS Drift Detected (p<0.05),PSI Score,PSI Stability Status
+Avg_Logins,0.275,2.23e-16,YES,0.467,Significant Drift (Alert)
+Avg_Completion,0.3167,1.14e-21,YES,2.101,Significant Drift (Alert)
+Avg_Assessment_Score,0.0,1.0,No,0.0,Stable (No Drift)
+Avg_Submissions,0.0,1.0,No,0.0,Stable (No Drift)
+Assessment_Score,0.1083,0.0071,YES,0.152,Moderate Shift
+Completion_Rate,0.0,1.0,No,0.0,Stable (No Drift)
+
+## 2. TARGET LABEL DRIFT
+Test,Chi2-Statistic,p-value,Drift Detected
+Chi-Square Contingency Test,22.722,0.0902,No
+
+## 3. CONCEPT DRIFT & PERFORMANCE DEGRADATION
+Evaluation Scenario,Accuracy (%),F1-Score (%),F1 Delta (%),Concept Drift Alert
+Baseline Holdout Test Set,86.46,86.94,0.0,Normal Baseline
+New Production Batch (Shifted),82.71,81.38,-5.56,Acceptable Performance
