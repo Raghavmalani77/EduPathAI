@@ -16,39 +16,49 @@ An end-to-end enterprise machine learning platform that ingests student academic
 The system follows a 6-tier decoupled architecture from raw event ingestion to interactive delivery:
 
 ```mermaid
-flowchart LR
+flowchart TD
     %% Styling Classes
     classDef comp fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20;
     classDef curr fill:#FFF8E1,stroke:#F57F17,stroke-width:2px,color:#E65100;
     classDef store fill:#ECEFF1,stroke:#455A64,stroke-width:2px,color:#263238;
     classDef fut fill:#E1F5FE,stroke:#0288D1,stroke-width:2px,color:#01579B;
 
-    subgraph ROW1 ["Phase 1: Ingestion & Application Layer"]
+    subgraph P1 ["Phase 1: Ingestion & Raw Data Lake"]
         direction LR
         B1["<b>1. DATA SOURCES</b><br/>• Jobs: Arbeitnow (176)<br/>• Students: xAPI (480)<br/>• Courses: 28 Bridges<br/>• Skills: 66 Inventory<br/><b>[COMPLETED]</b>"]:::comp
-        B2["<b>2. DATA INGESTION</b><br/>• Web Scrapers & LMS Parser<br/>• BeautifulSoup & Regex<br/>• Schema Validation<br/><b>[COMPLETED]</b>"]:::comp
+        B2["<b>2. DATA INGESTION</b><br/>• Web Scrapers & LMS Parser<br/>• BeautifulSoup & Regex<br/>• Ingestion Validation<br/><b>[COMPLETED]</b>"]:::comp
         B3["<b>3. RAW STORAGE</b><br/>• raw_jobs.csv<br/>• raw_students_lms.csv<br/>• raw_courses.csv<br/><b>[COMPLETED]</b>"]:::store
-        B8["<b>8. WEB DASHBOARD</b><br/>• Streamlit UI (Port 8501)<br/>• Continuous Radar Chart<br/>• Semantic Course Badges<br/>• XAI Reasoning Panel<br/><b>[LIVE / CURRENT]</b>"]:::curr
-        B9["<b>9. EXTERNAL CONSUMERS</b><br/>• University LMS Canvas<br/>• Placement Cell Portal<br/>• Webhook Alerts<br/><b>[FUTURE SCOPE]</b>"]:::fut
         B1 --> B2 --> B3
-        B8 -.-> B9
     end
 
-    subgraph ROW2 ["Phase 2: Preprocessing, Core AI & Testing"]
+    subgraph P2 ["Phase 2: Preprocessing, Feature Store & Core AI"]
         direction LR
         B4["<b>4. PREPROCESSING</b><br/>• 16 Career Mapping<br/>• StandardScaler GPA<br/>• Bloom's Proficiencies<br/>• Stratified 5-Fold CV<br/><b>[COMPLETED]</b>"]:::comp
         B5["<b>5. FEATURE STORE</b><br/>• Structured CSV Records<br/>• 66-D Skill Vectors<br/>• S-BERT 384-D Embeds<br/><b>[COMPLETED]</b>"]:::store
-        B6["<b>6. CORE AI ENGINE</b><br/>• RF Predictor (87.5%)<br/>• K-Means Cluster (K=3)<br/>• Cosine Job Matcher<br/>• Hybrid S-BERT Rec<br/>• Explainable AI (XAI)<br/><b>[COMPLETED]</b>"]:::comp
-        B7["<b>7. SCORES REPOSITORY</b><br/>• Pathways & Personas<br/>• Matched Jobs JSON<br/>• Gaps & Top-3 Courses<br/>• XAI Justifications<br/><b>[COMPLETED]</b>"]:::store
-        B11["<b>11. ML TESTING & DRIFT</b><br/>• ROC-AUC (0.9910)<br/>• Recall@3: 76.8%<br/>• KS-Test & PSI Tracking<br/>• Concept Drift Decay<br/><b>[COMPLETED]</b>"]:::comp
+        B6["<b>6. CORE AI ENGINE</b><br/>• RF Predictor (87.5% CV)<br/>• K-Means Cluster (K=3)<br/>• Cosine Job Matcher<br/>• Hybrid S-BERT Rec<br/>• Explainable AI (XAI)<br/><b>[COMPLETED]</b>"]:::comp
+        B4 --> B5 --> B6
+    end
+
+    subgraph P3 ["Phase 3: Recommendations, Dashboard & Testing"]
+        direction LR
+        B7["<b>7. SCORES REPO</b><br/>• Predicted Pathways JSON<br/>• Matched Jobs & Ranks<br/>• Gaps & Top-3 Courses<br/>• XAI Justifications<br/><b>[COMPLETED]</b>"]:::store
+        B8["<b>8. WEB DASHBOARD</b><br/>• Streamlit UI (Port 8501)<br/>• Continuous Radar Chart<br/>• Semantic Course Badges<br/>• XAI Explanation Panel<br/><b>[LIVE / CURRENT]</b>"]:::curr
+        B11["<b>11. ML TESTING & DRIFT</b><br/>• Multi-Class ROC-AUC (0.9910)<br/>• Recall@3: 76.8% Validation<br/>• KS-Test & PSI Tracking<br/>• Rolling Concept Drift<br/><b>[COMPLETED]</b>"]:::comp
+        B7 --> B8
+        B8 -.-> B11
+    end
+
+    subgraph P4 ["Phase 4: Future Integrations & Automation"]
+        direction LR
+        B9["<b>9. EXTERNAL CONSUMERS</b><br/>• University LMS Canvas<br/>• Placement Cell Portal<br/>• Webhook Alerts<br/><b>[FUTURE SCOPE]</b>"]:::fut
         B10["<b>10. AUTO PIPELINE</b><br/>• Auto Retrain Triggers<br/>• Scraper Daemons<br/>• Drift Watchdog<br/><b>[FUTURE SCOPE]</b>"]:::fut
-        B4 --> B5 --> B6 --> B7
-        B6 -.-> B11
-        B11 -.-> B10
+        B9 --> B10
     end
 
     B3 --> B4
-    B7 --> B8
+    B6 --> B7
+    B8 -.-> B9
+    B11 -.-> B10
 ```
 
 ---
