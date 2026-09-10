@@ -82,7 +82,8 @@ def extract_skills(tags, description_text):
 
 def main():
     # 1. Create target data directory
-    output_dir = r"C:\Users\admin\.gemini\antigravity\scratch\major-project\data"
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    output_dir = os.path.join(base_dir, "data")
     os.makedirs(output_dir, exist_ok=True)
     print(f"Created data directory at: {output_dir}")
 

@@ -5,8 +5,12 @@ from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 
 class RecommendationEngine:
-    def __init__(self, data_dir=r"C:\Users\admin\.gemini\antigravity\scratch\major-project\data"):
-        self.data_dir = data_dir
+    def __init__(self, data_dir=None):
+        if data_dir is None:
+            base_dir = os.path.dirname(os.path.abspath(__file__))
+            self.data_dir = os.path.join(base_dir, "data")
+        else:
+            self.data_dir = data_dir
         self.jobs_df = None
         self.courses_df = None
         self.students_df = None

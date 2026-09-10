@@ -178,7 +178,8 @@ def get_soft_skills(raised_hands, discussion):
 
 def main():
     random.seed(42)
-    output_dir = r"C:\Users\admin\.gemini\antigravity\scratch\major-project\data"
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    output_dir = os.path.join(base_dir, "data")
     os.makedirs(output_dir, exist_ok=True)
     
     raw_csv_url = "https://raw.githubusercontent.com/basilatawneh/Students-Academic-Performance-Dataset-xAPI-Edu-Data-/master/xAPI-Edu-Data.csv"

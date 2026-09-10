@@ -4,7 +4,8 @@ import random
 import datetime
 
 def generate_data():
-    output_dir = r"C:\Users\admin\.gemini\antigravity\scratch\major-project\data"
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    output_dir = os.path.join(base_dir, "data")
     os.makedirs(output_dir, exist_ok=True)
     
     students_path = os.path.join(output_dir, "students_employability.csv")

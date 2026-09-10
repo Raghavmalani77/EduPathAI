@@ -24,8 +24,9 @@ def print_banner(text, char="="):
     print(char * 80)
 
 def main():
-    data_dir = r"C:\Users\admin\.gemini\antigravity\scratch\major-project\data"
-    plots_dir = r"C:\Users\admin\.gemini\antigravity\scratch\major-project\plots"
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    data_dir = os.path.join(base_dir, "data")
+    plots_dir = os.path.join(base_dir, "plots")
     os.makedirs(plots_dir, exist_ok=True)
 
     print_banner("PHASE 6: COMPREHENSIVE MODEL DEVELOPMENT & COMPARISON")

@@ -35,33 +35,49 @@ An end-to-end machine learning platform that analyzes student academic histories
 ├── run_engine_demo.py                        # Prototype runner across student profiles
 ├── model_comparison.py                       # Supervised & unsupervised benchmarking
 ├── phase7_model_evaluation.py                # Phase 7 evaluation suite & plot generator
-├── .gitignore
-└── README.md
+├── requirements.txt                          # Project Python dependencies
+├── .gitignore                                # Git ignore rules
+└── README.md                                 # Project documentation
 ```
 
 ---
 
-## 🚀 Getting Started
+## 👥 Setup Guide for Collaborators (Run on Any Laptop)
 
-### 1. Prerequisites
-* Python 3.9+ installed
-* Install required libraries:
+### 1. Clone the Repository
 ```bash
-pip install pandas numpy scikit-learn xgboost matplotlib beautifulsoup4
+git clone https://github.com/Raghavmalani77/EduPathAI.git
+cd EduPathAI
 ```
 
-### 2. Running the Recommendation Engine Demo
+### 2. (Recommended) Set Up a Virtual Environment
 ```bash
-python run_engine_demo.py
+# On Windows (PowerShell / CMD)
+python -m venv venv
+venv\Scripts\activate
+
+# On Mac / Linux
+python3 -m venv venv
+source venv/bin/activate
 ```
 
-### 3. Running Multi-Model Benchmarking (Phase 6)
+### 3. Install Dependencies
 ```bash
-python model_comparison.py
+pip install -r requirements.txt
 ```
 
-### 4. Running the Complete Model Evaluation Suite (Phase 7)
-```bash
-python phase7_model_evaluation.py
-```
-All evaluation tables will be exported to `data/` and all visual graphs will be saved to `plots/`.
+### 4. Running the Project Scripts
+* **Run the Recommendation Engine Prototype Demo**:
+  ```bash
+  python run_engine_demo.py
+  ```
+* **Run Multi-Model Training & Benchmarking (Phase 6)**:
+  ```bash
+  python model_comparison.py
+  ```
+* **Run Full Model Evaluation & Validation Suite (Phase 7)**:
+  ```bash
+  python phase7_model_evaluation.py
+  ```
+
+*(All scripts use dynamic relative paths and will run seamlessly on any operating system without configuration).*
