@@ -129,12 +129,12 @@ tab1, tab2, tab3, tab4 = st.tabs([
 # TAB 1: STUDENT CAREER & LEARNING PORTAL
 # =============================================================================
 with tab1:
-    col_filter1, col_filter2 = st.columns([1, 2])
+    col_filter1, col_filter2, col_filter3 = st.columns([1, 1.4, 1.3])
     
     with col_filter1:
         # Career pathway filter
         careers_list = ["All 16 Pathways"] + sorted(list(engine.students_df["Career_Interest"].unique()))
-        selected_career_filter = st.selectbox("Filter Students by Career Pathway:", careers_list)
+        selected_career_filter = st.selectbox("Filter by Career Pathway:", careers_list)
         
         filtered_students = engine.students_df
         if selected_career_filter != "All 16 Pathways":
@@ -148,6 +148,28 @@ with tab1:
         
         selected_student_str = st.selectbox("Select Target Student Profile:", student_options)
         selected_student_id = selected_student_str.split(" - ")[0]
+
+    with col_filter3:
+        # Country / Location Preference Selector
+        location_options = [
+            "🇮🇳 India (Bengaluru, Pune, Mumbai, etc.)",
+            "🌍 All Locations (Global Market)",
+            "🇩🇪 Germany / Europe",
+            "🇬🇧 United Kingdom",
+            "🌐 Remote Only"
+        ]
+        selected_loc_choice = st.selectbox("Preferred Job Location / Country:", location_options, index=0)
+        
+        if "India" in selected_loc_choice:
+            selected_country = "India"
+        elif "Germany" in selected_loc_choice:
+            selected_country = "Germany"
+        elif "United Kingdom" in selected_loc_choice:
+            selected_country = "United Kingdom"
+        elif "Remote" in selected_loc_choice:
+            selected_country = "Remote"
+        else:
+            selected_country = "All"
 
     # Retrieve student profile
     student_row = engine.students_df[engine.students_df["Student_ID"] == selected_student_id].iloc[0]
@@ -199,22 +221,24 @@ with tab1:
     st.markdown("---")
 
     # Row 2: Live Job Matching & Recommendation Analysis
-    target_recommendations = engine.match_jobs(selected_student_id, top_n=3)
+    target_recommendations = engine.match_jobs(selected_student_id, top_n=3, country_filter=selected_country)
 
     col_jobs, col_gaps = st.columns([1.2, 1.8])
 
     with col_jobs:
-        st.markdown("### 🏢 Top Matched Real-World Jobs")
-        st.caption("Calculated using Cosine Similarity against live Arbeitnow vacancies.")
+        market_label = "India 🇮🇳" if selected_country == "India" else (selected_country if selected_country != "All" else "Global")
+        st.markdown(f"### 🏢 Top Matched Jobs ({market_label})")
+        st.caption(f"Calculated using Cosine Similarity against active vacancies in {market_label}.")
         
         for idx, rec in enumerate(target_recommendations, start=1):
             with st.container():
                 st.markdown(f"""
                 <div class="course-card">
                     <b>{idx}. {rec['Job_Title']}</b><br>
-                    <span style="color:#546E7A; font-size:0.9rem;">📍 {rec.get('Location', 'Remote/Global')} | 💼 {rec.get('Industry', 'Technology')}</span><br>
+                    <span style="color:#1E88E5; font-weight:600;">🏢 {rec.get('Company_Name', 'Enterprise Tech')}</span><br>
+                    <span style="color:#546E7A; font-size:0.9rem;">📍 {rec.get('Location', 'Remote/Global')} ({rec.get('Country', 'Global')}) | 💼 {rec.get('Industry', 'Technology')}</span><br>
                     <div style="margin-top:5px;">
-                        <b>Match Score:</b> <span style="color:#1E88E5; font-weight:700;">{rec['Match_Score']}%</span>
+                        <b>Match Score:</b> <span style="color:#2E7D32; font-weight:700;">{rec['Match_Score']}%</span>
                     </div>
                 </div>
                 """, unsafe_allow_html=True)
@@ -376,7 +400,7 @@ with tab4:
     st.markdown("### 📖 Project Overview & Dataset Statistics")
     
     d1, d2, d3, d4 = st.columns(4)
-    d1.metric("Real Scraped Jobs", len(engine.jobs_df), "Arbeitnow API")
+    d1.metric("Live & Curated Jobs", len(engine.jobs_df), "India + EU + Global")
     d2.metric("Student Profiles", len(engine.students_df), "xAPI-Edu-Data")
     d3.metric("Industry Courses", len(engine.courses_df), "Coursera / Udemy / edX")
     d4.metric("Master Skills", len(engine.master_skills), "Tech & Soft Skills")

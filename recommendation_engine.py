@@ -137,23 +137,41 @@ class RecommendationEngine:
             return 0.0
         return dot_product / (norm_a * norm_b)
 
-    def match_jobs(self, student_id, top_n=3):
+    def match_jobs(self, student_id, top_n=3, country_filter="All"):
         # Career pathway classification and Job-Role matching (Steps 7 & 8)
         student_row = self.students_df[self.students_df["Student_ID"] == student_id]
         if student_row.empty:
             return []
 
         student_vector = student_row["Skill_Vector"].values[0]
-        matches = []
+        
+        target_jobs = self.jobs_df
+        if country_filter and country_filter != "All":
+            cf = country_filter.lower()
+            if "india" in cf:
+                target_jobs = target_jobs[target_jobs["Country"].str.lower() == "india"]
+            elif "germany" in cf:
+                target_jobs = target_jobs[target_jobs["Country"].str.lower() == "germany"]
+            elif "uk" in cf or "united kingdom" in cf:
+                target_jobs = target_jobs[target_jobs["Country"].str.lower() == "united kingdom"]
+            elif "remote" in cf:
+                target_jobs = target_jobs[(target_jobs["Location"].str.lower().str.contains("remote", na=False)) | (target_jobs["Country"].str.lower() == "remote / global")]
+            
+            # Fallback if filtered subset is empty
+            if target_jobs.empty:
+                target_jobs = self.jobs_df
 
-        for _, job in self.jobs_df.iterrows():
+        matches = []
+        for _, job in target_jobs.iterrows():
             job_vector = job["Skill_Vector"]
             similarity = self.cosine_similarity(student_vector, job_vector)
             matches.append({
                 "Job_ID": job["Job_ID"],
                 "Job_Title": job["Job_Title"],
+                "Company_Name": job.get("Company_Name", "Global Enterprise"),
                 "Industry": job["Industry"],
                 "Location": job["Location"],
+                "Country": job.get("Country", "Global"),
                 "Skills_Required": job["Skills_Required"],
                 "Match_Score": round(similarity * 100, 1)
             })
@@ -217,9 +235,12 @@ class RecommendationEngine:
         job_skills = set([s.strip().lower() for s in str(job_row["Skills_Required"].values[0]).split(",") if s.strip()])
         overlapping = sorted([s.title() for s in student_skills.intersection(job_skills)])
         
+        company_name = job_row["Company_Name"].values[0] if "Company_Name" in job_row else "Tech Enterprise"
+        job_loc = job_row["Location"].values[0] if "Location" in job_row else "Global"
+        
         explanations.append(
-            f"The student profile shows a strong alignment with the '{job_title}' position. "
-            f"This is based on an existing skill overlap including: {', '.join(overlapping) if overlapping else 'General background qualifications'}."
+            f"The student profile shows strong alignment with the role of **'{job_title}'** at **{company_name}** ({job_loc}). "
+            f"This is based on an existing skill overlap including: {', '.join(overlapping) if overlapping else 'Foundational qualifications'}."
         )
         
         # 2. Explain Course Recommendations based on specific gaps
