@@ -16,47 +16,39 @@ An end-to-end enterprise machine learning platform that ingests student academic
 The system follows a 6-tier decoupled architecture from raw event ingestion to interactive delivery:
 
 ```mermaid
-flowchart TD
+flowchart LR
     %% Styling Classes
     classDef comp fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20;
     classDef curr fill:#FFF8E1,stroke:#F57F17,stroke-width:2px,color:#E65100;
     classDef store fill:#ECEFF1,stroke:#455A64,stroke-width:2px,color:#263238;
     classDef fut fill:#E1F5FE,stroke:#0288D1,stroke-width:2px,color:#01579B;
 
-    subgraph G1 ["Phase I: Data Sources & Ingestion"]
-        B1["<b>1. DATA SOURCES</b><br/>• Live Jobs: Arbeitnow (176)<br/>• Students: xAPI Benchmark (480)<br/>• Courses: 28 Curated Bridges<br/>• Master Inventory: 66 Skills<br/><b>[STATUS: COMPLETED]</b>"]:::comp
-        B2["<b>2. DATA INGESTION LAYER</b><br/>• Arbeitnow Scraper & LMS Parser<br/>• BeautifulSoup & Regex Cleaning<br/>• Ingestion Validation Engine<br/><b>[STATUS: COMPLETED]</b>"]:::comp
-        B3["<b>3. RAW DATA STORAGE</b><br/>• raw_jobs.csv (176 records)<br/>• raw_students_lms.csv (480 records)<br/>• raw_courses.csv (28 records)<br/><b>[STATUS: COMPLETED]</b>"]:::store
+    subgraph ROW1 ["Phase 1: Ingestion & Application Layer"]
+        direction LR
+        B1["<b>1. DATA SOURCES</b><br/>• Jobs: Arbeitnow (176)<br/>• Students: xAPI (480)<br/>• Courses: 28 Bridges<br/>• Skills: 66 Inventory<br/><b>[COMPLETED]</b>"]:::comp
+        B2["<b>2. DATA INGESTION</b><br/>• Web Scrapers & LMS Parser<br/>• BeautifulSoup & Regex<br/>• Schema Validation<br/><b>[COMPLETED]</b>"]:::comp
+        B3["<b>3. RAW STORAGE</b><br/>• raw_jobs.csv<br/>• raw_students_lms.csv<br/>• raw_courses.csv<br/><b>[COMPLETED]</b>"]:::store
+        B8["<b>8. WEB DASHBOARD</b><br/>• Streamlit UI (Port 8501)<br/>• Continuous Radar Chart<br/>• Semantic Course Badges<br/>• XAI Reasoning Panel<br/><b>[LIVE / CURRENT]</b>"]:::curr
+        B9["<b>9. EXTERNAL CONSUMERS</b><br/>• University LMS Canvas<br/>• Placement Cell Portal<br/>• Webhook Alerts<br/><b>[FUTURE SCOPE]</b>"]:::fut
+        B1 --> B2 --> B3
+        B8 -.-> B9
     end
 
-    subgraph G2 ["Phase II: Preprocessing & Feature Store"]
-        B4["<b>4. PREPROCESSING & PIPELINE</b><br/>• 16-Pathway Career Mapping<br/>• StandardScaler (GPA & Engagement)<br/>• Bloom's Continuous Weights [0.0-1.0]<br/>• Stratified 5-Fold Cross-Validation<br/><b>[STATUS: COMPLETED]</b>"]:::comp
-        B5["<b>5. FEATURE STORE (STRUCTURED)</b><br/>• students_employability.csv<br/>• learning_engagement.csv<br/>• Continuous 66-D Skill Vectors<br/>• S-BERT 384-D Course Embeddings<br/><b>[STATUS: COMPLETED]</b>"]:::store
+    subgraph ROW2 ["Phase 2: Preprocessing, Core AI & Testing"]
+        direction LR
+        B4["<b>4. PREPROCESSING</b><br/>• 16 Career Mapping<br/>• StandardScaler GPA<br/>• Bloom's Proficiencies<br/>• Stratified 5-Fold CV<br/><b>[COMPLETED]</b>"]:::comp
+        B5["<b>5. FEATURE STORE</b><br/>• Structured CSV Records<br/>• 66-D Skill Vectors<br/>• S-BERT 384-D Embeds<br/><b>[COMPLETED]</b>"]:::store
+        B6["<b>6. CORE AI ENGINE</b><br/>• RF Predictor (87.5%)<br/>• K-Means Cluster (K=3)<br/>• Cosine Job Matcher<br/>• Hybrid S-BERT Rec<br/>• Explainable AI (XAI)<br/><b>[COMPLETED]</b>"]:::comp
+        B7["<b>7. SCORES REPOSITORY</b><br/>• Pathways & Personas<br/>• Matched Jobs JSON<br/>• Gaps & Top-3 Courses<br/>• XAI Justifications<br/><b>[COMPLETED]</b>"]:::store
+        B11["<b>11. ML TESTING & DRIFT</b><br/>• ROC-AUC (0.9910)<br/>• Recall@3: 76.8%<br/>• KS-Test & PSI Tracking<br/>• Concept Drift Decay<br/><b>[COMPLETED]</b>"]:::comp
+        B10["<b>10. AUTO PIPELINE</b><br/>• Auto Retrain Triggers<br/>• Scraper Daemons<br/>• Drift Watchdog<br/><b>[FUTURE SCOPE]</b>"]:::fut
+        B4 --> B5 --> B6 --> B7
+        B6 -.-> B11
+        B11 -.-> B10
     end
 
-    subgraph G3 ["Phase III: Core AI & Recommendation Engine"]
-        B6["<b>6. CORE AI & RECOMMENDATION ENGINE</b><br/>• 6.1 Persona Clusterer (K-Means K=3)<br/>• 6.2 Pathway Predictor (Random Forest 87.5%)<br/>• 6.3 Job Matcher (Weighted Cosine Sim)<br/>• 6.4 Hybrid Recommender (S-BERT + Set Cover)<br/>• 6.5 Explainable AI (XAI Justifications)<br/><b>[STATUS: COMPLETED]</b>"]:::comp
-        B7["<b>7. SCORES & RECOMMENDATIONS REPO</b><br/>• Predicted Career Pathway & Persona<br/>• Top Matched Jobs & Suitability %<br/>• Missing Skill-Gaps & Proficiency Deltas<br/>• Top-3 Course Bridges (Recall: 76.8%)<br/><b>[STATUS: COMPLETED]</b>"]:::store
-    end
-
-    subgraph G4 ["Phase IV: Presentation & Quality Control"]
-        B8["<b>8. APPLICATION & PRESENTATION LAYER</b><br/>• Streamlit Multi-Tab Frontend (Port 8501)<br/>• Continuous Radar Chart (Bloom's Depth)<br/>• Dynamic Job Cards & Country Filters<br/>• Semantic Course Badges & XAI Card<br/><b>[STATUS: LIVE / CURRENT]</b>"]:::curr
-        B11["<b>11. RIGOROUS ML TESTING & DRIFT MONITOR</b><br/>• Multi-Class ROC-AUC (0.9910)<br/>• Confusion Matrix & PR@K Validation<br/>• KS-Test Feature Drift & PSI Tracking<br/>• Rolling Concept Drift Accuracy Decay<br/><b>[STATUS: COMPLETED]</b>"]:::comp
-    end
-
-    subgraph G5 ["Phase V: Future Scope & Automation"]
-        B9["<b>9. EXTERNAL CONSUMERS</b><br/>• University LMS (Canvas / Moodle)<br/>• Placement Cell & Advisor Portal<br/>• Automated Alert Webhooks<br/><b>[STATUS: FUTURE SCOPE]</b>"]:::fut
-        B10["<b>10. AUTOMATION PIPELINE</b><br/>• Automated Retraining Triggers<br/>• Scheduled Scraper Daemons<br/>• Real-Time Drift Watchdog<br/><b>[STATUS: FUTURE SCOPE]</b>"]:::fut
-    end
-
-    B1 --> B2 --> B3
-    B3 --> B4 --> B5
-    B5 --> B6 --> B7
+    B3 --> B4
     B7 --> B8
-    B6 -.-> B11
-    B7 -.-> B11
-    B8 -.-> B9
-    B11 -.-> B10
 ```
 
 ---
