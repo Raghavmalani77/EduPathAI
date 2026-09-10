@@ -17,76 +17,46 @@ The system follows a 6-tier decoupled architecture from raw event ingestion to i
 
 ```mermaid
 flowchart TD
-    %% Styling
-    classDef dataLayer fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20;
-    classDef pipelineLayer fill:#E1F5FE,stroke:#0288D1,stroke-width:2px,color:#01579B;
-    classDef mlLayer fill:#FFF3E0,stroke:#EF6C00,stroke-width:2px,color:#E65100;
-    classDef recLayer fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px,color:#4A148C;
-    classDef monitorLayer fill:#FCE4EC,stroke:#C2185B,stroke-width:2px,color:#880E4F;
-    classDef outputLayer fill:#EDE7F6,stroke:#512DA8,stroke-width:2px,color:#311B92;
+    %% Styling Classes
+    classDef comp fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20;
+    classDef curr fill:#FFF8E1,stroke:#F57F17,stroke-width:2px,color:#E65100;
+    classDef store fill:#ECEFF1,stroke:#455A64,stroke-width:2px,color:#263238;
+    classDef fut fill:#E1F5FE,stroke:#0288D1,stroke-width:2px,color:#01579B;
 
-    %% 1. Data Layer
-    subgraph S1 ["1. Data & Knowledge Store Layer"]
-        D1[("Academic & Employability Data<br/>480 Students • 16 Specializations • CGPA")]:::dataLayer
-        D2[("LMS Engagement Logs<br/>Logins • Submissions • Completion Rate")]:::dataLayer
-        D3[("Live Job Market Taxonomy<br/>176 Live Postings • Scraped via Arbeitnow")]:::dataLayer
-        D4[("Curated Bridge Catalog<br/>28 Industry Certifications • Coursera, edX, Udemy, AWS")]:::dataLayer
-        D5["Continuous Skill Proficiencies<br/>Bloom's Taxonomy: Beginner [0.35-0.55], Inter [0.60-0.80], Adv [0.85-0.98]"]:::dataLayer
-        D6["Dense Semantic Embeddings<br/>Sentence-BERT all-MiniLM-L6-v2 (384-D Latent Space)"]:::dataLayer
+    subgraph G1 ["Phase I: Data Sources & Ingestion"]
+        B1["<b>1. DATA SOURCES</b><br/>• Live Jobs: Arbeitnow (176)<br/>• Students: xAPI Benchmark (480)<br/>• Courses: 28 Curated Bridges<br/>• Master Inventory: 66 Skills<br/><b>[STATUS: COMPLETED]</b>"]:::comp
+        B2["<b>2. DATA INGESTION LAYER</b><br/>• Arbeitnow Scraper & LMS Parser<br/>• BeautifulSoup & Regex Cleaning<br/>• Ingestion Validation Engine<br/><b>[STATUS: COMPLETED]</b>"]:::comp
+        B3["<b>3. RAW DATA STORAGE</b><br/>• raw_jobs.csv (176 records)<br/>• raw_students_lms.csv (480 records)<br/>• raw_courses.csv (28 records)<br/><b>[STATUS: COMPLETED]</b>"]:::store
     end
 
-    %% 2. Feature Engineering & Preprocessing Pipeline
-    subgraph S2 ["2. Data Ingestion & Scikit-Learn Pipeline Layer"]
-        T1["Transaction Ingestion & Arrival<br/>Student Profile Creation / Batch LMS Event Logs"]:::pipelineLayer
-        T2["Behavioral Feature Aggregation<br/>Avg Logins, Completion Rate, Assessment Velocity"]:::pipelineLayer
-        T3["Scikit-Learn Preprocessing Pipeline<br/>• StandardScaler (Numerical GPA & Engagement)<br/>• OneHotEncoder (Degree, Specialization)<br/>• 66-D Master Skill Vectorizer"]:::pipelineLayer
-        T4["Stratified 5-Fold Cross-Validation<br/>Class-Balanced Split (16 Pathways, 80/20 Train-Test)"]:::pipelineLayer
+    subgraph G2 ["Phase II: Preprocessing & Feature Store"]
+        B4["<b>4. PREPROCESSING & PIPELINE</b><br/>• 16-Pathway Career Mapping<br/>• StandardScaler (GPA & Engagement)<br/>• Bloom's Continuous Weights [0.0-1.0]<br/>• Stratified 5-Fold Cross-Validation<br/><b>[STATUS: COMPLETED]</b>"]:::comp
+        B5["<b>5. FEATURE STORE (STRUCTURED)</b><br/>• students_employability.csv<br/>• learning_engagement.csv<br/>• Continuous 66-D Skill Vectors<br/>• S-BERT 384-D Course Embeddings<br/><b>[STATUS: COMPLETED]</b>"]:::store
     end
 
-    %% 3. Machine Learning & Behavioral Intelligence
-    subgraph S3 ["3. Machine Learning & Behavioral Profiling Layer"]
-        M1["Supervised Pathway Classifier<br/>Random Forest (87.50% CV Acc, 0.9910 ROC-AUC)<br/>Benchmark: XGBoost, Logistic Regression, Decision Tree"]:::mlLayer
-        M2["Unsupervised Student Segmentation<br/>K-Means (K=3, Silhouette=0.4627)<br/>High Achievers • Steady Learners • Critical Support"]:::mlLayer
-        M3["Willingness-to-Learn Formulation<br/>Weighted: 40% Completion + 20% Logins + 20% Submissions + 20% Courses"]:::mlLayer
+    subgraph G3 ["Phase III: Core AI & Recommendation Engine"]
+        B6["<b>6. CORE AI & RECOMMENDATION ENGINE</b><br/>• 6.1 Persona Clusterer (K-Means K=3)<br/>• 6.2 Pathway Predictor (Random Forest 87.5%)<br/>• 6.3 Job Matcher (Weighted Cosine Sim)<br/>• 6.4 Hybrid Recommender (S-BERT + Set Cover)<br/>• 6.5 Explainable AI (XAI Justifications)<br/><b>[STATUS: COMPLETED]</b>"]:::comp
+        B7["<b>7. SCORES & RECOMMENDATIONS REPO</b><br/>• Predicted Career Pathway & Persona<br/>• Top Matched Jobs & Suitability %<br/>• Missing Skill-Gaps & Proficiency Deltas<br/>• Top-3 Course Bridges (Recall: 76.8%)<br/><b>[STATUS: COMPLETED]</b>"]:::store
     end
 
-    %% 4. Recommendation & Gap Optimization Layer
-    subgraph S4 ["4. Pathway Matching & Recommendation Engine Layer"]
-        R1["Continuous Cosine Similarity Matcher<br/>cos(u_student, v_job) • Calibrated by Experience Level (0.75-0.95)"]:::recLayer
-        R2["Set-Difference Skill Gap Extractor<br/>Gap = S_job \\ S_student (Proficiency Depth Threshold < 0.60)"]:::recLayer
-        R3["Hybrid Course Vector Search<br/>• Exact Lexical Coverage (2.0x weight)<br/>• S-BERT Dense Semantic Cosine Search (1.2x weight, tau >= 0.55)"]:::recLayer
-        R4["Greedy Maximum Coverage & Duration Optimizer<br/>Maximize Skill Acquisition • Minimize Cognitive Overload (Recall@3: 76.79%)"]:::recLayer
-        R5["Explainable AI (XAI) Synthesis<br/>Transparent Justifications: Job Alignment + Semantic Skill Bridges"]:::recLayer
+    subgraph G4 ["Phase IV: Presentation & Quality Control"]
+        B8["<b>8. APPLICATION & PRESENTATION LAYER</b><br/>• Streamlit Multi-Tab Frontend (Port 8501)<br/>• Continuous Radar Chart (Bloom's Depth)<br/>• Dynamic Job Cards & Country Filters<br/>• Semantic Course Badges & XAI Card<br/><b>[STATUS: LIVE / CURRENT]</b>"]:::curr
+        B11["<b>11. RIGOROUS ML TESTING & DRIFT MONITOR</b><br/>• Multi-Class ROC-AUC (0.9910)<br/>• Confusion Matrix & PR@K Validation<br/>• KS-Test Feature Drift & PSI Tracking<br/>• Rolling Concept Drift Accuracy Decay<br/><b>[STATUS: COMPLETED]</b>"]:::comp
     end
 
-    %% 5. Production Drift Monitoring
-    subgraph S5 ["5. Production Drift & Model Quality Monitoring"]
-        MON1["Kolmogorov-Smirnov (KS) Test<br/>Feature Drift Detection on Incoming Cohorts"]:::monitorLayer
-        MON2["Population Stability Index (PSI)<br/>Distribution Shift Tracking (Threshold: PSI > 0.25)"]:::monitorLayer
-        MON3["Concept Drift Detector<br/>Tracks Model Accuracy Decay Over Academic Quarters"]:::monitorLayer
+    subgraph G5 ["Phase V: Future Scope & Automation"]
+        B9["<b>9. EXTERNAL CONSUMERS</b><br/>• University LMS (Canvas / Moodle)<br/>• Placement Cell & Advisor Portal<br/>• Automated Alert Webhooks<br/><b>[STATUS: FUTURE SCOPE]</b>"]:::fut
+        B10["<b>10. AUTOMATION PIPELINE</b><br/>• Automated Retraining Triggers<br/>• Scheduled Scraper Daemons<br/>• Real-Time Drift Watchdog<br/><b>[STATUS: FUTURE SCOPE]</b>"]:::fut
     end
 
-    %% 6. Interactive Delivery Layer
-    subgraph S6 ["6. Client Delivery & Presentation Layer"]
-        UI1["Streamlit Production Dashboard (Port 8501)<br/>• Tab 1: Student Employability & Radar Chart<br/>• Tab 2: Phase 7 Benchmark Gallery & Drift Report<br/>• Tab 3: System Blueprint Architecture<br/>• Tab 4: Dataset & Course Catalog Explorer"]:::outputLayer
-    end
-
-    %% Connectors
-    D1 & D2 --> T1
-    T1 --> T2 --> T3 --> T4
-    T4 --> M1
-    T2 --> M2 --> M3
-    M1 --> R1
-    D3 --> R1
-    D5 --> T3
-    D6 --> R3
-    D4 --> R3
-    R1 --> R2 --> R3 --> R4 --> R5
-    T2 --> MON1 & MON2
-    M1 --> MON3
-    R5 --> UI1
-    M2 & M3 --> UI1
-    MON1 & MON2 & MON3 --> UI1
+    B1 --> B2 --> B3
+    B3 --> B4 --> B5
+    B5 --> B6 --> B7
+    B7 --> B8
+    B6 -.-> B11
+    B7 -.-> B11
+    B8 -.-> B9
+    B11 -.-> B10
 ```
 
 ---
