@@ -43,27 +43,53 @@ class RecommendationEngine:
         print(f"Master skill inventory constructed with {len(self.master_skills)} unique skills.")
 
     def build_vectors(self):
-        # 1. Student Skill Vectors
+        # 1. Student Skill Vectors (Continuous Proficiency Weights in [0.0, 1.0])
         student_vectors = []
         for _, row in self.students_df.iterrows():
-            combined_skills = str(row["Technical_Skills"]) + ", " + str(row["Soft_Skills"])
-            vector = [1 if skill in combined_skills else 0 for skill in self.master_skills]
+            prof_dict = {}
+            if "Skill_Proficiencies" in row and pd.notna(row["Skill_Proficiencies"]):
+                for item in str(row["Skill_Proficiencies"]).split(","):
+                    if ":" in item:
+                        s_name, s_val = item.rsplit(":", 1)
+                        try:
+                            prof_dict[s_name.strip().lower()] = float(s_val.strip())
+                        except ValueError:
+                            pass
+            
+            combined_skills = (str(row.get("Technical_Skills", "")) + ", " + str(row.get("Soft_Skills", ""))).lower()
+            vector = []
+            for skill in self.master_skills:
+                s_lower = skill.lower()
+                if s_lower in prof_dict:
+                    vector.append(prof_dict[s_lower])
+                elif s_lower in combined_skills:
+                    vector.append(0.70)
+                else:
+                    vector.append(0.0)
             student_vectors.append(vector)
         self.students_df["Skill_Vector"] = student_vectors
 
-        # 2. Job Requirement Vectors
+        # 2. Job Requirement Vectors (Weighted by Target Seniority Benchmark)
         job_vectors = []
         for _, row in self.jobs_df.iterrows():
-            req_skills = str(row["Skills_Required"])
-            vector = [1 if skill in req_skills else 0 for skill in self.master_skills]
+            req_skills = str(row["Skills_Required"]).lower()
+            exp_req = str(row.get("Experience_Required", "")).lower()
+            if "5+" in exp_req or "senior" in str(row["Job_Title"]).lower() or "lead" in str(row["Job_Title"]).lower():
+                benchmark_w = 0.95
+            elif "2+" in exp_req:
+                benchmark_w = 0.85
+            else:
+                benchmark_w = 0.75
+
+            vector = [benchmark_w if skill.lower() in req_skills else 0.0 for skill in self.master_skills]
             job_vectors.append(vector)
         self.jobs_df["Skill_Vector"] = job_vectors
 
         # 3. Course Skill Vectors
         course_vectors = []
         for _, row in self.courses_df.iterrows():
-            dev_skills = str(row["Skills_Developed"])
-            vector = [1 if skill in dev_skills else 0 for skill in self.master_skills]
+            dev_skills = str(row["Skills_Developed"]).lower()
+            vector = [1.0 if skill.lower() in dev_skills else 0.0 for skill in self.master_skills]
             course_vectors.append(vector)
         self.courses_df["Skill_Vector"] = course_vectors
 

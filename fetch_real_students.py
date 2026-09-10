@@ -138,32 +138,57 @@ def map_stage_to_edu_level(stage):
     else:
         return "Postgraduate", 2026
 
+SPEC_FOUNDATION = {
+    "Computer Science": ["Python", "SQL", "Java", "HTML", "Linux"],
+    "Software Engineering": ["Java", "SQL", "HTML", "Javascript", "Linux"],
+    "Cloud Computing": ["Linux", "Cloud", "Python", "SQL", "Docker"],
+    "Information Security": ["Linux", "Network Security", "Cryptography", "SQL"],
+    "Information Technology": ["Python", "SQL", "HTML", "Linux"],
+    "Artificial Intelligence": ["Python", "SQL", "Statistics", "Machine Learning"],
+    "Data Science": ["Python", "SQL", "Statistics", "Machine Learning"],
+    "Data Analytics": ["Excel", "SQL", "Python", "Tableau"],
+    "Statistics & Analytics": ["Statistics", "Excel", "SQL", "Python"],
+    "Business Analytics": ["Excel", "Business Analytics", "SQL", "Power BI"],
+    "Information Systems": ["SQL", "Database Management", "Excel", "Business Analytics"],
+    "Finance": ["Excel", "Finance", "Accounting"],
+    "Finance & Accounting": ["Excel", "Finance", "Accounting", "Financial Modeling"],
+    "Product Management": ["Product Strategy", "User Research", "Agile/Scrum", "Communication"],
+    "User Experience Design": ["UI Design", "Wireframing", "HTML", "CSS"],
+    "Digital Marketing": ["Digital Marketing", "SEO", "Social Media Analytics"],
+    "Marketing Analytics": ["Excel", "Marketing Analytics", "Customer Segmentation", "Python"]
+}
+
+def calculate_skill_proficiency(skill, is_core, gpa, perf_class, has_cert):
+    """
+    Computes continuous proficiency weight in [0.35, 0.98] mapped to Bloom's taxonomy:
+    - Beginner: 0.35 - 0.55
+    - Intermediate: 0.60 - 0.80
+    - Advanced: 0.85 - 0.98
+    """
+    if perf_class == 'H':
+        base = random.uniform(0.78, 0.92)
+    elif perf_class == 'M':
+        base = random.uniform(0.58, 0.76)
+    else:
+        base = random.uniform(0.38, 0.55)
+        
+    if is_core:
+        base += random.uniform(0.04, 0.08)
+        
+    if has_cert:
+        base += random.uniform(0.04, 0.08)
+        
+    # GPA adjustment
+    base += (gpa - 7.0) * 0.02
+    
+    return round(max(0.35, min(0.98, base)), 2)
+
 def get_skills_by_student_background(degree, specialisation, career_interest, perf_class):
     """
     Generates realistic student skills based on academic background, with elective exploration
     and realistic noise/variance, completely avoiding 1-to-1 deterministic target leakage.
     """
-    spec_foundation = {
-        "Computer Science": ["Python", "SQL", "Java", "HTML", "Linux"],
-        "Software Engineering": ["Java", "SQL", "HTML", "Javascript", "Linux"],
-        "Cloud Computing": ["Linux", "Cloud", "Python", "SQL", "Docker"],
-        "Information Security": ["Linux", "Network Security", "Cryptography", "SQL"],
-        "Information Technology": ["Python", "SQL", "HTML", "Linux"],
-        "Artificial Intelligence": ["Python", "SQL", "Statistics", "Machine Learning"],
-        "Data Science": ["Python", "SQL", "Statistics", "Machine Learning"],
-        "Data Analytics": ["Excel", "SQL", "Python", "Tableau"],
-        "Statistics & Analytics": ["Statistics", "Excel", "SQL", "Python"],
-        "Business Analytics": ["Excel", "Business Analytics", "SQL", "Power BI"],
-        "Information Systems": ["SQL", "Database Management", "Excel", "Business Analytics"],
-        "Finance": ["Excel", "Finance", "Accounting"],
-        "Finance & Accounting": ["Excel", "Finance", "Accounting", "Financial Modeling"],
-        "Product Management": ["Product Strategy", "User Research", "Agile/Scrum", "Communication"],
-        "User Experience Design": ["UI Design", "Wireframing", "HTML", "CSS"],
-        "Digital Marketing": ["Digital Marketing", "SEO", "Social Media Analytics"],
-        "Marketing Analytics": ["Excel", "Marketing Analytics", "Customer Segmentation", "Python"]
-    }
-    
-    foundation = spec_foundation.get(specialisation, ["Python", "SQL", "Excel"])
+    foundation = SPEC_FOUNDATION.get(specialisation, ["Python", "SQL", "Excel"])
     
     electives = {
         "AI Engineer": ["Machine Learning", "Deep Learning", "Python"],
@@ -302,6 +327,22 @@ def main():
             activity_offset = random.randint(10, 90)
             last_activity = reg_date + datetime.timedelta(days=activity_offset)
             
+            # Calculate continuous proficiency weights for each skill
+            core_skills = SPEC_FOUNDATION.get(specialisation, [])
+            has_cert = (certifications != "None")
+            proficiencies_list = []
+            
+            for sk in tech_skills:
+                is_core = (sk in core_skills)
+                w = calculate_skill_proficiency(sk, is_core, gpa, perf_class, has_cert)
+                proficiencies_list.append(f"{sk}:{w:.2f}")
+                
+            for sk in soft_skills:
+                w = calculate_skill_proficiency(sk, False, gpa, perf_class, False)
+                proficiencies_list.append(f"{sk}:{w:.2f}")
+                
+            skill_proficiencies_str = ", ".join(proficiencies_list)
+
             students_data.append({
                 "Student_ID": student_id,
                 "Gender": "Male" if gender == 'M' else "Female",
@@ -311,6 +352,7 @@ def main():
                 "Graduation_Year": grad_year,
                 "Technical_Skills": ", ".join(tech_skills),
                 "Soft_Skills": ", ".join(soft_skills),
+                "Skill_Proficiencies": skill_proficiencies_str,
                 "Projects": projects,
                 "Certifications": certifications,
                 "Assessment_Score": gpa,
@@ -334,8 +376,8 @@ def main():
     # Save students_employability.csv
     student_fieldnames = [
         "Student_ID", "Gender", "Education_Level", "Degree", "Specialisation",
-        "Graduation_Year", "Technical_Skills", "Soft_Skills", "Projects",
-        "Certifications", "Assessment_Score", "Career_Interest"
+        "Graduation_Year", "Technical_Skills", "Soft_Skills", "Skill_Proficiencies",
+        "Projects", "Certifications", "Assessment_Score", "Career_Interest"
     ]
     with open(students_output_path, 'w', newline='', encoding='utf-8') as f:
         writer = csv.DictWriter(f, fieldnames=student_fieldnames)

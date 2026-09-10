@@ -2,18 +2,18 @@
 
 ## 1. CLASSIFICATION METRICS
 Model,5-Fold CV Accuracy,5-Fold CV F1-Score,Test Accuracy (%),Test Precision (%),Test Recall (%),Test F1-Score (%),ROC-AUC
-Random Forest,86.67% ± 1.53%,86.58% ± 1.31%,86.46,88.48,86.46,86.94,0.9863
-XGBoost,85.42% ± 2.72%,84.58% ± 3.0%,86.46,89.09,86.46,86.9,0.9876
-Logistic Regression,87.08% ± 2.92%,86.63% ± 2.73%,84.38,87.87,84.38,85.54,0.9877
-Decision Tree,83.54% ± 3.32%,83.22% ± 2.98%,82.29,86.21,82.29,82.79,0.9773
+Random Forest,87.5% ± 3.67%,87.52% ± 2.73%,87.5,89.72,87.5,87.84,0.991
+XGBoost,85.42% ± 3.16%,84.79% ± 3.15%,87.5,89.36,87.5,87.67,0.9898
+Logistic Regression,87.08% ± 2.6%,86.75% ± 1.87%,87.5,89.21,87.5,87.58,0.9903
+Decision Tree,83.54% ± 3.12%,83.32% ± 2.39%,82.29,86.21,82.29,82.79,0.9773
 
 ## 2. CLUSTERING METRICS
 Clustering Model,Silhouette Score (Higher=Better),Davies-Bouldin Index (Lower=Better),Verdict
-K-Means (K=3),0.4605,0.8876,"Selected for production - Centroid based, low latency"
-Hierarchical Agglomerative (K=3),0.4653,0.9131,Validated baseline - High cluster cohesion
+K-Means (K=3),0.4627,0.8867,"Selected for production - Centroid based, low latency"
+Hierarchical Agglomerative (K=3),0.4634,0.9043,Validated baseline - High cluster cohesion
 
 ## 3. RECOMMENDATION METRICS
 K (Top Courses),Recommendation Precision@K (%),Recommendation Recall@K (%),F1-Score @ K (%)
-K=1,52.36,59.44,55.68
-K=2,41.61,62.09,49.83
-K=3,41.35,76.69,53.73
+K=1,52.81,68.76,59.73
+K=2,47.11,75.02,57.88
+K=3,44.4,76.79,56.27

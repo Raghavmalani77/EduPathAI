@@ -70,10 +70,30 @@ def main():
                     all_skills.add(s.strip())
     master_skills = sorted(list(all_skills))
 
+    # Continuous Skill Proficiency Matrix (Bloom's Taxonomy Weights in [0.0, 1.0])
     skill_matrix = []
     for _, row in full_df.iterrows():
-        combined = str(row["Technical_Skills"]) + ", " + str(row["Soft_Skills"])
-        skill_matrix.append([1 if sk in combined else 0 for sk in master_skills])
+        prof_dict = {}
+        if "Skill_Proficiencies" in row and pd.notna(row["Skill_Proficiencies"]):
+            for item in str(row["Skill_Proficiencies"]).split(","):
+                if ":" in item:
+                    s_name, s_val = item.rsplit(":", 1)
+                    try:
+                        prof_dict[s_name.strip().lower()] = float(s_val.strip())
+                    except ValueError:
+                        pass
+
+        combined = (str(row["Technical_Skills"]) + ", " + str(row["Soft_Skills"])).lower()
+        row_vec = []
+        for sk in master_skills:
+            sk_lower = sk.lower()
+            if sk_lower in prof_dict:
+                row_vec.append(prof_dict[sk_lower])
+            elif sk_lower in combined:
+                row_vec.append(0.70)
+            else:
+                row_vec.append(0.0)
+        skill_matrix.append(row_vec)
     skill_df = pd.DataFrame(skill_matrix, columns=[f"Skill_{s}" for s in master_skills])
 
     cat_df = pd.get_dummies(full_df[["Degree", "Specialisation", "Education_Level"]], drop_first=True)

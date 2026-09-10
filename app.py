@@ -207,16 +207,32 @@ with tab1:
 
     st.markdown("---")
 
-    # Current Skills Display
-    st.markdown("##### 💼 Student's Current Skill Set")
+    # Current Skills Display with Continuous Proficiencies (Bloom's Taxonomy)
+    st.markdown("##### 💼 Student's Current Skill Set & Competency Depth (Bloom's Taxonomy)")
+    prof_dict = {}
+    if "Skill_Proficiencies" in student_row and pd.notna(student_row["Skill_Proficiencies"]):
+        for item in str(student_row["Skill_Proficiencies"]).split(","):
+            if ":" in item:
+                s_name, s_val = item.rsplit(":", 1)
+                try:
+                    prof_dict[s_name.strip().lower()] = float(s_val.strip())
+                except ValueError:
+                    pass
+
     s_tech = [s.strip() for s in str(student_row["Technical_Skills"]).split(",") if s.strip()]
     s_soft = [s.strip() for s in str(student_row["Soft_Skills"]).split(",") if s.strip()]
     
     skills_html = ""
     for s in s_tech:
-        skills_html += f'<span class="skill-badge">💻 {s}</span> '
+        w = prof_dict.get(s.lower(), 0.70)
+        pct = int(w * 100)
+        tier = "Advanced" if w >= 0.85 else ("Intermediate" if w >= 0.60 else "Beginner")
+        skills_html += f'<span class="skill-badge">💻 {s} <b style="opacity:0.85;">({tier}: {pct}%)</b></span> '
     for s in s_soft:
-        skills_html += f'<span class="skill-badge">🤝 {s}</span> '
+        w = prof_dict.get(s.lower(), 0.70)
+        pct = int(w * 100)
+        tier = "Advanced" if w >= 0.85 else ("Intermediate" if w >= 0.60 else "Beginner")
+        skills_html += f'<span class="skill-badge">🤝 {s} <b style="opacity:0.85;">({tier}: {pct}%)</b></span> '
     st.markdown(skills_html, unsafe_allow_html=True)
 
     st.markdown("---")
@@ -260,33 +276,34 @@ with tab1:
                 gaps_html += f'<span class="gap-badge">❌ {g}</span> '
             st.markdown(gaps_html, unsafe_allow_html=True)
 
-        # Plotly Radar Chart comparing Student Skills vs Job Required Skills
+        # Plotly Radar Chart comparing Continuous Student Proficiency vs Job Benchmark Prerequisite
         sample_radar_skills = sorted(list(set(req_skills + s_tech[:4])))[:8]
         if not sample_radar_skills:
             sample_radar_skills = ["Python", "Problem Solving", "Analytics", "Communication"]
-        student_has = [1 if sk.lower() in [s.lower() for s in (s_tech + s_soft)] else 0 for sk in sample_radar_skills]
-        job_needs = [1 if sk.lower() in [r.lower() for r in req_skills] else 0 for sk in sample_radar_skills]
+            
+        student_prof = [prof_dict.get(sk.lower(), 0.0) for sk in sample_radar_skills]
+        job_needs = [0.85 if sk.lower() in [r.lower() for r in req_skills] else 0.0 for sk in sample_radar_skills]
         
         fig_radar = go.Figure()
         fig_radar.add_trace(go.Scatterpolar(
             r=job_needs + [job_needs[0]],
             theta=sample_radar_skills + [sample_radar_skills[0]],
             fill='toself',
-            name='Job Demands',
+            name='Target Requirement (85%)',
             line_color='#E53935'
         ))
         fig_radar.add_trace(go.Scatterpolar(
-            r=student_has + [student_has[0]],
+            r=student_prof + [student_prof[0]],
             theta=sample_radar_skills + [sample_radar_skills[0]],
             fill='toself',
-            name='Student Profile',
+            name='Student Mastery Depth',
             line_color='#1E88E5'
         ))
         fig_radar.update_layout(
-            polar=dict(radialaxis=dict(visible=True, range=[0, 1])),
+            polar=dict(radialaxis=dict(visible=True, range=[0.0, 1.0])),
             showlegend=True,
-            height=320,
-            margin=dict(l=40, r=40, t=20, b=20)
+            height=330,
+            margin=dict(l=40, r=40, t=25, b=25)
         )
         st.plotly_chart(fig_radar, use_container_width=True)
 
@@ -338,10 +355,10 @@ with tab2:
 
     # 2. Key Metrics Highlights
     m1, m2, m3, m4 = st.columns(4)
-    m1.metric("Random Forest Accuracy", "100.00%", "Selected Model")
-    m2.metric("XGBoost F1-Score", "100.00%", "Ensemble")
-    m3.metric("Multi-Class ROC-AUC", "1.0000", "Perfect Separation")
-    m4.metric("K-Means Silhouette", "0.4623", "Cohesive Clusters")
+    m1.metric("Random Forest 5-Fold CV", "87.50% ± 3.67%", "+0.83% via Proficiencies")
+    m2.metric("XGBoost Test F1-Score", "87.67%", "Ensemble Model")
+    m3.metric("Multi-Class ROC-AUC", "0.9910", "High Class Separation")
+    m4.metric("K-Means Silhouette", "0.4627", "Cohesive Personas")
 
     st.markdown("---")
 
