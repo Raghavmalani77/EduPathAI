@@ -22,19 +22,22 @@ An end-to-end machine learning platform that analyzes student academic histories
 │   ├── students_employability.csv            # 480 student academic records
 │   ├── learning_engagement.csv               # 480 LMS behavioral logs
 │   ├── model_comparison_metrics.csv          # Multi-model classification metrics
-│   └── phase7_complete_evaluation_report.csv # Complete Phase 7 evaluation numbers
+│   ├── phase7_complete_evaluation_report.csv # Complete Phase 7 evaluation numbers
+│   └── drift_monitoring_report.csv           # KS-test, PSI & concept drift monitoring report
 ├── plots/
 │   ├── classification_model_comparison.png   # 4-model comparison & feature importances
 │   ├── clustering_evaluation.png             # Elbow curve & 2D PCA cluster map
 │   ├── phase7_confusion_and_roc.png          # 16x16 Confusion Matrix & ROC curves
-│   └── phase7_recommendation_metrics.png     # Precision@K & Recall@K curves
+│   ├── phase7_recommendation_metrics.png     # Precision@K & Recall@K curves
+│   └── drift_analysis.png                    # Feature drift distributions, PSI & Concept drift
 ├── scrape_jobs.py                            # Job market scraper (Arbeitnow API)
 ├── scrape_courses.py                         # Course catalog compiler (28 courses)
 ├── fetch_real_students.py                    # Student dataset mapper (16 career paths)
 ├── recommendation_engine.py                  # Core recommendation & XAI engine
 ├── run_engine_demo.py                        # Prototype runner across student profiles
-├── model_comparison.py                       # Supervised & unsupervised benchmarking
+├── model_comparison.py                       # Supervised & unsupervised benchmarking (5-Fold CV)
 ├── phase7_model_evaluation.py                # Phase 7 evaluation suite & plot generator
+├── drift_detection.py                        # Data & concept drift monitoring suite
 ├── requirements.txt                          # Project Python dependencies
 ├── .gitignore                                # Git ignore rules
 └── README.md                                 # Project documentation
@@ -78,6 +81,10 @@ pip install -r requirements.txt
 * **Run Full Model Evaluation & Validation Suite (Phase 7)**:
   ```bash
   python phase7_model_evaluation.py
+  ```
+* **Run Data & Concept Drift Monitoring Suite**:
+  ```bash
+  python drift_detection.py
   ```
 
 *(All scripts use dynamic relative paths and will run seamlessly on any operating system without configuration).*

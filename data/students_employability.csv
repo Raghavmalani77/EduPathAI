@@ -1,481 +1,481 @@
 Student_ID,Gender,Education_Level,Degree,Specialisation,Graduation_Year,Technical_Skills,Soft_Skills,Projects,Certifications,Assessment_Score,Career_Interest
-STU_001,Male,Undergraduate,B.Tech,Information Security,2028,"Linux, Network Security, Cryptography, Cybersecurity","Adaptability, Time Management",None,None,7.71,Cybersecurity Analyst
-STU_002,Male,Undergraduate,B.Tech,Information Security,2028,"Linux, Network Security, Cryptography, Cybersecurity","Adaptability, Time Management",Cybersecurity Analyst Applied Lab Project,None,7.79,Cybersecurity Analyst
-STU_003,Male,Undergraduate,B.Tech,Information Security,2028,"Linux, Network Security","Adaptability, Time Management",None,None,4.68,Cybersecurity Analyst
-STU_004,Male,Undergraduate,B.Tech,Information Security,2028,"Linux, Network Security","Adaptability, Time Management",None,None,4.55,Cybersecurity Analyst
-STU_005,Male,Undergraduate,B.Tech,Computer Science,2028,"HTML, CSS, Javascript, React","Communication, Teamwork",Frontend Developer Applied Lab Project,None,7.3,Frontend Developer
-STU_006,Female,Undergraduate,B.Tech,Software Engineering,2028,"Java, SQL, Python, REST APIs","Communication, Teamwork",None,None,7.83,Backend Developer
-STU_007,Male,Undergraduate,B.Sc,Statistics & Analytics,2027,"Excel, SQL","Adaptability, Time Management",None,None,5.22,Data Analyst
-STU_008,Male,Undergraduate,B.Tech,Computer Science,2027,"SQL, Database Management, PostgreSQL, Linux",Problem Solving,Database Administrator Applied Lab Project,Industry Foundation Certificate,7.65,Database Administrator
-STU_009,Female,Undergraduate,B.Sc,Statistics & Analytics,2027,"Excel, SQL, Python, Tableau",Communication,None,Industry Foundation Certificate,6.65,Data Analyst
-STU_010,Female,Undergraduate,B.Tech,Computer Science,2027,"HTML, Javascript, SQL, React, Node.js","Communication, Problem Solving, Teamwork",None,None,7.84,Full-Stack Developer
-STU_011,Male,Undergraduate,B.Tech,Artificial Intelligence,2027,"Python, SQL, Machine Learning, Deep Learning","Communication, Problem Solving, Teamwork",AI Engineer Capstone Portfolio,Certified AI Engineer Professional,9.63,AI Engineer
-STU_012,Male,Undergraduate,B.Tech,Computer Science,2027,"SQL, Database Management, PostgreSQL, Linux","Adaptability, Time Management",None,None,7.71,Database Administrator
-STU_013,Male,Undergraduate,B.Tech,Information Security,2028,"Linux, Network Security","Adaptability, Time Management",None,None,5.83,Cybersecurity Analyst
-STU_014,Male,Undergraduate,B.Tech,Computer Science,2027,"SQL, Database Management","Adaptability, Time Management",None,None,5.66,Database Administrator
-STU_015,Female,Undergraduate,B.Tech,Artificial Intelligence,2027,"Python, SQL, Machine Learning, Deep Learning","Communication, Problem Solving, Teamwork",AI Engineer Capstone Portfolio,Certified AI Engineer Professional,8.71,AI Engineer
-STU_016,Female,Undergraduate,B.Tech,Information Security,2027,"Linux, Network Security, Cryptography, Cybersecurity",Communication,None,Industry Foundation Certificate,6.92,Cybersecurity Analyst
-STU_017,Male,Undergraduate,B.Tech,Computer Science,2027,"HTML, CSS, Javascript, React","Communication, Teamwork",Frontend Developer Applied Lab Project,None,8.03,Frontend Developer
-STU_018,Male,Undergraduate,B.Sc,Data Science,2027,"Python, Statistics, SQL, Machine Learning","Communication, Problem Solving, Teamwork",Data Scientist Applied Lab Project,Industry Foundation Certificate,6.9,Data Scientist
-STU_019,Female,Undergraduate,B.Tech,Computer Science,2027,"HTML, Javascript, SQL, React, Node.js","Communication, Problem Solving, Teamwork",Full-Stack Developer Applied Lab Project,Industry Foundation Certificate,6.77,Full-Stack Developer
-STU_020,Male,Undergraduate,B.Tech,Computer Science,2027,"HTML, Javascript, SQL, React, Node.js","Communication, Problem Solving, Teamwork",Full-Stack Developer Capstone Portfolio,Certified Full-Stack Developer Professional,9.02,Full-Stack Developer
-STU_021,Female,Undergraduate,B.Tech,Computer Science,2027,"HTML, CSS, Javascript, React","Communication, Problem Solving, Teamwork",Frontend Developer Applied Lab Project,Industry Foundation Certificate,7.44,Frontend Developer
-STU_022,Female,Undergraduate,B.Tech,Information Security,2027,"Linux, Network Security, Cryptography, Cybersecurity",Communication,Cybersecurity Analyst Applied Lab Project,None,8.0,Cybersecurity Analyst
-STU_023,Male,Undergraduate,B.Tech,Information Security,2027,"Linux, Network Security, Cryptography, Cybersecurity",Communication,Cybersecurity Analyst Applied Lab Project,Industry Foundation Certificate,7.51,Cybersecurity Analyst
-STU_024,Male,Undergraduate,B.Tech,Information Security,2027,"Linux, Network Security",Communication,None,None,5.8,Cybersecurity Analyst
-STU_025,Male,Undergraduate,B.Tech,Information Security,2027,"Linux, Network Security",Communication,None,None,5.96,Cybersecurity Analyst
-STU_026,Male,Undergraduate,B.Tech,Information Security,2027,"Linux, Network Security","Adaptability, Time Management",None,None,5.33,Cybersecurity Analyst
-STU_027,Male,Undergraduate,B.Tech,Information Security,2027,"Linux, Network Security, Cryptography, Cybersecurity","Adaptability, Time Management",Cybersecurity Analyst Applied Lab Project,Industry Foundation Certificate,8.35,Cybersecurity Analyst
-STU_028,Male,Undergraduate,BBA,Digital Marketing,2027,"Digital Marketing, SEO","Adaptability, Time Management",None,None,5.07,Digital Marketing Specialist
-STU_029,Male,Undergraduate,B.Sc,Data Analytics,2027,"Excel, SQL, Python, Tableau","Communication, Problem Solving, Teamwork",None,None,6.88,Data Analyst
-STU_030,Female,Undergraduate,B.Des,User Experience Design,2027,"Figma, UI Design, Wireframing, Prototyping","Adaptability, Time Management",UI/UX Designer Applied Lab Project,None,7.64,UI/UX Designer
-STU_031,Female,Undergraduate,BBA,Product Management,2027,"Product Strategy, User Research, Agile/Scrum, Roadmapping","Communication, Teamwork",Product Manager Capstone Portfolio,Certified Product Manager Professional,8.81,Product Manager
-STU_032,Male,Undergraduate,B.Tech,Information Security,2027,"Linux, Network Security","Adaptability, Time Management",None,None,6.3,Cybersecurity Analyst
-STU_033,Female,Undergraduate,B.Tech,Information Security,2028,"Linux, Network Security",Communication,None,None,6.05,Cybersecurity Analyst
-STU_034,Male,Undergraduate,BBA,Digital Marketing,2028,"Digital Marketing, SEO","Adaptability, Time Management",None,None,4.74,Digital Marketing Specialist
-STU_035,Male,Undergraduate,B.Sc,Data Analytics,2027,"Excel, SQL","Adaptability, Time Management",None,None,4.81,Data Analyst
-STU_036,Male,Undergraduate,BBA,Digital Marketing,2027,"Digital Marketing, SEO","Adaptability, Time Management",None,None,5.3,Digital Marketing Specialist
-STU_037,Male,Undergraduate,B.Sc,Data Analytics,2027,"Excel, SQL","Adaptability, Time Management",None,None,5.94,Data Analyst
-STU_038,Female,Undergraduate,B.Tech,Software Engineering,2027,"Java, SQL, Python, REST APIs","Communication, Teamwork",Backend Developer Applied Lab Project,None,7.26,Backend Developer
-STU_039,Male,Undergraduate,B.Tech,Information Security,2027,"Linux, Network Security","Adaptability, Time Management",None,None,4.97,Cybersecurity Analyst
-STU_040,Female,Undergraduate,B.Sc,Business Analytics,2027,"SQL, Power BI, Tableau, Data Warehousing","Communication, Problem Solving, Teamwork",None,None,7.62,BI Developer
-STU_041,Female,Undergraduate,B.Tech,Information Security,2027,"Linux, Network Security",Communication,None,None,4.61,Cybersecurity Analyst
-STU_042,Male,Undergraduate,B.Tech,Information Security,2027,"Linux, Network Security, Cryptography, Cybersecurity",Communication,None,None,8.13,Cybersecurity Analyst
-STU_043,Male,Postgraduate,B.Tech,Information Security,2026,"Linux, Network Security","Adaptability, Time Management",None,None,4.75,Cybersecurity Analyst
-STU_044,Female,Postgraduate,B.Tech,Information Security,2026,"Linux, Network Security, Cryptography, Cybersecurity",Communication,Cybersecurity Analyst Applied Lab Project,None,6.96,Cybersecurity Analyst
-STU_045,Female,Postgraduate,B.Tech,Information Security,2026,"Linux, Network Security, Cryptography, Cybersecurity","Communication, Teamwork",Cybersecurity Analyst Applied Lab Project,Industry Foundation Certificate,7.17,Cybersecurity Analyst
-STU_046,Male,Undergraduate,BBA,Business Analytics,2027,"Excel, Business Analytics",Communication,None,None,4.62,Business Analyst
-STU_047,Male,Undergraduate,BBA,Marketing Analytics,2028,"Excel, Marketing Analytics","Adaptability, Time Management",None,None,4.97,Marketing Analyst
-STU_048,Female,Postgraduate,BBA,Product Management,2026,"Product Strategy, User Research, Agile/Scrum, Roadmapping","Communication, Problem Solving, Teamwork",Product Manager Capstone Portfolio,Certified Product Manager Professional,8.68,Product Manager
-STU_049,Female,Postgraduate,BBA,Product Management,2026,"Product Strategy, User Research, Agile/Scrum, Roadmapping",Communication,Product Manager Capstone Portfolio,Certified Product Manager Professional,8.82,Product Manager
-STU_050,Female,Postgraduate,BBA,Product Management,2026,"Product Strategy, User Research, Agile/Scrum, Roadmapping",Communication,Product Manager Applied Lab Project,Industry Foundation Certificate,6.69,Product Manager
-STU_051,Female,Postgraduate,BBA,Product Management,2026,"Product Strategy, User Research",Communication,None,None,4.82,Product Manager
-STU_052,Male,Postgraduate,BBA,Digital Marketing,2026,"Digital Marketing, SEO","Communication, Teamwork",None,None,6.14,Digital Marketing Specialist
-STU_053,Female,Postgraduate,B.Des,User Experience Design,2026,"Figma, UI Design, Wireframing, Prototyping","Problem Solving, Teamwork",None,Industry Foundation Certificate,6.5,UI/UX Designer
-STU_054,Female,Postgraduate,B.Sc,Data Science,2026,"Python, Statistics, SQL, Machine Learning","Communication, Problem Solving, Teamwork",Data Scientist Capstone Portfolio,Certified Data Scientist Professional,9.41,Data Scientist
-STU_055,Male,Postgraduate,BBA,Marketing Analytics,2026,"Excel, Marketing Analytics","Adaptability, Time Management",None,None,4.79,Marketing Analyst
-STU_056,Male,Undergraduate,B.Tech,Computer Science,2027,"SQL, Database Management","Adaptability, Time Management",None,None,5.6,Database Administrator
-STU_057,Male,Undergraduate,B.Sc,Statistics & Analytics,2027,"Excel, SQL","Adaptability, Time Management",None,None,4.61,Data Analyst
-STU_058,Male,Undergraduate,B.Tech,Computer Science,2027,"SQL, Database Management","Adaptability, Time Management",None,None,6.25,Database Administrator
-STU_059,Male,Undergraduate,B.Sc,Statistics & Analytics,2027,"Excel, SQL, Python, Tableau",Communication,None,None,8.33,Data Analyst
-STU_060,Female,Undergraduate,B.Tech,Computer Science,2027,"SQL, Database Management, PostgreSQL, Linux","Adaptability, Time Management",Database Administrator Applied Lab Project,Industry Foundation Certificate,7.27,Database Administrator
-STU_061,Female,Undergraduate,BBA,Marketing Analytics,2028,"Excel, Marketing Analytics","Adaptability, Time Management",None,None,5.68,Marketing Analyst
-STU_062,Male,Postgraduate,B.Tech,Cloud Computing,2026,"Linux, Cloud, Docker, AWS","Problem Solving, Teamwork",None,None,7.57,Cloud DevOps Engineer
-STU_063,Male,Postgraduate,B.Tech,Computer Science,2026,"HTML, Javascript, SQL, React, Node.js","Communication, Problem Solving, Teamwork",Full-Stack Developer Capstone Portfolio,Certified Full-Stack Developer Professional,9.01,Full-Stack Developer
-STU_064,Male,Postgraduate,B.Tech,Information Security,2026,"Linux, Network Security, Cryptography, Cybersecurity","Adaptability, Time Management",Cybersecurity Analyst Applied Lab Project,None,8.27,Cybersecurity Analyst
-STU_065,Male,Postgraduate,B.Tech,Information Security,2026,"Linux, Network Security","Adaptability, Time Management",None,None,4.64,Cybersecurity Analyst
-STU_066,Male,Postgraduate,BBA,Digital Marketing,2026,"Digital Marketing, SEO","Adaptability, Time Management",None,None,4.75,Digital Marketing Specialist
-STU_067,Female,Postgraduate,BBA,Marketing Analytics,2026,"Excel, Marketing Analytics, Python, Customer Segmentation","Adaptability, Time Management",None,None,8.17,Marketing Analyst
-STU_068,Female,Postgraduate,BBA,Product Management,2026,"Product Strategy, User Research, Agile/Scrum, Roadmapping","Communication, Problem Solving, Teamwork",Product Manager Capstone Portfolio,Certified Product Manager Professional,9.3,Product Manager
-STU_069,Female,Postgraduate,B.Tech,Cloud Computing,2026,"Linux, Cloud, Docker, AWS",Problem Solving,Cloud DevOps Engineer Capstone Portfolio,Certified Cloud DevOps Engineer Professional,8.89,Cloud DevOps Engineer
-STU_070,Male,Undergraduate,B.Tech,Software Engineering,2027,"Java, SQL, Python, REST APIs",Teamwork,Backend Developer Applied Lab Project,Industry Foundation Certificate,7.0,Backend Developer
-STU_071,Male,Undergraduate,B.Tech,Information Security,2027,"Linux, Network Security","Adaptability, Time Management",None,None,5.65,Cybersecurity Analyst
-STU_072,Male,Undergraduate,B.Tech,Information Security,2027,"Linux, Network Security, Cryptography, Cybersecurity","Adaptability, Time Management",Cybersecurity Analyst Applied Lab Project,Industry Foundation Certificate,7.81,Cybersecurity Analyst
-STU_073,Male,Undergraduate,B.Sc,Statistics & Analytics,2027,"Excel, SQL","Adaptability, Time Management",None,None,4.68,Data Analyst
-STU_074,Female,Undergraduate,BBA,Digital Marketing,2027,"Digital Marketing, SEO, Social Media Analytics, Content Strategy","Adaptability, Time Management",None,None,6.58,Digital Marketing Specialist
-STU_075,Male,Undergraduate,B.Tech,Information Security,2027,"Linux, Network Security","Adaptability, Time Management",None,None,5.55,Cybersecurity Analyst
-STU_076,Male,Undergraduate,BBA,Business Analytics,2027,"Excel, Business Analytics, SQL, Power BI","Communication, Problem Solving, Teamwork",Business Analyst Applied Lab Project,Industry Foundation Certificate,6.71,Business Analyst
-STU_077,Male,Postgraduate,B.Tech,Cloud Computing,2026,"Linux, Cloud, Docker, AWS",Communication,Cloud DevOps Engineer Applied Lab Project,None,8.09,Cloud DevOps Engineer
-STU_078,Male,Postgraduate,B.Tech,Cloud Computing,2026,"Linux, Cloud, Docker, AWS","Adaptability, Time Management",Cloud DevOps Engineer Applied Lab Project,Industry Foundation Certificate,7.19,Cloud DevOps Engineer
-STU_079,Male,Postgraduate,BBA,Finance,2026,"Excel, Finance","Adaptability, Time Management",None,None,4.9,Financial Analyst
-STU_080,Female,Undergraduate,B.Tech,Artificial Intelligence,2027,"Python, SQL, Machine Learning, Deep Learning","Communication, Problem Solving, Teamwork",AI Engineer Capstone Portfolio,Certified AI Engineer Professional,8.96,AI Engineer
-STU_081,Male,Undergraduate,B.Sc,Statistics & Analytics,2027,"Excel, SQL","Adaptability, Time Management",None,None,6.35,Data Analyst
-STU_082,Male,Undergraduate,B.Tech,Information Security,2028,"Linux, Network Security",Communication,None,None,6.14,Cybersecurity Analyst
-STU_083,Male,Undergraduate,B.Tech,Information Security,2028,"Linux, Network Security",Communication,None,None,4.55,Cybersecurity Analyst
-STU_084,Male,Undergraduate,B.Tech,Information Security,2028,"Linux, Network Security, Cryptography, Cybersecurity",Communication,Cybersecurity Analyst Applied Lab Project,Industry Foundation Certificate,7.99,Cybersecurity Analyst
-STU_085,Male,Undergraduate,B.Tech,Cloud Computing,2028,"Linux, Cloud, Docker, AWS",Problem Solving,Cloud DevOps Engineer Capstone Portfolio,Certified Cloud DevOps Engineer Professional,9.52,Cloud DevOps Engineer
-STU_086,Male,Undergraduate,B.Tech,Information Security,2028,"Linux, Network Security","Adaptability, Time Management",None,None,6.13,Cybersecurity Analyst
-STU_087,Male,Undergraduate,B.Tech,Computer Science,2028,"HTML, CSS, Javascript, React","Communication, Problem Solving, Teamwork",Frontend Developer Capstone Portfolio,Certified Frontend Developer Professional,8.95,Frontend Developer
-STU_088,Male,Undergraduate,B.Tech,Cloud Computing,2028,"Linux, Cloud",Communication,None,None,5.75,Cloud DevOps Engineer
-STU_089,Female,Undergraduate,B.Tech,Information Security,2028,"Linux, Network Security","Adaptability, Time Management",None,None,6.14,Cybersecurity Analyst
-STU_090,Male,Undergraduate,B.Tech,Information Security,2028,"Linux, Network Security",Communication,None,None,5.26,Cybersecurity Analyst
-STU_091,Male,Undergraduate,B.Tech,Information Security,2028,"Linux, Network Security",Communication,None,None,4.72,Cybersecurity Analyst
-STU_092,Male,Undergraduate,B.Tech,Cloud Computing,2028,"Linux, Cloud, Docker, AWS",Problem Solving,Cloud DevOps Engineer Capstone Portfolio,Certified Cloud DevOps Engineer Professional,9.75,Cloud DevOps Engineer
-STU_093,Female,Undergraduate,B.Tech,Cloud Computing,2028,"Linux, Cloud, Docker, AWS",Problem Solving,Cloud DevOps Engineer Capstone Portfolio,Certified Cloud DevOps Engineer Professional,9.28,Cloud DevOps Engineer
-STU_094,Male,Undergraduate,B.Tech,Cloud Computing,2028,"Linux, Cloud, Docker, AWS","Problem Solving, Teamwork",Cloud DevOps Engineer Capstone Portfolio,Certified Cloud DevOps Engineer Professional,9.07,Cloud DevOps Engineer
-STU_095,Female,Undergraduate,B.Tech,Computer Science,2028,"HTML, CSS, Javascript",Problem Solving,None,None,6.21,Frontend Developer
-STU_096,Female,Undergraduate,B.Tech,Computer Science,2028,"HTML, Javascript, SQL, React, Node.js","Communication, Problem Solving, Teamwork",Full-Stack Developer Capstone Portfolio,Certified Full-Stack Developer Professional,9.42,Full-Stack Developer
-STU_097,Female,Undergraduate,B.Tech,Information Security,2028,"Linux, Network Security, Cryptography, Cybersecurity",Communication,Cybersecurity Analyst Capstone Portfolio,Certified Cybersecurity Analyst Professional,9.39,Cybersecurity Analyst
-STU_098,Female,Undergraduate,B.Tech,Information Security,2028,"Linux, Network Security, Cryptography, Cybersecurity","Adaptability, Time Management",Cybersecurity Analyst Applied Lab Project,None,6.63,Cybersecurity Analyst
-STU_099,Female,Undergraduate,B.Tech,Information Security,2028,"Linux, Network Security, Cryptography, Cybersecurity","Adaptability, Time Management",None,None,7.87,Cybersecurity Analyst
-STU_100,Male,Undergraduate,B.Tech,Software Engineering,2028,"Java, SQL, Python, REST APIs","Communication, Problem Solving, Teamwork",Backend Developer Applied Lab Project,None,7.82,Backend Developer
-STU_101,Male,Undergraduate,B.Tech,Cloud Computing,2028,"Linux, Cloud, Docker, AWS","Communication, Problem Solving, Teamwork",None,Industry Foundation Certificate,7.67,Cloud DevOps Engineer
-STU_102,Female,Undergraduate,B.Tech,Cloud Computing,2028,"Linux, Cloud, Docker, AWS",Problem Solving,Cloud DevOps Engineer Capstone Portfolio,Certified Cloud DevOps Engineer Professional,8.77,Cloud DevOps Engineer
-STU_103,Female,Undergraduate,B.Tech,Information Security,2028,"Linux, Network Security","Adaptability, Time Management",None,None,5.38,Cybersecurity Analyst
-STU_104,Male,Undergraduate,B.Tech,Information Security,2028,"Linux, Network Security","Adaptability, Time Management",None,None,5.47,Cybersecurity Analyst
-STU_105,Male,Undergraduate,B.Tech,Information Security,2028,"Linux, Network Security, Cryptography, Cybersecurity","Adaptability, Time Management",Cybersecurity Analyst Applied Lab Project,Industry Foundation Certificate,7.04,Cybersecurity Analyst
-STU_106,Female,Undergraduate,B.Tech,Information Security,2028,"Linux, Network Security",Communication,None,None,5.78,Cybersecurity Analyst
-STU_107,Female,Undergraduate,B.Tech,Information Security,2028,"Linux, Network Security, Cryptography, Cybersecurity","Adaptability, Time Management",None,Industry Foundation Certificate,6.78,Cybersecurity Analyst
-STU_108,Male,Undergraduate,B.Tech,Cloud Computing,2028,"Linux, Cloud, Docker, AWS","Problem Solving, Teamwork",Cloud DevOps Engineer Capstone Portfolio,Certified Cloud DevOps Engineer Professional,9.09,Cloud DevOps Engineer
-STU_109,Male,Undergraduate,B.Tech,Information Security,2028,"Linux, Network Security, Cryptography, Cybersecurity","Adaptability, Time Management",None,Industry Foundation Certificate,7.44,Cybersecurity Analyst
-STU_110,Male,Undergraduate,B.Tech,Cloud Computing,2028,"Linux, Cloud, Docker, AWS",Problem Solving,None,Industry Foundation Certificate,7.98,Cloud DevOps Engineer
-STU_111,Female,Undergraduate,B.Tech,Cloud Computing,2028,"Linux, Cloud, Docker, AWS","Problem Solving, Teamwork",Cloud DevOps Engineer Capstone Portfolio,Certified Cloud DevOps Engineer Professional,9.22,Cloud DevOps Engineer
-STU_112,Male,Undergraduate,B.Tech,Computer Science,2028,"HTML, Javascript, SQL, React, Node.js","Communication, Problem Solving, Teamwork",Full-Stack Developer Applied Lab Project,Industry Foundation Certificate,8.02,Full-Stack Developer
-STU_113,Male,Undergraduate,B.Tech,Information Security,2028,"Linux, Network Security",Communication,None,None,5.66,Cybersecurity Analyst
-STU_114,Male,Undergraduate,B.Tech,Information Security,2028,"Linux, Network Security",Communication,None,None,5.31,Cybersecurity Analyst
-STU_115,Male,Undergraduate,B.Tech,Information Security,2028,"Linux, Network Security",Communication,None,None,5.91,Cybersecurity Analyst
-STU_116,Male,Undergraduate,B.Tech,Information Security,2028,"Linux, Network Security",Communication,None,None,5.93,Cybersecurity Analyst
-STU_117,Female,Undergraduate,B.Tech,Cloud Computing,2028,"Linux, Cloud, Docker, AWS",Problem Solving,None,None,7.42,Cloud DevOps Engineer
-STU_118,Female,Undergraduate,B.Tech,Information Security,2028,"Linux, Network Security, Cryptography, Cybersecurity","Adaptability, Time Management",Cybersecurity Analyst Capstone Portfolio,Certified Cybersecurity Analyst Professional,8.94,Cybersecurity Analyst
-STU_119,Female,Undergraduate,B.Tech,Information Security,2028,"Linux, Network Security, Cryptography, Cybersecurity","Adaptability, Time Management",None,None,6.79,Cybersecurity Analyst
-STU_120,Male,Undergraduate,B.Tech,Software Engineering,2028,"Java, SQL, Python, REST APIs","Communication, Problem Solving, Teamwork",Backend Developer Applied Lab Project,None,7.27,Backend Developer
-STU_121,Male,Undergraduate,B.Tech,Information Security,2028,"Linux, Network Security, Cryptography, Cybersecurity",Communication,Cybersecurity Analyst Applied Lab Project,Industry Foundation Certificate,7.24,Cybersecurity Analyst
-STU_122,Male,Undergraduate,B.Tech,Information Security,2028,"Linux, Network Security","Adaptability, Time Management",None,None,5.22,Cybersecurity Analyst
-STU_123,Female,Undergraduate,B.Tech,Cloud Computing,2028,"Linux, Cloud, Docker, AWS",Problem Solving,None,Industry Foundation Certificate,7.07,Cloud DevOps Engineer
-STU_124,Female,Undergraduate,B.Tech,Cloud Computing,2028,"Linux, Cloud, Docker, AWS",Problem Solving,Cloud DevOps Engineer Applied Lab Project,None,8.02,Cloud DevOps Engineer
-STU_125,Male,Undergraduate,B.Tech,Information Security,2028,"Linux, Network Security","Adaptability, Time Management",None,None,4.56,Cybersecurity Analyst
-STU_126,Male,Undergraduate,B.Tech,Information Security,2028,"Linux, Network Security","Adaptability, Time Management",None,None,5.88,Cybersecurity Analyst
-STU_127,Female,Undergraduate,B.Tech,Information Security,2028,"Linux, Network Security, Cryptography, Cybersecurity",Communication,Cybersecurity Analyst Applied Lab Project,Industry Foundation Certificate,8.36,Cybersecurity Analyst
-STU_128,Male,Undergraduate,B.Tech,Software Engineering,2028,"Java, SQL",Problem Solving,None,None,4.66,Backend Developer
-STU_129,Male,Undergraduate,B.Tech,Information Security,2028,"Linux, Network Security","Adaptability, Time Management",None,None,4.85,Cybersecurity Analyst
-STU_130,Male,Undergraduate,B.Tech,Cloud Computing,2028,"Linux, Cloud",Problem Solving,None,None,4.9,Cloud DevOps Engineer
-STU_131,Female,Undergraduate,B.Tech,Information Security,2028,"Linux, Network Security","Adaptability, Time Management",None,None,5.03,Cybersecurity Analyst
-STU_132,Male,Undergraduate,B.Tech,Software Engineering,2028,"Java, SQL, Python, REST APIs","Communication, Problem Solving, Teamwork",Backend Developer Applied Lab Project,None,7.39,Backend Developer
-STU_133,Male,Undergraduate,B.Tech,Information Security,2028,"Linux, Network Security","Adaptability, Time Management",None,None,5.98,Cybersecurity Analyst
-STU_134,Male,Undergraduate,B.Tech,Information Security,2028,"Linux, Network Security",Communication,None,None,6.3,Cybersecurity Analyst
-STU_135,Male,Undergraduate,BBA,Finance & Accounting,2027,"Excel, Finance, Financial Modeling, Accounting","Communication, Problem Solving, Teamwork",Financial Analyst Capstone Portfolio,Certified Financial Analyst Professional,9.31,Financial Analyst
-STU_136,Female,Undergraduate,BBA,Finance & Accounting,2027,"Excel, Finance, Financial Modeling, Accounting","Communication, Problem Solving, Teamwork",Financial Analyst Capstone Portfolio,Certified Financial Analyst Professional,9.37,Financial Analyst
-STU_137,Female,Postgraduate,BBA,Finance & Accounting,2026,"Excel, Finance, Financial Modeling, Accounting","Communication, Problem Solving, Teamwork",Financial Analyst Capstone Portfolio,Certified Financial Analyst Professional,9.1,Financial Analyst
-STU_138,Female,Postgraduate,B.Sc,Information Systems,2026,"SQL, Power BI, Tableau, Data Warehousing","Problem Solving, Teamwork",BI Developer Applied Lab Project,Industry Foundation Certificate,6.82,BI Developer
-STU_139,Female,Undergraduate,BBA,Finance & Accounting,2027,"Excel, Finance, Financial Modeling, Accounting","Communication, Problem Solving, Teamwork",Financial Analyst Capstone Portfolio,Certified Financial Analyst Professional,9.75,Financial Analyst
-STU_140,Male,Undergraduate,BBA,Business Analytics,2027,"Excel, Business Analytics, SQL, Power BI","Communication, Problem Solving, Teamwork",Business Analyst Applied Lab Project,Industry Foundation Certificate,8.26,Business Analyst
-STU_141,Male,Undergraduate,BBA,Finance,2027,"Excel, Finance","Adaptability, Time Management",None,None,4.64,Financial Analyst
-STU_142,Male,Undergraduate,B.Sc,Information Systems,2027,"SQL, Power BI","Adaptability, Time Management",None,None,4.96,BI Developer
-STU_143,Male,Undergraduate,BBA,Finance,2027,"Excel, Finance, Financial Modeling, Accounting","Adaptability, Time Management",Financial Analyst Applied Lab Project,None,8.12,Financial Analyst
-STU_144,Male,Undergraduate,BBA,Finance & Accounting,2027,"Excel, Finance, Financial Modeling, Accounting",Problem Solving,Financial Analyst Capstone Portfolio,Certified Financial Analyst Professional,8.95,Financial Analyst
-STU_145,Male,Undergraduate,BBA,Finance,2027,"Excel, Finance","Adaptability, Time Management",None,None,4.63,Financial Analyst
-STU_146,Male,Undergraduate,B.Sc,Information Systems,2027,"SQL, Power BI, Tableau, Data Warehousing",Problem Solving,BI Developer Applied Lab Project,None,8.11,BI Developer
-STU_147,Female,Undergraduate,BBA,Finance & Accounting,2027,"Excel, Finance, Financial Modeling, Accounting","Communication, Problem Solving, Teamwork",Financial Analyst Capstone Portfolio,Certified Financial Analyst Professional,9.42,Financial Analyst
-STU_148,Female,Undergraduate,B.Sc,Information Systems,2027,"SQL, Power BI, Tableau, Data Warehousing","Adaptability, Time Management",None,Industry Foundation Certificate,8.33,BI Developer
-STU_149,Female,Undergraduate,BBA,Finance,2027,"Excel, Finance, Financial Modeling, Accounting","Problem Solving, Teamwork",Financial Analyst Applied Lab Project,Industry Foundation Certificate,7.38,Financial Analyst
-STU_150,Female,Undergraduate,BBA,Finance & Accounting,2027,"Excel, Finance, Financial Modeling, Accounting","Communication, Problem Solving, Teamwork",Financial Analyst Capstone Portfolio,Certified Financial Analyst Professional,9.58,Financial Analyst
-STU_151,Male,Postgraduate,BBA,Finance & Accounting,2026,"Excel, Finance, Financial Modeling, Accounting","Communication, Problem Solving, Teamwork",Financial Analyst Capstone Portfolio,Certified Financial Analyst Professional,8.82,Financial Analyst
-STU_152,Male,Postgraduate,B.Sc,Business Analytics,2026,"SQL, Power BI, Tableau, Data Warehousing",Communication,None,None,7.77,BI Developer
-STU_153,Female,Postgraduate,B.Sc,Data Science,2026,"Python, Statistics, SQL, Machine Learning","Problem Solving, Teamwork",Data Scientist Capstone Portfolio,Certified Data Scientist Professional,8.78,Data Scientist
-STU_154,Male,Postgraduate,B.Tech,Information Technology,2026,"SQL, Database Management","Adaptability, Time Management",None,None,6.17,Database Administrator
-STU_155,Male,Postgraduate,BBA,Marketing Analytics,2026,"Excel, Marketing Analytics, Python, Customer Segmentation","Communication, Problem Solving, Teamwork",Marketing Analyst Applied Lab Project,None,7.56,Marketing Analyst
-STU_156,Male,Postgraduate,B.Tech,Artificial Intelligence,2026,"Python, SQL, Machine Learning, Deep Learning","Communication, Problem Solving, Teamwork",AI Engineer Capstone Portfolio,Certified AI Engineer Professional,9.14,AI Engineer
-STU_157,Female,Postgraduate,BBA,Marketing Analytics,2026,"Excel, Marketing Analytics, Python, Customer Segmentation","Communication, Problem Solving, Teamwork",Marketing Analyst Applied Lab Project,Industry Foundation Certificate,7.73,Marketing Analyst
-STU_158,Male,Postgraduate,B.Sc,Data Analytics,2026,"Excel, SQL, Python, Tableau","Problem Solving, Teamwork",None,Industry Foundation Certificate,7.27,Data Analyst
-STU_159,Male,Undergraduate,B.Tech,Computer Science,2027,"Python, SQL, Machine Learning","Adaptability, Time Management",None,None,5.51,AI Engineer
-STU_160,Female,Undergraduate,B.Sc,Business Analytics,2027,"SQL, Power BI, Tableau, Data Warehousing","Communication, Problem Solving, Teamwork",BI Developer Applied Lab Project,None,7.13,BI Developer
-STU_161,Female,Undergraduate,B.Sc,Data Science,2027,"Python, Statistics, SQL, Machine Learning","Communication, Problem Solving, Teamwork",Data Scientist Capstone Portfolio,Certified Data Scientist Professional,9.44,Data Scientist
-STU_162,Male,Undergraduate,B.Sc,Business Analytics,2027,"SQL, Power BI, Tableau, Data Warehousing","Communication, Problem Solving, Teamwork",BI Developer Applied Lab Project,None,8.31,BI Developer
-STU_163,Female,Undergraduate,BBA,Product Management,2028,"Product Strategy, User Research, Agile/Scrum, Roadmapping","Communication, Problem Solving, Teamwork",Product Manager Capstone Portfolio,Certified Product Manager Professional,9.77,Product Manager
-STU_164,Female,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping","Communication, Problem Solving, Teamwork",UI/UX Designer Applied Lab Project,None,8.36,UI/UX Designer
-STU_165,Male,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping",Problem Solving,UI/UX Designer Applied Lab Project,None,6.53,UI/UX Designer
-STU_166,Female,Undergraduate,BBA,Product Management,2028,"Product Strategy, User Research, Agile/Scrum, Roadmapping","Communication, Problem Solving, Teamwork",Product Manager Capstone Portfolio,Certified Product Manager Professional,9.41,Product Manager
-STU_167,Male,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping","Communication, Problem Solving, Teamwork",None,None,6.69,UI/UX Designer
-STU_168,Male,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping","Communication, Problem Solving, Teamwork",UI/UX Designer Capstone Portfolio,Certified UI/UX Designer Professional,8.74,UI/UX Designer
-STU_169,Male,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping","Problem Solving, Teamwork",UI/UX Designer Capstone Portfolio,Certified UI/UX Designer Professional,8.65,UI/UX Designer
-STU_170,Male,Undergraduate,BBA,Digital Marketing,2028,"Digital Marketing, SEO, Social Media Analytics, Content Strategy","Adaptability, Time Management",Digital Marketing Specialist Applied Lab Project,None,6.64,Digital Marketing Specialist
-STU_171,Male,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping",Teamwork,UI/UX Designer Capstone Portfolio,Certified UI/UX Designer Professional,9.73,UI/UX Designer
-STU_172,Male,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping","Problem Solving, Teamwork",UI/UX Designer Applied Lab Project,Industry Foundation Certificate,7.56,UI/UX Designer
-STU_173,Male,Undergraduate,BBA,Marketing Analytics,2028,"Excel, Marketing Analytics","Adaptability, Time Management",None,None,5.22,Marketing Analyst
-STU_174,Male,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design","Adaptability, Time Management",None,None,6.38,UI/UX Designer
-STU_175,Female,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping","Communication, Problem Solving, Teamwork",UI/UX Designer Applied Lab Project,None,6.61,UI/UX Designer
-STU_176,Male,Undergraduate,BBA,Digital Marketing,2028,"Digital Marketing, SEO",Communication,None,None,5.0,Digital Marketing Specialist
-STU_177,Male,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping","Problem Solving, Teamwork",UI/UX Designer Capstone Portfolio,Certified UI/UX Designer Professional,8.73,UI/UX Designer
-STU_178,Female,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping","Adaptability, Time Management",UI/UX Designer Applied Lab Project,None,7.28,UI/UX Designer
-STU_179,Female,Undergraduate,BBA,Marketing Analytics,2028,"Excel, Marketing Analytics, Python, Customer Segmentation",Problem Solving,Marketing Analyst Capstone Portfolio,Certified Marketing Analyst Professional,9.42,Marketing Analyst
-STU_180,Male,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping",Teamwork,UI/UX Designer Applied Lab Project,Industry Foundation Certificate,8.26,UI/UX Designer
-STU_181,Female,Undergraduate,BBA,Product Management,2028,"Product Strategy, User Research, Agile/Scrum, Roadmapping","Communication, Problem Solving, Teamwork",Product Manager Capstone Portfolio,Certified Product Manager Professional,9.21,Product Manager
-STU_182,Male,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design","Problem Solving, Teamwork",None,None,6.07,UI/UX Designer
-STU_183,Male,Undergraduate,B.Des,User Experience Design,2027,"Figma, UI Design, Wireframing, Prototyping","Communication, Problem Solving, Teamwork",UI/UX Designer Capstone Portfolio,Certified UI/UX Designer Professional,9.53,UI/UX Designer
-STU_184,Female,Undergraduate,BBA,Digital Marketing,2027,"Digital Marketing, SEO, Social Media Analytics, Content Strategy",Communication,Digital Marketing Specialist Applied Lab Project,None,7.33,Digital Marketing Specialist
-STU_185,Male,Undergraduate,BBA,Marketing Analytics,2027,"Excel, Marketing Analytics","Adaptability, Time Management",None,None,5.45,Marketing Analyst
-STU_186,Male,Undergraduate,B.Des,User Experience Design,2027,"Figma, UI Design, Wireframing, Prototyping","Problem Solving, Teamwork",UI/UX Designer Capstone Portfolio,Certified UI/UX Designer Professional,9.28,UI/UX Designer
-STU_187,Male,Undergraduate,BBA,Marketing Analytics,2027,"Excel, Marketing Analytics, Python, Customer Segmentation","Communication, Problem Solving, Teamwork",None,None,7.65,Marketing Analyst
-STU_188,Female,Undergraduate,B.Des,User Experience Design,2027,"Figma, UI Design, Wireframing, Prototyping","Communication, Problem Solving, Teamwork",UI/UX Designer Applied Lab Project,None,8.4,UI/UX Designer
-STU_189,Male,Undergraduate,B.Des,User Experience Design,2027,"Figma, UI Design, Wireframing, Prototyping","Communication, Problem Solving, Teamwork",UI/UX Designer Capstone Portfolio,Certified UI/UX Designer Professional,9.11,UI/UX Designer
-STU_190,Female,Undergraduate,B.Des,User Experience Design,2027,"Figma, UI Design, Wireframing, Prototyping",Problem Solving,UI/UX Designer Applied Lab Project,Industry Foundation Certificate,6.84,UI/UX Designer
-STU_191,Male,Undergraduate,BBA,Marketing Analytics,2027,"Excel, Marketing Analytics",Communication,None,None,5.16,Marketing Analyst
-STU_192,Male,Undergraduate,BBA,Digital Marketing,2027,"Digital Marketing, SEO","Adaptability, Time Management",None,None,6.13,Digital Marketing Specialist
-STU_193,Male,Undergraduate,B.Des,User Experience Design,2027,"Figma, UI Design, Wireframing, Prototyping","Communication, Problem Solving, Teamwork",UI/UX Designer Applied Lab Project,Industry Foundation Certificate,7.05,UI/UX Designer
-STU_194,Male,Undergraduate,B.Des,User Experience Design,2027,"Figma, UI Design, Wireframing, Prototyping","Communication, Problem Solving, Teamwork",None,None,6.67,UI/UX Designer
-STU_195,Male,Undergraduate,B.Des,User Experience Design,2027,"Figma, UI Design, Wireframing, Prototyping",Problem Solving,None,Industry Foundation Certificate,8.07,UI/UX Designer
-STU_196,Male,Undergraduate,BBA,Digital Marketing,2027,"Digital Marketing, SEO, Social Media Analytics, Content Strategy","Adaptability, Time Management",None,Industry Foundation Certificate,6.86,Digital Marketing Specialist
-STU_197,Male,Undergraduate,B.Des,User Experience Design,2027,"Figma, UI Design, Wireframing, Prototyping","Communication, Problem Solving, Teamwork",UI/UX Designer Capstone Portfolio,Certified UI/UX Designer Professional,8.76,UI/UX Designer
-STU_198,Male,Undergraduate,B.Des,User Experience Design,2027,"Figma, UI Design, Wireframing, Prototyping","Communication, Problem Solving, Teamwork",UI/UX Designer Capstone Portfolio,Certified UI/UX Designer Professional,9.07,UI/UX Designer
-STU_199,Male,Undergraduate,BBA,Marketing Analytics,2027,"Excel, Marketing Analytics",Communication,None,None,6.35,Marketing Analyst
-STU_200,Male,Undergraduate,B.Des,User Experience Design,2027,"Figma, UI Design, Wireframing, Prototyping","Adaptability, Time Management",None,None,7.85,UI/UX Designer
-STU_201,Male,Undergraduate,BBA,Product Management,2027,"Product Strategy, User Research, Agile/Scrum, Roadmapping",Communication,Product Manager Capstone Portfolio,Certified Product Manager Professional,9.79,Product Manager
-STU_202,Female,Undergraduate,B.Des,User Experience Design,2027,"Figma, UI Design, Wireframing, Prototyping","Communication, Teamwork",UI/UX Designer Capstone Portfolio,Certified UI/UX Designer Professional,9.34,UI/UX Designer
-STU_203,Male,Undergraduate,BBA,Marketing Analytics,2027,"Excel, Marketing Analytics, Python, Customer Segmentation","Adaptability, Time Management",None,Industry Foundation Certificate,7.47,Marketing Analyst
-STU_204,Female,Undergraduate,B.Des,User Experience Design,2027,"Figma, UI Design, Wireframing, Prototyping","Adaptability, Time Management",None,Industry Foundation Certificate,7.55,UI/UX Designer
-STU_205,Male,Undergraduate,BBA,Marketing Analytics,2027,"Excel, Marketing Analytics","Adaptability, Time Management",None,None,6.14,Marketing Analyst
-STU_206,Female,Undergraduate,B.Des,User Experience Design,2027,"Figma, UI Design, Wireframing, Prototyping",Problem Solving,UI/UX Designer Capstone Portfolio,Certified UI/UX Designer Professional,8.94,UI/UX Designer
-STU_207,Male,Undergraduate,BBA,Marketing Analytics,2027,"Excel, Marketing Analytics, Python, Customer Segmentation",Problem Solving,None,Industry Foundation Certificate,7.04,Marketing Analyst
-STU_208,Male,Undergraduate,B.Tech,Information Technology,2027,"Python, SQL, Machine Learning, Deep Learning","Adaptability, Time Management",AI Engineer Applied Lab Project,None,7.35,AI Engineer
-STU_209,Male,Undergraduate,B.Tech,Information Technology,2027,"Excel, SQL, Python, Tableau","Adaptability, Time Management",Data Analyst Applied Lab Project,Industry Foundation Certificate,8.27,Data Analyst
-STU_210,Male,Undergraduate,B.Tech,Information Technology,2027,"Python, Statistics, SQL, Machine Learning","Communication, Problem Solving, Teamwork",Data Scientist Applied Lab Project,None,6.94,Data Scientist
-STU_211,Male,Undergraduate,B.Tech,Information Technology,2027,"Excel, Business Analytics, SQL, Power BI","Adaptability, Time Management",Business Analyst Capstone Portfolio,Certified Business Analyst Professional,9.0,Business Analyst
-STU_212,Male,Undergraduate,B.Tech,Information Technology,2027,"SQL, Power BI, Tableau, Data Warehousing","Adaptability, Time Management",BI Developer Applied Lab Project,None,6.74,BI Developer
-STU_213,Male,Undergraduate,B.Tech,Information Technology,2027,"HTML, CSS, Javascript, React",Problem Solving,Frontend Developer Capstone Portfolio,Certified Frontend Developer Professional,8.63,Frontend Developer
-STU_214,Male,Undergraduate,B.Tech,Information Technology,2027,"Java, SQL","Adaptability, Time Management",None,None,5.28,Backend Developer
-STU_215,Male,Undergraduate,B.Tech,Information Technology,2027,"HTML, Javascript, SQL","Adaptability, Time Management",None,None,5.39,Full-Stack Developer
-STU_216,Male,Undergraduate,B.Tech,Information Technology,2027,"Linux, Cloud","Adaptability, Time Management",None,None,5.82,Cloud DevOps Engineer
-STU_217,Male,Undergraduate,B.Tech,Information Technology,2027,"Linux, Network Security, Cryptography, Cybersecurity",Communication,Cybersecurity Analyst Applied Lab Project,None,8.12,Cybersecurity Analyst
-STU_218,Female,Undergraduate,B.Tech,Information Technology,2027,"SQL, Database Management, PostgreSQL, Linux",Problem Solving,None,None,8.16,Database Administrator
-STU_219,Male,Undergraduate,B.Tech,Information Technology,2027,"Excel, Finance, Financial Modeling, Accounting","Communication, Problem Solving, Teamwork",Financial Analyst Capstone Portfolio,Certified Financial Analyst Professional,9.06,Financial Analyst
-STU_220,Male,Undergraduate,B.Tech,Information Technology,2027,"Digital Marketing, SEO, Social Media Analytics, Content Strategy","Problem Solving, Teamwork",Digital Marketing Specialist Applied Lab Project,Industry Foundation Certificate,7.34,Digital Marketing Specialist
-STU_221,Male,Undergraduate,B.Tech,Information Technology,2027,"Excel, Marketing Analytics, Python, Customer Segmentation",Problem Solving,None,None,7.06,Marketing Analyst
-STU_222,Male,Undergraduate,B.Tech,Information Technology,2027,"Product Strategy, User Research, Agile/Scrum, Roadmapping",Problem Solving,None,None,7.8,Product Manager
-STU_223,Male,Undergraduate,B.Tech,Information Technology,2027,"Figma, UI Design, Wireframing, Prototyping","Problem Solving, Teamwork",None,Industry Foundation Certificate,7.68,UI/UX Designer
-STU_224,Male,Undergraduate,B.Tech,Information Technology,2027,"Python, SQL, Machine Learning, Deep Learning","Communication, Problem Solving, Teamwork",AI Engineer Capstone Portfolio,Certified AI Engineer Professional,9.33,AI Engineer
-STU_225,Male,Undergraduate,B.Tech,Information Technology,2027,"Excel, SQL, Python, Tableau","Communication, Problem Solving, Teamwork",Data Analyst Capstone Portfolio,Certified Data Analyst Professional,9.67,Data Analyst
-STU_226,Male,Undergraduate,B.Tech,Information Technology,2027,"Python, Statistics, SQL, Machine Learning",Problem Solving,None,None,7.79,Data Scientist
-STU_227,Male,Undergraduate,B.Tech,Information Technology,2027,"Excel, Business Analytics","Adaptability, Time Management",None,None,5.71,Business Analyst
-STU_228,Male,Undergraduate,B.Tech,Information Technology,2027,"SQL, Power BI","Adaptability, Time Management",None,None,5.37,BI Developer
-STU_229,Male,Postgraduate,B.Tech,Artificial Intelligence,2026,"Python, SQL, Machine Learning, Deep Learning","Communication, Problem Solving, Teamwork",AI Engineer Capstone Portfolio,Certified AI Engineer Professional,9.61,AI Engineer
-STU_230,Male,Undergraduate,B.Tech,Information Technology,2027,"Java, SQL","Adaptability, Time Management",None,None,5.59,Backend Developer
-STU_231,Male,Undergraduate,B.Tech,Information Technology,2027,"HTML, Javascript, SQL, React, Node.js",Problem Solving,Full-Stack Developer Applied Lab Project,None,6.54,Full-Stack Developer
-STU_232,Male,Undergraduate,B.Tech,Information Technology,2027,"Linux, Cloud","Adaptability, Time Management",None,None,6.23,Cloud DevOps Engineer
-STU_233,Male,Undergraduate,BBA,Business Analytics,2027,"Excel, Business Analytics, SQL, Power BI",Communication,None,Industry Foundation Certificate,7.97,Business Analyst
-STU_234,Female,Undergraduate,B.Sc,Business Analytics,2027,"SQL, Power BI, Tableau, Data Warehousing","Communication, Teamwork",BI Developer Applied Lab Project,Industry Foundation Certificate,7.68,BI Developer
-STU_235,Male,Undergraduate,B.Sc,Business Analytics,2027,"SQL, Power BI, Tableau, Data Warehousing","Communication, Teamwork",BI Developer Applied Lab Project,None,8.22,BI Developer
-STU_236,Male,Undergraduate,B.Sc,Data Analytics,2027,"Excel, SQL","Adaptability, Time Management",None,None,5.19,Data Analyst
-STU_237,Male,Undergraduate,B.Tech,Computer Science,2027,"Python, SQL, Machine Learning",Problem Solving,None,None,5.12,AI Engineer
-STU_238,Male,Undergraduate,B.Sc,Business Analytics,2027,"SQL, Power BI, Tableau, Data Warehousing","Communication, Problem Solving, Teamwork",BI Developer Applied Lab Project,Industry Foundation Certificate,6.75,BI Developer
-STU_239,Female,Undergraduate,B.Sc,Business Analytics,2027,"SQL, Power BI, Tableau, Data Warehousing","Communication, Problem Solving, Teamwork",None,Industry Foundation Certificate,8.08,BI Developer
-STU_240,Male,Undergraduate,B.Sc,Data Science,2027,"Python, Statistics, SQL, Machine Learning","Communication, Problem Solving, Teamwork",Data Scientist Capstone Portfolio,Certified Data Scientist Professional,9.47,Data Scientist
-STU_241,Male,Undergraduate,B.Sc,Data Science,2027,"Python, Statistics, SQL, Machine Learning","Communication, Problem Solving, Teamwork",Data Scientist Capstone Portfolio,Certified Data Scientist Professional,9.11,Data Scientist
-STU_242,Male,Undergraduate,B.Sc,Business Analytics,2027,"SQL, Power BI, Tableau, Data Warehousing","Communication, Problem Solving, Teamwork",BI Developer Applied Lab Project,Industry Foundation Certificate,8.13,BI Developer
-STU_243,Male,Undergraduate,B.Tech,Computer Science,2027,"Python, SQL, Machine Learning","Adaptability, Time Management",None,None,6.0,AI Engineer
-STU_244,Male,Undergraduate,B.Sc,Business Analytics,2027,"SQL, Power BI, Tableau, Data Warehousing",Communication,None,Industry Foundation Certificate,6.73,BI Developer
-STU_245,Male,Undergraduate,B.Tech,Computer Science,2027,"HTML, Javascript, SQL, React, Node.js","Communication, Problem Solving, Teamwork",Full-Stack Developer Capstone Portfolio,Certified Full-Stack Developer Professional,9.57,Full-Stack Developer
-STU_246,Female,Undergraduate,B.Tech,Software Engineering,2027,"Java, SQL, Python, REST APIs","Communication, Problem Solving, Teamwork",Backend Developer Applied Lab Project,Industry Foundation Certificate,7.4,Backend Developer
-STU_247,Female,Undergraduate,B.Sc,Data Science,2027,"Python, Statistics, SQL, Machine Learning","Communication, Problem Solving, Teamwork",Data Scientist Capstone Portfolio,Certified Data Scientist Professional,8.79,Data Scientist
-STU_248,Female,Undergraduate,B.Sc,Data Science,2027,"Python, Statistics, SQL, Machine Learning","Communication, Problem Solving, Teamwork",None,None,8.23,Data Scientist
-STU_249,Female,Undergraduate,BBA,Finance,2027,"Excel, Finance",Problem Solving,None,None,5.08,Financial Analyst
-STU_250,Male,Undergraduate,B.Tech,Cloud Computing,2028,"Linux, Cloud, Docker, AWS","Problem Solving, Teamwork",Cloud DevOps Engineer Applied Lab Project,None,6.95,Cloud DevOps Engineer
-STU_251,Male,Undergraduate,B.Tech,Artificial Intelligence,2028,"Python, SQL, Machine Learning, Deep Learning","Adaptability, Time Management",AI Engineer Capstone Portfolio,Certified AI Engineer Professional,9.04,AI Engineer
-STU_252,Male,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design","Adaptability, Time Management",None,None,5.74,UI/UX Designer
-STU_253,Female,Undergraduate,B.Sc,Business Analytics,2028,"SQL, Power BI, Tableau, Data Warehousing","Communication, Problem Solving, Teamwork",None,Industry Foundation Certificate,8.28,BI Developer
-STU_254,Male,Undergraduate,BBA,Digital Marketing,2028,"Digital Marketing, SEO","Communication, Teamwork",None,None,6.31,Digital Marketing Specialist
-STU_255,Male,Undergraduate,BBA,Product Management,2028,"Product Strategy, User Research, Agile/Scrum, Roadmapping","Communication, Problem Solving, Teamwork",Product Manager Capstone Portfolio,Certified Product Manager Professional,9.21,Product Manager
-STU_256,Male,Undergraduate,BBA,Digital Marketing,2028,"Digital Marketing, SEO, Social Media Analytics, Content Strategy","Adaptability, Time Management",Digital Marketing Specialist Capstone Portfolio,Certified Digital Marketing Specialist Professional,8.86,Digital Marketing Specialist
-STU_257,Female,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping","Communication, Problem Solving, Teamwork",UI/UX Designer Capstone Portfolio,Certified UI/UX Designer Professional,8.62,UI/UX Designer
-STU_258,Female,Undergraduate,BBA,Product Management,2028,"Product Strategy, User Research, Agile/Scrum, Roadmapping","Communication, Problem Solving, Teamwork",None,None,8.35,Product Manager
-STU_259,Female,Undergraduate,BBA,Product Management,2028,"Product Strategy, User Research, Agile/Scrum, Roadmapping","Communication, Problem Solving, Teamwork",Product Manager Applied Lab Project,Industry Foundation Certificate,6.89,Product Manager
-STU_260,Male,Undergraduate,BBA,Digital Marketing,2028,"Digital Marketing, SEO",Problem Solving,None,None,5.12,Digital Marketing Specialist
-STU_261,Male,Undergraduate,BBA,Marketing Analytics,2028,"Excel, Marketing Analytics","Adaptability, Time Management",None,None,4.51,Marketing Analyst
-STU_262,Male,Undergraduate,BBA,Product Management,2028,"Product Strategy, User Research, Agile/Scrum, Roadmapping","Communication, Problem Solving, Teamwork",None,Industry Foundation Certificate,6.98,Product Manager
-STU_263,Female,Undergraduate,BBA,Marketing Analytics,2028,"Excel, Marketing Analytics, Python, Customer Segmentation","Adaptability, Time Management",Marketing Analyst Applied Lab Project,Industry Foundation Certificate,7.18,Marketing Analyst
-STU_264,Male,Undergraduate,B.Tech,Computer Science,2028,"SQL, Database Management, PostgreSQL, Linux",Problem Solving,Database Administrator Applied Lab Project,Industry Foundation Certificate,6.6,Database Administrator
-STU_265,Female,Undergraduate,B.Des,User Experience Design,2027,"Figma, UI Design, Wireframing, Prototyping","Problem Solving, Teamwork",UI/UX Designer Applied Lab Project,None,7.98,UI/UX Designer
-STU_266,Female,Undergraduate,B.Des,User Experience Design,2027,"Figma, UI Design, Wireframing, Prototyping","Problem Solving, Teamwork",UI/UX Designer Capstone Portfolio,Certified UI/UX Designer Professional,8.56,UI/UX Designer
-STU_267,Male,Undergraduate,B.Des,User Experience Design,2027,"Figma, UI Design, Wireframing, Prototyping","Adaptability, Time Management",None,Industry Foundation Certificate,7.72,UI/UX Designer
-STU_268,Male,Undergraduate,B.Des,User Experience Design,2027,"Figma, UI Design, Wireframing, Prototyping","Adaptability, Time Management",UI/UX Designer Applied Lab Project,None,7.43,UI/UX Designer
-STU_269,Male,Undergraduate,BBA,Marketing Analytics,2027,"Excel, Marketing Analytics, Python, Customer Segmentation","Adaptability, Time Management",None,Industry Foundation Certificate,6.78,Marketing Analyst
-STU_270,Male,Undergraduate,BBA,Digital Marketing,2027,"Digital Marketing, SEO, Social Media Analytics, Content Strategy","Adaptability, Time Management",Digital Marketing Specialist Applied Lab Project,None,7.22,Digital Marketing Specialist
-STU_271,Female,Undergraduate,B.Des,User Experience Design,2027,"Figma, UI Design, Wireframing, Prototyping",Problem Solving,UI/UX Designer Capstone Portfolio,Certified UI/UX Designer Professional,8.63,UI/UX Designer
-STU_272,Female,Undergraduate,B.Des,User Experience Design,2027,"Figma, UI Design, Wireframing, Prototyping","Problem Solving, Teamwork",None,None,7.87,UI/UX Designer
-STU_273,Male,Undergraduate,BBA,Marketing Analytics,2027,"Excel, Marketing Analytics, Python, Customer Segmentation","Adaptability, Time Management",None,Industry Foundation Certificate,8.07,Marketing Analyst
-STU_274,Male,Undergraduate,BBA,Digital Marketing,2027,"Digital Marketing, SEO, Social Media Analytics, Content Strategy","Adaptability, Time Management",Digital Marketing Specialist Capstone Portfolio,Certified Digital Marketing Specialist Professional,9.36,Digital Marketing Specialist
-STU_275,Female,Undergraduate,BBA,Product Management,2027,"Product Strategy, User Research, Agile/Scrum, Roadmapping","Communication, Problem Solving, Teamwork",Product Manager Capstone Portfolio,Certified Product Manager Professional,8.59,Product Manager
-STU_276,Female,Undergraduate,B.Des,User Experience Design,2027,"Figma, UI Design, Wireframing, Prototyping","Communication, Problem Solving, Teamwork",UI/UX Designer Capstone Portfolio,Certified UI/UX Designer Professional,8.63,UI/UX Designer
-STU_277,Male,Undergraduate,BBA,Marketing Analytics,2027,"Excel, Marketing Analytics, Python, Customer Segmentation",Problem Solving,Marketing Analyst Capstone Portfolio,Certified Marketing Analyst Professional,9.22,Marketing Analyst
-STU_278,Male,Undergraduate,BBA,Digital Marketing,2027,"Digital Marketing, SEO, Social Media Analytics, Content Strategy",Problem Solving,Digital Marketing Specialist Capstone Portfolio,Certified Digital Marketing Specialist Professional,8.93,Digital Marketing Specialist
-STU_279,Male,Undergraduate,BBA,Marketing Analytics,2027,"Excel, Marketing Analytics, Python, Customer Segmentation",Problem Solving,Marketing Analyst Applied Lab Project,None,8.16,Marketing Analyst
-STU_280,Male,Undergraduate,BBA,Digital Marketing,2027,"Digital Marketing, SEO, Social Media Analytics, Content Strategy",Problem Solving,None,Industry Foundation Certificate,7.09,Digital Marketing Specialist
-STU_281,Male,Undergraduate,B.Des,User Experience Design,2027,"Figma, UI Design, Wireframing, Prototyping","Problem Solving, Teamwork",UI/UX Designer Capstone Portfolio,Certified UI/UX Designer Professional,8.79,UI/UX Designer
-STU_282,Male,Undergraduate,B.Des,User Experience Design,2027,"Figma, UI Design, Wireframing, Prototyping","Problem Solving, Teamwork",UI/UX Designer Capstone Portfolio,Certified UI/UX Designer Professional,8.98,UI/UX Designer
-STU_283,Female,Undergraduate,BBA,Product Management,2027,"Product Strategy, User Research, Agile/Scrum, Roadmapping","Communication, Problem Solving, Teamwork",Product Manager Capstone Portfolio,Certified Product Manager Professional,9.55,Product Manager
-STU_284,Female,Undergraduate,BBA,Product Management,2027,"Product Strategy, User Research, Agile/Scrum, Roadmapping","Communication, Problem Solving, Teamwork",Product Manager Capstone Portfolio,Certified Product Manager Professional,9.3,Product Manager
-STU_285,Male,Undergraduate,BBA,Marketing Analytics,2027,"Excel, Marketing Analytics, Python, Customer Segmentation",Teamwork,Marketing Analyst Applied Lab Project,None,8.27,Marketing Analyst
-STU_286,Male,Undergraduate,BBA,Digital Marketing,2027,"Digital Marketing, SEO, Social Media Analytics, Content Strategy",Teamwork,None,None,8.25,Digital Marketing Specialist
-STU_287,Female,Undergraduate,BBA,Product Management,2027,"Product Strategy, User Research, Agile/Scrum, Roadmapping","Communication, Problem Solving, Teamwork",Product Manager Capstone Portfolio,Certified Product Manager Professional,8.59,Product Manager
-STU_288,Female,Undergraduate,BBA,Product Management,2027,"Product Strategy, User Research, Agile/Scrum, Roadmapping","Communication, Problem Solving, Teamwork",Product Manager Capstone Portfolio,Certified Product Manager Professional,8.78,Product Manager
-STU_289,Male,Undergraduate,BBA,Product Management,2027,"Product Strategy, User Research, Agile/Scrum, Roadmapping","Communication, Problem Solving, Teamwork",None,None,6.8,Product Manager
-STU_290,Male,Undergraduate,BBA,Product Management,2027,"Product Strategy, User Research, Agile/Scrum, Roadmapping","Communication, Problem Solving, Teamwork",None,Industry Foundation Certificate,8.18,Product Manager
-STU_291,Female,Undergraduate,B.Tech,Computer Science,2028,"Python, SQL, Machine Learning","Communication, Problem Solving, Teamwork",None,None,5.02,AI Engineer
-STU_292,Female,Undergraduate,B.Sc,Data Analytics,2028,"Excel, SQL","Adaptability, Time Management",None,None,5.65,Data Analyst
-STU_293,Female,Undergraduate,B.Sc,Data Science,2028,"Python, Statistics, SQL, Machine Learning","Communication, Problem Solving, Teamwork",Data Scientist Capstone Portfolio,Certified Data Scientist Professional,9.48,Data Scientist
-STU_294,Female,Undergraduate,B.Sc,Data Science,2028,"Python, Statistics, SQL, Machine Learning","Communication, Problem Solving, Teamwork",Data Scientist Capstone Portfolio,Certified Data Scientist Professional,8.64,Data Scientist
-STU_295,Male,Undergraduate,B.Sc,Business Analytics,2028,"SQL, Power BI, Tableau, Data Warehousing","Communication, Problem Solving, Teamwork",None,None,7.77,BI Developer
-STU_296,Male,Undergraduate,B.Sc,Business Analytics,2028,"SQL, Power BI, Tableau, Data Warehousing","Communication, Problem Solving, Teamwork",BI Developer Applied Lab Project,Industry Foundation Certificate,6.89,BI Developer
-STU_297,Female,Undergraduate,B.Sc,Data Science,2028,"Python, Statistics, SQL, Machine Learning","Communication, Problem Solving, Teamwork",Data Scientist Capstone Portfolio,Certified Data Scientist Professional,8.66,Data Scientist
-STU_298,Female,Undergraduate,B.Sc,Data Science,2028,"Python, Statistics, SQL, Machine Learning","Communication, Problem Solving, Teamwork",Data Scientist Capstone Portfolio,Certified Data Scientist Professional,8.73,Data Scientist
-STU_299,Male,Undergraduate,B.Sc,Data Analytics,2028,"Excel, SQL, Python, Tableau","Adaptability, Time Management",Data Analyst Applied Lab Project,Industry Foundation Certificate,7.45,Data Analyst
-STU_300,Male,Undergraduate,B.Tech,Computer Science,2028,"Python, SQL, Machine Learning, Deep Learning","Adaptability, Time Management",AI Engineer Applied Lab Project,None,7.33,AI Engineer
-STU_301,Male,Undergraduate,B.Sc,Data Analytics,2028,"Excel, SQL","Adaptability, Time Management",None,None,5.59,Data Analyst
-STU_302,Male,Undergraduate,B.Sc,Data Analytics,2028,"Excel, SQL","Adaptability, Time Management",None,None,5.05,Data Analyst
-STU_303,Female,Undergraduate,B.Tech,Computer Science,2028,"Python, SQL, Machine Learning, Deep Learning","Adaptability, Time Management",AI Engineer Applied Lab Project,None,6.83,AI Engineer
-STU_304,Female,Undergraduate,B.Sc,Data Analytics,2028,"Excel, SQL, Python, Tableau","Adaptability, Time Management",None,Industry Foundation Certificate,8.1,Data Analyst
-STU_305,Female,Undergraduate,B.Sc,Data Analytics,2028,"Excel, SQL, Python, Tableau",Communication,Data Analyst Applied Lab Project,None,8.15,Data Analyst
-STU_306,Female,Undergraduate,B.Sc,Business Analytics,2028,"SQL, Power BI, Tableau, Data Warehousing","Communication, Teamwork",BI Developer Applied Lab Project,None,7.7,BI Developer
-STU_307,Male,Undergraduate,B.Sc,Data Science,2028,"Python, Statistics, SQL, Machine Learning","Communication, Problem Solving, Teamwork",Data Scientist Capstone Portfolio,Certified Data Scientist Professional,8.81,Data Scientist
-STU_308,Male,Undergraduate,B.Sc,Data Science,2028,"Python, Statistics, SQL, Machine Learning","Communication, Problem Solving, Teamwork",Data Scientist Capstone Portfolio,Certified Data Scientist Professional,8.73,Data Scientist
-STU_309,Male,Undergraduate,B.Sc,Business Analytics,2028,"SQL, Power BI, Tableau, Data Warehousing","Communication, Problem Solving, Teamwork",BI Developer Applied Lab Project,None,6.84,BI Developer
-STU_310,Male,Undergraduate,B.Sc,Business Analytics,2028,"SQL, Power BI, Tableau, Data Warehousing","Communication, Problem Solving, Teamwork",BI Developer Applied Lab Project,Industry Foundation Certificate,7.35,BI Developer
-STU_311,Male,Undergraduate,B.Sc,Data Analytics,2028,"Excel, SQL, Python, Tableau","Adaptability, Time Management",Data Analyst Applied Lab Project,None,7.1,Data Analyst
-STU_312,Male,Undergraduate,B.Tech,Computer Science,2028,"Python, SQL, Machine Learning, Deep Learning",Teamwork,None,None,7.62,AI Engineer
-STU_313,Female,Undergraduate,B.Sc,Data Science,2028,"Python, Statistics, SQL, Machine Learning","Communication, Problem Solving, Teamwork",Data Scientist Capstone Portfolio,Certified Data Scientist Professional,8.57,Data Scientist
-STU_314,Female,Undergraduate,B.Sc,Data Science,2028,"Python, Statistics, SQL, Machine Learning","Communication, Problem Solving, Teamwork",Data Scientist Capstone Portfolio,Certified Data Scientist Professional,9.3,Data Scientist
-STU_315,Female,Undergraduate,B.Sc,Data Science,2028,"Python, Statistics, SQL, Machine Learning","Communication, Problem Solving, Teamwork",Data Scientist Capstone Portfolio,Certified Data Scientist Professional,9.25,Data Scientist
-STU_316,Female,Undergraduate,B.Sc,Data Science,2028,"Python, Statistics, SQL, Machine Learning","Communication, Problem Solving, Teamwork",Data Scientist Capstone Portfolio,Certified Data Scientist Professional,9.35,Data Scientist
-STU_317,Male,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping",Problem Solving,UI/UX Designer Capstone Portfolio,Certified UI/UX Designer Professional,9.15,UI/UX Designer
-STU_318,Male,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping",Problem Solving,UI/UX Designer Capstone Portfolio,Certified UI/UX Designer Professional,9.55,UI/UX Designer
-STU_319,Female,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping",Problem Solving,UI/UX Designer Capstone Portfolio,Certified UI/UX Designer Professional,9.16,UI/UX Designer
-STU_320,Female,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping",Problem Solving,UI/UX Designer Capstone Portfolio,Certified UI/UX Designer Professional,9.42,UI/UX Designer
-STU_321,Female,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping",Problem Solving,None,Industry Foundation Certificate,7.66,UI/UX Designer
-STU_322,Female,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping",Problem Solving,None,Industry Foundation Certificate,7.79,UI/UX Designer
-STU_323,Male,Undergraduate,BBA,Marketing Analytics,2028,"Excel, Marketing Analytics","Adaptability, Time Management",None,None,4.68,Marketing Analyst
-STU_324,Male,Undergraduate,BBA,Digital Marketing,2028,"Digital Marketing, SEO","Adaptability, Time Management",None,None,4.98,Digital Marketing Specialist
-STU_325,Male,Undergraduate,BBA,Marketing Analytics,2028,"Excel, Marketing Analytics, Python, Customer Segmentation","Adaptability, Time Management",None,Industry Foundation Certificate,8.16,Marketing Analyst
-STU_326,Male,Undergraduate,BBA,Digital Marketing,2028,"Digital Marketing, SEO, Social Media Analytics, Content Strategy","Adaptability, Time Management",Digital Marketing Specialist Applied Lab Project,Industry Foundation Certificate,7.09,Digital Marketing Specialist
-STU_327,Male,Undergraduate,BBA,Marketing Analytics,2028,"Excel, Marketing Analytics","Adaptability, Time Management",None,None,5.09,Marketing Analyst
-STU_328,Male,Undergraduate,BBA,Digital Marketing,2028,"Digital Marketing, SEO","Adaptability, Time Management",None,None,6.05,Digital Marketing Specialist
-STU_329,Female,Undergraduate,BBA,Product Management,2028,"Product Strategy, User Research, Agile/Scrum, Roadmapping","Communication, Problem Solving, Teamwork",Product Manager Applied Lab Project,Industry Foundation Certificate,6.68,Product Manager
-STU_330,Female,Undergraduate,BBA,Product Management,2028,"Product Strategy, User Research, Agile/Scrum, Roadmapping","Communication, Problem Solving, Teamwork",None,Industry Foundation Certificate,6.84,Product Manager
-STU_331,Male,Undergraduate,BBA,Marketing Analytics,2028,"Excel, Marketing Analytics","Communication, Teamwork",None,None,6.4,Marketing Analyst
-STU_332,Male,Undergraduate,BBA,Digital Marketing,2028,"Digital Marketing, SEO",Teamwork,None,None,6.1,Digital Marketing Specialist
-STU_333,Female,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping","Adaptability, Time Management",UI/UX Designer Applied Lab Project,None,8.09,UI/UX Designer
-STU_334,Female,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping","Adaptability, Time Management",None,None,6.75,UI/UX Designer
-STU_335,Male,Undergraduate,BBA,Marketing Analytics,2028,"Excel, Marketing Analytics","Adaptability, Time Management",None,None,5.87,Marketing Analyst
-STU_336,Male,Undergraduate,BBA,Digital Marketing,2028,"Digital Marketing, SEO","Adaptability, Time Management",None,None,5.79,Digital Marketing Specialist
-STU_337,Female,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping",Problem Solving,UI/UX Designer Applied Lab Project,None,7.04,UI/UX Designer
-STU_338,Female,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping",Problem Solving,UI/UX Designer Applied Lab Project,Industry Foundation Certificate,8.33,UI/UX Designer
-STU_339,Female,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping",Problem Solving,UI/UX Designer Applied Lab Project,None,8.37,UI/UX Designer
-STU_340,Female,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping",Problem Solving,None,None,7.3,UI/UX Designer
-STU_341,Female,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping","Adaptability, Time Management",UI/UX Designer Applied Lab Project,None,6.6,UI/UX Designer
-STU_342,Female,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping","Adaptability, Time Management",None,Industry Foundation Certificate,8.12,UI/UX Designer
-STU_343,Male,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping","Communication, Teamwork",UI/UX Designer Applied Lab Project,Industry Foundation Certificate,6.78,UI/UX Designer
-STU_344,Male,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping",Teamwork,UI/UX Designer Applied Lab Project,None,8.18,UI/UX Designer
-STU_345,Female,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping","Adaptability, Time Management",UI/UX Designer Capstone Portfolio,Certified UI/UX Designer Professional,8.81,UI/UX Designer
-STU_346,Female,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping","Adaptability, Time Management",UI/UX Designer Capstone Portfolio,Certified UI/UX Designer Professional,8.54,UI/UX Designer
-STU_347,Female,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping","Adaptability, Time Management",UI/UX Designer Capstone Portfolio,Certified UI/UX Designer Professional,9.53,UI/UX Designer
-STU_348,Female,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping","Adaptability, Time Management",UI/UX Designer Capstone Portfolio,Certified UI/UX Designer Professional,9.69,UI/UX Designer
-STU_349,Male,Undergraduate,BBA,Marketing Analytics,2028,"Excel, Marketing Analytics","Adaptability, Time Management",None,None,5.94,Marketing Analyst
-STU_350,Male,Undergraduate,BBA,Digital Marketing,2028,"Digital Marketing, SEO","Adaptability, Time Management",None,None,4.51,Digital Marketing Specialist
-STU_351,Male,Undergraduate,BBA,Marketing Analytics,2028,"Excel, Marketing Analytics","Adaptability, Time Management",None,None,4.91,Marketing Analyst
-STU_352,Male,Undergraduate,BBA,Digital Marketing,2028,"Digital Marketing, SEO","Adaptability, Time Management",None,None,5.5,Digital Marketing Specialist
-STU_353,Female,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping","Adaptability, Time Management",None,None,6.95,UI/UX Designer
-STU_354,Female,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping","Adaptability, Time Management",UI/UX Designer Applied Lab Project,Industry Foundation Certificate,6.71,UI/UX Designer
-STU_355,Male,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping","Adaptability, Time Management",UI/UX Designer Capstone Portfolio,Certified UI/UX Designer Professional,9.25,UI/UX Designer
-STU_356,Male,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping","Adaptability, Time Management",UI/UX Designer Capstone Portfolio,Certified UI/UX Designer Professional,8.5,UI/UX Designer
-STU_357,Male,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping","Adaptability, Time Management",UI/UX Designer Applied Lab Project,None,7.29,UI/UX Designer
-STU_358,Male,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping","Adaptability, Time Management",UI/UX Designer Applied Lab Project,Industry Foundation Certificate,7.53,UI/UX Designer
-STU_359,Female,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping",Problem Solving,UI/UX Designer Capstone Portfolio,Certified UI/UX Designer Professional,8.56,UI/UX Designer
-STU_360,Female,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping",Problem Solving,UI/UX Designer Capstone Portfolio,Certified UI/UX Designer Professional,9.47,UI/UX Designer
-STU_361,Male,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping","Adaptability, Time Management",UI/UX Designer Applied Lab Project,Industry Foundation Certificate,7.16,UI/UX Designer
-STU_362,Male,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping","Adaptability, Time Management",None,None,6.75,UI/UX Designer
-STU_363,Male,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping","Problem Solving, Teamwork",UI/UX Designer Capstone Portfolio,Certified UI/UX Designer Professional,9.78,UI/UX Designer
-STU_364,Male,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping","Problem Solving, Teamwork",UI/UX Designer Capstone Portfolio,Certified UI/UX Designer Professional,9.55,UI/UX Designer
-STU_365,Male,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping",Problem Solving,UI/UX Designer Capstone Portfolio,Certified UI/UX Designer Professional,8.55,UI/UX Designer
-STU_366,Male,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping",Problem Solving,UI/UX Designer Capstone Portfolio,Certified UI/UX Designer Professional,9.65,UI/UX Designer
-STU_367,Male,Undergraduate,BBA,Marketing Analytics,2028,"Excel, Marketing Analytics, Python, Customer Segmentation","Adaptability, Time Management",Marketing Analyst Applied Lab Project,Industry Foundation Certificate,7.48,Marketing Analyst
-STU_368,Male,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping",Communication,UI/UX Designer Applied Lab Project,None,7.04,UI/UX Designer
-STU_369,Female,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping","Problem Solving, Teamwork",UI/UX Designer Capstone Portfolio,Certified UI/UX Designer Professional,9.54,UI/UX Designer
-STU_370,Female,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping","Problem Solving, Teamwork",UI/UX Designer Capstone Portfolio,Certified UI/UX Designer Professional,9.47,UI/UX Designer
-STU_371,Male,Undergraduate,BBA,Marketing Analytics,2028,"Excel, Marketing Analytics, Python, Customer Segmentation","Adaptability, Time Management",Marketing Analyst Applied Lab Project,Industry Foundation Certificate,7.44,Marketing Analyst
-STU_372,Male,Undergraduate,BBA,Digital Marketing,2028,"Digital Marketing, SEO, Social Media Analytics, Content Strategy","Adaptability, Time Management",None,Industry Foundation Certificate,7.88,Digital Marketing Specialist
-STU_373,Female,Undergraduate,BBA,Product Management,2028,"Product Strategy, User Research",Communication,None,None,5.11,Product Manager
-STU_374,Female,Undergraduate,BBA,Product Management,2028,"Product Strategy, User Research",Communication,None,None,5.08,Product Manager
-STU_375,Male,Undergraduate,BBA,Marketing Analytics,2028,"Excel, Marketing Analytics",Communication,None,None,4.82,Marketing Analyst
-STU_376,Male,Undergraduate,BBA,Digital Marketing,2028,"Digital Marketing, SEO","Adaptability, Time Management",None,None,4.58,Digital Marketing Specialist
-STU_377,Male,Undergraduate,BBA,Product Management,2028,"Product Strategy, User Research, Agile/Scrum, Roadmapping",Communication,Product Manager Applied Lab Project,Industry Foundation Certificate,7.02,Product Manager
-STU_378,Male,Undergraduate,BBA,Product Management,2028,"Product Strategy, User Research, Agile/Scrum, Roadmapping","Communication, Teamwork",Product Manager Applied Lab Project,Industry Foundation Certificate,7.19,Product Manager
-STU_379,Male,Undergraduate,BBA,Product Management,2028,"Product Strategy, User Research",Communication,None,None,5.79,Product Manager
-STU_380,Male,Undergraduate,BBA,Product Management,2028,"Product Strategy, User Research",Communication,None,None,4.63,Product Manager
-STU_381,Female,Undergraduate,BBA,Product Management,2028,"Product Strategy, User Research",Communication,None,None,5.23,Product Manager
-STU_382,Female,Undergraduate,BBA,Product Management,2028,"Product Strategy, User Research",Communication,None,None,4.79,Product Manager
-STU_383,Male,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping",Problem Solving,UI/UX Designer Capstone Portfolio,Certified UI/UX Designer Professional,8.98,UI/UX Designer
-STU_384,Male,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping","Problem Solving, Teamwork",UI/UX Designer Capstone Portfolio,Certified UI/UX Designer Professional,9.19,UI/UX Designer
-STU_385,Female,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping",Problem Solving,UI/UX Designer Capstone Portfolio,Certified UI/UX Designer Professional,8.82,UI/UX Designer
-STU_386,Female,Undergraduate,B.Des,User Experience Design,2028,"Figma, UI Design, Wireframing, Prototyping",Problem Solving,UI/UX Designer Capstone Portfolio,Certified UI/UX Designer Professional,9.15,UI/UX Designer
-STU_387,Male,Undergraduate,BBA,Product Management,2028,"Product Strategy, User Research, Agile/Scrum, Roadmapping",Communication,Product Manager Applied Lab Project,Industry Foundation Certificate,6.72,Product Manager
-STU_388,Male,Undergraduate,BBA,Product Management,2028,"Product Strategy, User Research, Agile/Scrum, Roadmapping",Communication,Product Manager Applied Lab Project,None,7.82,Product Manager
-STU_389,Male,Undergraduate,BBA,Marketing Analytics,2028,"Excel, Marketing Analytics","Adaptability, Time Management",None,None,5.36,Marketing Analyst
-STU_390,Male,Undergraduate,BBA,Digital Marketing,2028,"Digital Marketing, SEO","Adaptability, Time Management",None,None,6.04,Digital Marketing Specialist
-STU_391,Female,Undergraduate,B.Sc,Data Analytics,2027,"Excel, SQL, Python, Tableau",Problem Solving,Data Analyst Applied Lab Project,None,7.85,Data Analyst
-STU_392,Female,Undergraduate,B.Sc,Data Analytics,2027,"Excel, SQL, Python, Tableau",Problem Solving,Data Analyst Applied Lab Project,Industry Foundation Certificate,7.85,Data Analyst
-STU_393,Female,Undergraduate,B.Sc,Data Science,2027,"Python, Statistics, SQL, Machine Learning",Problem Solving,Data Scientist Capstone Portfolio,Certified Data Scientist Professional,8.66,Data Scientist
-STU_394,Female,Undergraduate,B.Sc,Data Science,2027,"Python, Statistics, SQL, Machine Learning",Problem Solving,Data Scientist Capstone Portfolio,Certified Data Scientist Professional,8.81,Data Scientist
-STU_395,Male,Undergraduate,B.Sc,Data Science,2027,"Python, Statistics, SQL, Machine Learning","Problem Solving, Teamwork",Data Scientist Capstone Portfolio,Certified Data Scientist Professional,9.22,Data Scientist
-STU_396,Male,Undergraduate,B.Sc,Data Science,2027,"Python, Statistics, SQL, Machine Learning","Communication, Problem Solving, Teamwork",Data Scientist Capstone Portfolio,Certified Data Scientist Professional,8.67,Data Scientist
-STU_397,Male,Undergraduate,B.Sc,Business Analytics,2027,"SQL, Power BI, Tableau, Data Warehousing","Communication, Problem Solving, Teamwork",BI Developer Applied Lab Project,None,7.26,BI Developer
-STU_398,Male,Undergraduate,B.Sc,Business Analytics,2027,"SQL, Power BI, Tableau, Data Warehousing","Communication, Problem Solving, Teamwork",None,Industry Foundation Certificate,8.06,BI Developer
-STU_399,Male,Undergraduate,B.Sc,Data Science,2027,"Python, Statistics, SQL, Machine Learning","Communication, Problem Solving, Teamwork",Data Scientist Capstone Portfolio,Certified Data Scientist Professional,9.38,Data Scientist
-STU_400,Male,Undergraduate,B.Sc,Data Science,2027,"Python, Statistics, SQL, Machine Learning","Communication, Problem Solving, Teamwork",Data Scientist Capstone Portfolio,Certified Data Scientist Professional,9.33,Data Scientist
-STU_401,Male,Undergraduate,B.Sc,Data Analytics,2027,"Excel, SQL, Python, Tableau","Adaptability, Time Management",Data Analyst Applied Lab Project,None,7.32,Data Analyst
-STU_402,Male,Undergraduate,B.Tech,Computer Science,2027,"Python, SQL, Machine Learning, Deep Learning","Adaptability, Time Management",None,Industry Foundation Certificate,7.08,AI Engineer
-STU_403,Male,Undergraduate,B.Sc,Data Science,2027,"Python, Statistics, SQL, Machine Learning","Communication, Problem Solving, Teamwork",Data Scientist Capstone Portfolio,Certified Data Scientist Professional,9.66,Data Scientist
-STU_404,Male,Undergraduate,B.Sc,Data Science,2027,"Python, Statistics, SQL, Machine Learning","Communication, Problem Solving, Teamwork",Data Scientist Capstone Portfolio,Certified Data Scientist Professional,9.33,Data Scientist
-STU_405,Female,Undergraduate,B.Sc,Data Science,2027,"Python, Statistics, SQL, Machine Learning","Communication, Problem Solving, Teamwork",Data Scientist Capstone Portfolio,Certified Data Scientist Professional,9.31,Data Scientist
-STU_406,Female,Undergraduate,B.Sc,Data Science,2027,"Python, Statistics, SQL, Machine Learning","Communication, Problem Solving, Teamwork",Data Scientist Capstone Portfolio,Certified Data Scientist Professional,9.33,Data Scientist
-STU_407,Male,Undergraduate,B.Sc,Data Analytics,2027,"Excel, SQL","Adaptability, Time Management",None,None,4.79,Data Analyst
-STU_408,Male,Undergraduate,B.Tech,Computer Science,2027,"Python, SQL, Machine Learning","Adaptability, Time Management",None,None,5.14,AI Engineer
-STU_409,Male,Undergraduate,B.Sc,Data Analytics,2027,"Excel, SQL, Python, Tableau","Problem Solving, Teamwork",Data Analyst Applied Lab Project,Industry Foundation Certificate,6.65,Data Analyst
-STU_410,Male,Undergraduate,B.Sc,Data Analytics,2027,"Excel, SQL, Python, Tableau","Problem Solving, Teamwork",Data Analyst Applied Lab Project,Industry Foundation Certificate,7.96,Data Analyst
-STU_411,Female,Undergraduate,B.Sc,Data Science,2027,"Python, Statistics, SQL, Machine Learning",Problem Solving,Data Scientist Capstone Portfolio,Certified Data Scientist Professional,9.21,Data Scientist
-STU_412,Female,Undergraduate,B.Sc,Data Science,2027,"Python, Statistics, SQL, Machine Learning","Communication, Problem Solving, Teamwork",Data Scientist Capstone Portfolio,Certified Data Scientist Professional,9.55,Data Scientist
-STU_413,Male,Undergraduate,B.Sc,Business Analytics,2027,"SQL, Power BI, Tableau, Data Warehousing","Communication, Problem Solving, Teamwork",None,None,6.64,BI Developer
-STU_414,Male,Undergraduate,B.Sc,Business Analytics,2027,"SQL, Power BI, Tableau, Data Warehousing","Communication, Problem Solving, Teamwork",None,Industry Foundation Certificate,7.15,BI Developer
-STU_415,Female,Undergraduate,B.Sc,Data Analytics,2027,"Excel, SQL","Adaptability, Time Management",None,None,6.35,Data Analyst
-STU_416,Female,Undergraduate,B.Sc,Data Analytics,2027,"Excel, SQL","Adaptability, Time Management",None,None,5.48,Data Analyst
-STU_417,Male,Undergraduate,B.Sc,Data Science,2027,"Python, Statistics, SQL, Machine Learning","Communication, Problem Solving, Teamwork",Data Scientist Capstone Portfolio,Certified Data Scientist Professional,9.11,Data Scientist
-STU_418,Male,Undergraduate,B.Sc,Data Science,2027,"Python, Statistics, SQL, Machine Learning","Communication, Problem Solving, Teamwork",Data Scientist Capstone Portfolio,Certified Data Scientist Professional,8.68,Data Scientist
-STU_419,Male,Undergraduate,B.Sc,Data Science,2027,"Python, Statistics, SQL, Machine Learning","Communication, Problem Solving, Teamwork",Data Scientist Capstone Portfolio,Certified Data Scientist Professional,9.62,Data Scientist
-STU_420,Male,Undergraduate,B.Sc,Data Science,2027,"Python, Statistics, SQL, Machine Learning","Communication, Problem Solving, Teamwork",Data Scientist Capstone Portfolio,Certified Data Scientist Professional,9.56,Data Scientist
-STU_421,Female,Undergraduate,B.Sc,Data Science,2027,"Python, Statistics, SQL, Machine Learning","Problem Solving, Teamwork",Data Scientist Capstone Portfolio,Certified Data Scientist Professional,8.75,Data Scientist
-STU_422,Female,Undergraduate,B.Sc,Data Science,2027,"Python, Statistics, SQL, Machine Learning","Communication, Problem Solving, Teamwork",Data Scientist Capstone Portfolio,Certified Data Scientist Professional,9.11,Data Scientist
-STU_423,Female,Undergraduate,B.Tech,Information Technology,2027,"HTML, Javascript, SQL, React, Node.js","Communication, Problem Solving, Teamwork",None,None,6.67,Full-Stack Developer
-STU_424,Female,Undergraduate,B.Tech,Information Technology,2027,"Linux, Cloud, Docker, AWS","Communication, Problem Solving, Teamwork",None,None,7.17,Cloud DevOps Engineer
-STU_425,Female,Undergraduate,B.Tech,Information Technology,2027,"Linux, Network Security, Cryptography, Cybersecurity","Communication, Problem Solving, Teamwork",Cybersecurity Analyst Capstone Portfolio,Certified Cybersecurity Analyst Professional,8.51,Cybersecurity Analyst
-STU_426,Female,Undergraduate,B.Tech,Information Technology,2027,"SQL, Database Management, PostgreSQL, Linux","Communication, Problem Solving, Teamwork",Database Administrator Capstone Portfolio,Certified Database Administrator Professional,9.65,Database Administrator
-STU_427,Male,Undergraduate,B.Sc,Data Analytics,2027,"Excel, SQL, Python, Tableau",Problem Solving,Data Analyst Applied Lab Project,Industry Foundation Certificate,7.2,Data Analyst
-STU_428,Male,Undergraduate,B.Sc,Data Analytics,2027,"Excel, SQL, Python, Tableau",Problem Solving,None,None,7.05,Data Analyst
-STU_429,Male,Undergraduate,B.Tech,Computer Science,2027,"Python, SQL, Machine Learning",Communication,None,None,5.79,AI Engineer
-STU_430,Male,Undergraduate,B.Sc,Business Analytics,2027,"SQL, Power BI",Communication,None,None,5.25,BI Developer
-STU_431,Male,Undergraduate,B.Tech,Information Technology,2027,"Figma, UI Design, Wireframing, Prototyping","Communication, Problem Solving, Teamwork",UI/UX Designer Capstone Portfolio,Certified UI/UX Designer Professional,9.48,UI/UX Designer
-STU_432,Male,Undergraduate,B.Tech,Information Technology,2027,"Python, SQL, Machine Learning, Deep Learning","Communication, Problem Solving, Teamwork",AI Engineer Capstone Portfolio,Certified AI Engineer Professional,9.02,AI Engineer
-STU_433,Male,Undergraduate,B.Tech,Information Technology,2027,"Excel, SQL, Python, Tableau","Communication, Problem Solving, Teamwork",None,None,6.76,Data Analyst
-STU_434,Male,Undergraduate,B.Tech,Information Technology,2027,"Python, Statistics, SQL, Machine Learning","Communication, Problem Solving, Teamwork",None,Industry Foundation Certificate,8.2,Data Scientist
-STU_435,Male,Undergraduate,B.Tech,Computer Science,2027,"Python, SQL, Machine Learning, Deep Learning",Problem Solving,AI Engineer Applied Lab Project,None,8.38,AI Engineer
-STU_436,Male,Undergraduate,B.Sc,Data Analytics,2027,"Excel, SQL, Python, Tableau",Problem Solving,Data Analyst Applied Lab Project,None,7.51,Data Analyst
-STU_437,Male,Undergraduate,B.Tech,Information Technology,2027,"HTML, CSS, Javascript, React",Problem Solving,Frontend Developer Applied Lab Project,Industry Foundation Certificate,7.78,Frontend Developer
-STU_438,Male,Undergraduate,B.Tech,Information Technology,2027,"Java, SQL, Python, REST APIs",Problem Solving,Backend Developer Applied Lab Project,Industry Foundation Certificate,7.0,Backend Developer
-STU_439,Male,Undergraduate,B.Sc,Data Analytics,2027,"Excel, SQL, Python, Tableau",Problem Solving,Data Analyst Applied Lab Project,None,7.87,Data Analyst
-STU_440,Male,Undergraduate,B.Sc,Data Analytics,2027,"Excel, SQL, Python, Tableau",Problem Solving,Data Analyst Applied Lab Project,None,6.78,Data Analyst
-STU_441,Male,Undergraduate,B.Tech,Information Technology,2027,"Linux, Network Security, Cryptography, Cybersecurity",Problem Solving,Cybersecurity Analyst Applied Lab Project,None,7.34,Cybersecurity Analyst
-STU_442,Male,Undergraduate,B.Tech,Information Technology,2027,"SQL, Database Management, PostgreSQL, Linux",Problem Solving,Database Administrator Applied Lab Project,Industry Foundation Certificate,7.97,Database Administrator
-STU_443,Male,Undergraduate,BBA,Product Management,2027,"Product Strategy, User Research, Agile/Scrum, Roadmapping","Communication, Problem Solving, Teamwork",Product Manager Applied Lab Project,Industry Foundation Certificate,7.49,Product Manager
-STU_444,Male,Undergraduate,BBA,Product Management,2027,"Product Strategy, User Research, Agile/Scrum, Roadmapping","Communication, Problem Solving, Teamwork",None,Industry Foundation Certificate,7.1,Product Manager
-STU_445,Male,Undergraduate,B.Sc,Data Analytics,2027,"Excel, SQL","Problem Solving, Teamwork",None,None,5.78,Data Analyst
-STU_446,Male,Undergraduate,B.Sc,Data Analytics,2027,"Excel, SQL","Problem Solving, Teamwork",None,None,5.66,Data Analyst
-STU_447,Male,Undergraduate,B.Tech,Information Technology,2027,"Figma, UI Design, Wireframing, Prototyping","Communication, Problem Solving, Teamwork",None,Industry Foundation Certificate,7.56,UI/UX Designer
-STU_448,Male,Undergraduate,B.Tech,Information Technology,2027,"Python, SQL, Machine Learning, Deep Learning","Communication, Problem Solving, Teamwork",AI Engineer Applied Lab Project,None,7.84,AI Engineer
-STU_449,Male,Undergraduate,BBA,Product Management,2027,"Product Strategy, User Research, Agile/Scrum, Roadmapping","Communication, Problem Solving, Teamwork",Product Manager Capstone Portfolio,Certified Product Manager Professional,9.71,Product Manager
-STU_450,Male,Undergraduate,BBA,Product Management,2027,"Product Strategy, User Research, Agile/Scrum, Roadmapping","Communication, Problem Solving, Teamwork",Product Manager Capstone Portfolio,Certified Product Manager Professional,9.25,Product Manager
-STU_451,Female,Undergraduate,B.Sc,Data Science,2027,"Python, Statistics, SQL, Machine Learning","Adaptability, Time Management",Data Scientist Capstone Portfolio,Certified Data Scientist Professional,9.56,Data Scientist
-STU_452,Female,Undergraduate,B.Sc,Data Science,2027,"Python, Statistics, SQL, Machine Learning","Adaptability, Time Management",Data Scientist Capstone Portfolio,Certified Data Scientist Professional,8.87,Data Scientist
-STU_453,Female,Undergraduate,B.Tech,Information Technology,2027,"HTML, CSS, Javascript, React","Adaptability, Time Management",Frontend Developer Applied Lab Project,None,7.75,Frontend Developer
-STU_454,Female,Undergraduate,B.Tech,Information Technology,2027,"Java, SQL, Python, REST APIs","Adaptability, Time Management",None,Industry Foundation Certificate,7.82,Backend Developer
-STU_455,Female,Undergraduate,BBA,Product Management,2027,"Product Strategy, User Research, Agile/Scrum, Roadmapping","Communication, Teamwork",Product Manager Applied Lab Project,None,6.6,Product Manager
-STU_456,Female,Undergraduate,BBA,Product Management,2027,"Product Strategy, User Research, Agile/Scrum, Roadmapping","Communication, Teamwork",Product Manager Applied Lab Project,None,7.29,Product Manager
-STU_457,Female,Undergraduate,B.Sc,Data Science,2027,"Python, Statistics, SQL, Machine Learning",Problem Solving,Data Scientist Capstone Portfolio,Certified Data Scientist Professional,9.77,Data Scientist
-STU_458,Female,Undergraduate,B.Sc,Data Science,2027,"Python, Statistics, SQL, Machine Learning",Problem Solving,Data Scientist Capstone Portfolio,Certified Data Scientist Professional,9.12,Data Scientist
-STU_459,Male,Undergraduate,B.Sc,Data Science,2027,"Python, Statistics, SQL, Machine Learning","Communication, Problem Solving, Teamwork",Data Scientist Capstone Portfolio,Certified Data Scientist Professional,8.92,Data Scientist
-STU_460,Male,Undergraduate,B.Sc,Data Science,2027,"Python, Statistics, SQL, Machine Learning","Communication, Problem Solving, Teamwork",Data Scientist Capstone Portfolio,Certified Data Scientist Professional,9.35,Data Scientist
-STU_461,Male,Undergraduate,B.Tech,Information Technology,2027,"Excel, Marketing Analytics, Python, Customer Segmentation","Communication, Problem Solving, Teamwork",None,Industry Foundation Certificate,8.24,Marketing Analyst
-STU_462,Male,Undergraduate,B.Tech,Information Technology,2027,"Product Strategy, User Research, Agile/Scrum, Roadmapping","Communication, Problem Solving, Teamwork",None,None,8.39,Product Manager
-STU_463,Male,Undergraduate,BBA,Product Management,2027,"Product Strategy, User Research, Agile/Scrum, Roadmapping","Communication, Problem Solving, Teamwork",Product Manager Applied Lab Project,None,6.52,Product Manager
-STU_464,Male,Undergraduate,BBA,Product Management,2027,"Product Strategy, User Research, Agile/Scrum, Roadmapping","Communication, Problem Solving, Teamwork",Product Manager Applied Lab Project,None,8.38,Product Manager
-STU_465,Female,Undergraduate,B.Sc,Data Science,2027,"Python, Statistics, SQL, Machine Learning","Communication, Problem Solving, Teamwork",Data Scientist Capstone Portfolio,Certified Data Scientist Professional,9.11,Data Scientist
-STU_466,Female,Undergraduate,B.Sc,Data Science,2027,"Python, Statistics, SQL, Machine Learning","Communication, Problem Solving, Teamwork",Data Scientist Capstone Portfolio,Certified Data Scientist Professional,8.93,Data Scientist
-STU_467,Female,Undergraduate,B.Tech,Information Technology,2027,"Excel, Business Analytics, SQL, Power BI","Communication, Problem Solving, Teamwork",Business Analyst Capstone Portfolio,Certified Business Analyst Professional,9.43,Business Analyst
-STU_468,Female,Undergraduate,B.Tech,Information Technology,2027,"SQL, Power BI, Tableau, Data Warehousing","Communication, Problem Solving, Teamwork",BI Developer Capstone Portfolio,Certified BI Developer Professional,9.53,BI Developer
-STU_469,Female,Undergraduate,B.Sc,Business Analytics,2027,"SQL, Power BI",Communication,None,None,4.83,BI Developer
-STU_470,Female,Undergraduate,B.Sc,Business Analytics,2027,"SQL, Power BI",Communication,None,None,6.07,BI Developer
-STU_471,Male,Undergraduate,B.Des,User Experience Design,2027,"Figma, UI Design, Wireframing, Prototyping","Communication, Problem Solving, Teamwork",None,Industry Foundation Certificate,7.26,UI/UX Designer
-STU_472,Male,Undergraduate,B.Des,User Experience Design,2027,"Figma, UI Design, Wireframing, Prototyping","Communication, Problem Solving, Teamwork",None,None,6.51,UI/UX Designer
-STU_473,Male,Undergraduate,B.Tech,Information Technology,2027,"Linux, Network Security, Cryptography, Cybersecurity","Communication, Problem Solving, Teamwork",Cybersecurity Analyst Applied Lab Project,None,7.61,Cybersecurity Analyst
-STU_474,Male,Undergraduate,B.Tech,Information Technology,2027,"SQL, Database Management, PostgreSQL, Linux","Communication, Problem Solving, Teamwork",None,None,6.62,Database Administrator
-STU_475,Female,Undergraduate,B.Sc,Data Analytics,2027,"Excel, SQL","Adaptability, Time Management",None,None,6.25,Data Analyst
-STU_476,Female,Undergraduate,B.Sc,Data Analytics,2027,"Excel, SQL","Adaptability, Time Management",None,None,5.81,Data Analyst
-STU_477,Female,Undergraduate,B.Tech,Information Technology,2027,"Excel, Marketing Analytics, Python, Customer Segmentation",Problem Solving,None,Industry Foundation Certificate,7.2,Marketing Analyst
-STU_478,Female,Undergraduate,B.Tech,Information Technology,2027,"Product Strategy, User Research, Agile/Scrum, Roadmapping",Problem Solving,Product Manager Applied Lab Project,None,7.92,Product Manager
-STU_479,Female,Undergraduate,BBA,Marketing Analytics,2027,"Excel, Marketing Analytics",Communication,None,None,5.94,Marketing Analyst
-STU_480,Female,Undergraduate,BBA,Product Management,2027,"Product Strategy, User Research","Communication, Teamwork",None,None,5.95,Product Manager
+STU_001,Male,Undergraduate,B.Tech,Information Security,2028,"Cryptography, Cybersecurity, Linux","Adaptability, Time Management",None,Industry Foundation Certificate,6.77,Cybersecurity Analyst
+STU_002,Male,Undergraduate,B.Tech,Information Security,2028,"Cryptography, Linux, SQL","Adaptability, Time Management",Applied Coursework Project,Industry Foundation Certificate,7.64,Cybersecurity Analyst
+STU_003,Male,Undergraduate,B.Tech,Information Security,2028,"Cryptography, Linux","Adaptability, Time Management",None,None,5.94,Cybersecurity Analyst
+STU_004,Male,Undergraduate,B.Tech,Information Security,2028,"Cryptography, Linux","Adaptability, Time Management",None,None,4.91,Cybersecurity Analyst
+STU_005,Male,Undergraduate,B.Tech,Computer Science,2028,"Java, Python, SQL","Communication, Teamwork",Applied Coursework Project,Industry Foundation Certificate,8.03,Frontend Developer
+STU_006,Female,Undergraduate,B.Tech,Software Engineering,2028,"HTML, Javascript, Linux, REST APIs","Communication, Teamwork",None,None,6.59,Backend Developer
+STU_007,Male,Undergraduate,B.Sc,Statistics & Analytics,2027,Python,"Adaptability, Time Management",None,None,5.03,Data Analyst
+STU_008,Male,Undergraduate,B.Tech,Computer Science,2027,"Database Management, Java, Linux",Problem Solving,Applied Coursework Project,None,7.83,Database Administrator
+STU_009,Female,Undergraduate,B.Sc,Statistics & Analytics,2027,"Excel, Python",Communication,None,None,7.81,Data Analyst
+STU_010,Female,Undergraduate,B.Tech,Computer Science,2027,"HTML, Java, Javascript, Python","Communication, Problem Solving, Teamwork",None,Industry Foundation Certificate,8.17,Full-Stack Developer
+STU_011,Male,Undergraduate,B.Tech,Artificial Intelligence,2027,"Deep Learning, Machine Learning, Python, Statistics","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.67,AI Engineer
+STU_012,Male,Undergraduate,B.Tech,Computer Science,2027,"HTML, Linux, PostgreSQL","Adaptability, Time Management",None,None,8.14,Database Administrator
+STU_013,Male,Undergraduate,B.Tech,Information Security,2028,"Cryptography, SQL","Adaptability, Time Management",None,None,6.39,Cybersecurity Analyst
+STU_014,Male,Undergraduate,B.Tech,Computer Science,2027,Python,"Adaptability, Time Management",None,None,5.8,Database Administrator
+STU_015,Female,Undergraduate,B.Tech,Artificial Intelligence,2027,"Machine Learning, Python, SQL, Statistics","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.16,AI Engineer
+STU_016,Female,Undergraduate,B.Tech,Information Security,2027,"Linux, Network Security, SQL",Communication,Applied Coursework Project,Industry Foundation Certificate,7.52,Cybersecurity Analyst
+STU_017,Male,Undergraduate,B.Tech,Computer Science,2027,"Linux, Python, SQL","Communication, Teamwork",None,None,8.08,Frontend Developer
+STU_018,Male,Undergraduate,B.Sc,Data Science,2027,"Machine Learning, Python","Communication, Problem Solving, Teamwork",None,Industry Foundation Certificate,7.51,Data Scientist
+STU_019,Female,Undergraduate,B.Tech,Computer Science,2027,"Java, Javascript, Linux, SQL","Communication, Problem Solving, Teamwork",Applied Coursework Project,Industry Foundation Certificate,7.73,Full-Stack Developer
+STU_020,Male,Undergraduate,B.Tech,Computer Science,2027,"Java, Linux, Python, React","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,8.59,Full-Stack Developer
+STU_021,Female,Undergraduate,B.Tech,Computer Science,2027,"Java, Python","Communication, Problem Solving, Teamwork",Applied Coursework Project,Industry Foundation Certificate,7.03,Frontend Developer
+STU_022,Female,Undergraduate,B.Tech,Information Security,2027,"Cybersecurity, Network Security, SQL",Communication,None,None,7.75,Cybersecurity Analyst
+STU_023,Male,Undergraduate,B.Tech,Information Security,2027,"Cryptography, Cybersecurity, SQL",Communication,None,None,6.97,Cybersecurity Analyst
+STU_024,Male,Undergraduate,B.Tech,Information Security,2027,"Linux, Network Security",Communication,None,None,5.34,Cybersecurity Analyst
+STU_025,Male,Undergraduate,B.Tech,Information Security,2027,Linux,Communication,None,None,6.26,Cybersecurity Analyst
+STU_026,Male,Undergraduate,B.Tech,Information Security,2027,"Linux, SQL","Adaptability, Time Management",None,None,6.14,Cybersecurity Analyst
+STU_027,Male,Undergraduate,B.Tech,Information Security,2027,"Network Security, SQL","Adaptability, Time Management",None,Industry Foundation Certificate,7.99,Cybersecurity Analyst
+STU_028,Male,Undergraduate,BBA,Digital Marketing,2027,Digital Marketing,"Adaptability, Time Management",None,None,5.06,Digital Marketing Specialist
+STU_029,Male,Undergraduate,B.Sc,Data Analytics,2027,"Excel, Power BI, Python","Communication, Problem Solving, Teamwork",Applied Coursework Project,None,7.46,Data Analyst
+STU_030,Female,Undergraduate,B.Des,User Experience Design,2027,"HTML, UI Design","Adaptability, Time Management",Applied Coursework Project,Industry Foundation Certificate,7.27,UI/UX Designer
+STU_031,Female,Undergraduate,BBA,Product Management,2027,"Agile/Scrum, Communication, User Research","Communication, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,8.77,Product Manager
+STU_032,Male,Undergraduate,B.Tech,Information Security,2027,"Cryptography, Network Security","Adaptability, Time Management",None,None,5.73,Cybersecurity Analyst
+STU_033,Female,Undergraduate,B.Tech,Information Security,2028,SQL,Communication,None,None,5.68,Cybersecurity Analyst
+STU_034,Male,Undergraduate,BBA,Digital Marketing,2028,Social Media Analytics,"Adaptability, Time Management",None,None,5.0,Digital Marketing Specialist
+STU_035,Male,Undergraduate,B.Sc,Data Analytics,2027,Python,"Adaptability, Time Management",None,None,5.04,Data Analyst
+STU_036,Male,Undergraduate,BBA,Digital Marketing,2027,"Digital Marketing, Social Media Analytics","Adaptability, Time Management",None,None,5.77,Digital Marketing Specialist
+STU_037,Male,Undergraduate,B.Sc,Data Analytics,2027,Python,"Adaptability, Time Management",None,None,4.72,Data Analyst
+STU_038,Female,Undergraduate,B.Tech,Software Engineering,2027,"HTML, Linux","Communication, Teamwork",None,Industry Foundation Certificate,7.86,Backend Developer
+STU_039,Male,Undergraduate,B.Tech,Information Security,2027,"Linux, SQL","Adaptability, Time Management",None,None,5.71,Cybersecurity Analyst
+STU_040,Female,Undergraduate,B.Sc,Business Analytics,2027,"Business Analytics, Power BI, SQL","Communication, Problem Solving, Teamwork",Applied Coursework Project,None,7.55,BI Developer
+STU_041,Female,Undergraduate,B.Tech,Information Security,2027,Cryptography,Communication,None,None,5.61,Cybersecurity Analyst
+STU_042,Male,Undergraduate,B.Tech,Information Security,2027,"Cryptography, Network Security",Communication,Applied Coursework Project,Industry Foundation Certificate,8.01,Cybersecurity Analyst
+STU_043,Male,Postgraduate,B.Tech,Information Security,2026,Cryptography,"Adaptability, Time Management",None,None,5.98,Cybersecurity Analyst
+STU_044,Female,Postgraduate,B.Tech,Information Security,2026,"Linux, Network Security",Communication,Applied Coursework Project,None,6.55,Cybersecurity Analyst
+STU_045,Female,Postgraduate,B.Tech,Information Security,2026,"Cryptography, Cybersecurity, Linux, Network Security","Communication, Teamwork",None,Industry Foundation Certificate,8.13,Cybersecurity Analyst
+STU_046,Male,Undergraduate,BBA,Business Analytics,2027,Business Analytics,Communication,None,None,4.54,Business Analyst
+STU_047,Male,Undergraduate,BBA,Marketing Analytics,2028,"Excel, Marketing Analytics","Adaptability, Time Management",None,None,5.17,Marketing Analyst
+STU_048,Female,Postgraduate,BBA,Product Management,2026,"Agile/Scrum, Communication, Product Strategy, Roadmapping, User Research","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.28,Product Manager
+STU_049,Female,Postgraduate,BBA,Product Management,2026,"Agile/Scrum, Communication, Product Strategy, Roadmapping, User Research",Communication,Advanced Capstone Portfolio,Professional Industry Certification,8.97,Product Manager
+STU_050,Female,Postgraduate,BBA,Product Management,2026,"Agile/Scrum, Product Strategy, User Research",Communication,None,Industry Foundation Certificate,7.77,Product Manager
+STU_051,Female,Postgraduate,BBA,Product Management,2026,"Agile/Scrum, Communication",Communication,None,None,5.92,Product Manager
+STU_052,Male,Postgraduate,BBA,Digital Marketing,2026,"Digital Marketing, SEO","Communication, Teamwork",None,None,5.08,Digital Marketing Specialist
+STU_053,Female,Postgraduate,B.Des,User Experience Design,2026,"CSS, HTML, Wireframing","Problem Solving, Teamwork",Applied Coursework Project,Industry Foundation Certificate,7.47,UI/UX Designer
+STU_054,Female,Postgraduate,B.Sc,Data Science,2026,"Machine Learning, Python, SQL, Statistics","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,8.53,Data Scientist
+STU_055,Male,Postgraduate,BBA,Marketing Analytics,2026,Python,"Adaptability, Time Management",None,None,5.29,Marketing Analyst
+STU_056,Male,Undergraduate,B.Tech,Computer Science,2027,"HTML, Linux","Adaptability, Time Management",None,None,4.96,Database Administrator
+STU_057,Male,Undergraduate,B.Sc,Statistics & Analytics,2027,Python,"Adaptability, Time Management",None,None,4.92,Data Analyst
+STU_058,Male,Undergraduate,B.Tech,Computer Science,2027,Linux,"Adaptability, Time Management",None,None,4.97,Database Administrator
+STU_059,Male,Undergraduate,B.Sc,Statistics & Analytics,2027,"Excel, Python, SQL",Communication,Applied Coursework Project,Industry Foundation Certificate,7.54,Data Analyst
+STU_060,Female,Undergraduate,B.Tech,Computer Science,2027,"HTML, Java","Adaptability, Time Management",None,None,7.02,Database Administrator
+STU_061,Female,Undergraduate,BBA,Marketing Analytics,2028,Marketing Analytics,"Adaptability, Time Management",None,None,4.79,Marketing Analyst
+STU_062,Male,Postgraduate,B.Tech,Cloud Computing,2026,"Linux, SQL","Problem Solving, Teamwork",Applied Coursework Project,None,7.53,Cloud DevOps Engineer
+STU_063,Male,Postgraduate,B.Tech,Computer Science,2026,"HTML, Javascript, Linux, Node.js, SQL","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.61,Full-Stack Developer
+STU_064,Male,Postgraduate,B.Tech,Information Security,2026,"Linux, Network Security, SQL","Adaptability, Time Management",None,Industry Foundation Certificate,6.56,Cybersecurity Analyst
+STU_065,Male,Postgraduate,B.Tech,Information Security,2026,"Cryptography, Network Security","Adaptability, Time Management",None,None,5.51,Cybersecurity Analyst
+STU_066,Male,Postgraduate,BBA,Digital Marketing,2026,Digital Marketing,"Adaptability, Time Management",None,None,5.72,Digital Marketing Specialist
+STU_067,Female,Postgraduate,BBA,Marketing Analytics,2026,"Customer Segmentation, Excel, Marketing Analytics","Adaptability, Time Management",None,Industry Foundation Certificate,7.36,Marketing Analyst
+STU_068,Female,Postgraduate,BBA,Product Management,2026,"Agile/Scrum, Communication, Product Strategy, User Research","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,8.95,Product Manager
+STU_069,Female,Postgraduate,B.Tech,Cloud Computing,2026,"AWS, Cloud, Docker, Linux",Problem Solving,Advanced Capstone Portfolio,Professional Industry Certification,9.12,Cloud DevOps Engineer
+STU_070,Male,Undergraduate,B.Tech,Software Engineering,2027,"HTML, Java, Linux",Teamwork,Applied Coursework Project,Industry Foundation Certificate,8.33,Backend Developer
+STU_071,Male,Undergraduate,B.Tech,Information Security,2027,Cryptography,"Adaptability, Time Management",None,None,5.59,Cybersecurity Analyst
+STU_072,Male,Undergraduate,B.Tech,Information Security,2027,"Linux, Network Security","Adaptability, Time Management",Applied Coursework Project,Industry Foundation Certificate,7.07,Cybersecurity Analyst
+STU_073,Male,Undergraduate,B.Sc,Statistics & Analytics,2027,"Python, SQL","Adaptability, Time Management",None,None,5.2,Data Analyst
+STU_074,Female,Undergraduate,BBA,Digital Marketing,2027,"SEO, Social Media Analytics","Adaptability, Time Management",Applied Coursework Project,Industry Foundation Certificate,7.71,Digital Marketing Specialist
+STU_075,Male,Undergraduate,B.Tech,Information Security,2027,"Network Security, SQL","Adaptability, Time Management",None,None,5.33,Cybersecurity Analyst
+STU_076,Male,Undergraduate,BBA,Business Analytics,2027,"Business Analytics, Excel, Power BI","Communication, Problem Solving, Teamwork",Applied Coursework Project,Industry Foundation Certificate,6.96,Business Analyst
+STU_077,Male,Postgraduate,B.Tech,Cloud Computing,2026,"Cloud, Docker, Python, SQL",Communication,Applied Coursework Project,Industry Foundation Certificate,7.15,Cloud DevOps Engineer
+STU_078,Male,Postgraduate,B.Tech,Cloud Computing,2026,"Cloud, Linux","Adaptability, Time Management",Applied Coursework Project,Industry Foundation Certificate,7.43,Cloud DevOps Engineer
+STU_079,Male,Postgraduate,BBA,Finance,2026,Finance,"Adaptability, Time Management",None,None,4.92,Financial Analyst
+STU_080,Female,Undergraduate,B.Tech,Artificial Intelligence,2027,"Machine Learning, Python, SQL, Statistics","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.22,AI Engineer
+STU_081,Male,Undergraduate,B.Sc,Statistics & Analytics,2027,"Excel, SQL","Adaptability, Time Management",None,None,4.94,Data Analyst
+STU_082,Male,Undergraduate,B.Tech,Information Security,2028,Network Security,Communication,None,None,4.86,Cybersecurity Analyst
+STU_083,Male,Undergraduate,B.Tech,Information Security,2028,"Linux, SQL",Communication,None,None,5.06,Cybersecurity Analyst
+STU_084,Male,Undergraduate,B.Tech,Information Security,2028,"Cybersecurity, Network Security, SQL",Communication,Applied Coursework Project,None,7.55,Cybersecurity Analyst
+STU_085,Male,Undergraduate,B.Tech,Cloud Computing,2028,"Cloud, Docker, Python, SQL",Problem Solving,Advanced Capstone Portfolio,Professional Industry Certification,9.72,Cloud DevOps Engineer
+STU_086,Male,Undergraduate,B.Tech,Information Security,2028,"Linux, SQL","Adaptability, Time Management",None,None,5.6,Cybersecurity Analyst
+STU_087,Male,Undergraduate,B.Tech,Computer Science,2028,"Java, Linux, Python","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,8.65,Frontend Developer
+STU_088,Male,Undergraduate,B.Tech,Cloud Computing,2028,Docker,Communication,None,None,5.22,Cloud DevOps Engineer
+STU_089,Female,Undergraduate,B.Tech,Information Security,2028,"Cryptography, SQL","Adaptability, Time Management",None,None,5.68,Cybersecurity Analyst
+STU_090,Male,Undergraduate,B.Tech,Information Security,2028,Network Security,Communication,None,None,5.0,Cybersecurity Analyst
+STU_091,Male,Undergraduate,B.Tech,Information Security,2028,Linux,Communication,None,None,4.8,Cybersecurity Analyst
+STU_092,Male,Undergraduate,B.Tech,Cloud Computing,2028,"AWS, Cloud, Linux, Python, SQL",Problem Solving,Advanced Capstone Portfolio,Professional Industry Certification,9.7,Cloud DevOps Engineer
+STU_093,Female,Undergraduate,B.Tech,Cloud Computing,2028,"Cloud, Docker, Linux, Python",Problem Solving,Advanced Capstone Portfolio,Professional Industry Certification,9.57,Cloud DevOps Engineer
+STU_094,Male,Undergraduate,B.Tech,Cloud Computing,2028,"Cloud, Docker, Linux, Python","Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.73,Cloud DevOps Engineer
+STU_095,Female,Undergraduate,B.Tech,Computer Science,2028,"Linux, Python",Problem Solving,None,None,6.19,Frontend Developer
+STU_096,Female,Undergraduate,B.Tech,Computer Science,2028,"HTML, Java, Linux, Python","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.37,Full-Stack Developer
+STU_097,Female,Undergraduate,B.Tech,Information Security,2028,"Cryptography, Network Security, SQL",Communication,Advanced Capstone Portfolio,Professional Industry Certification,8.74,Cybersecurity Analyst
+STU_098,Female,Undergraduate,B.Tech,Information Security,2028,"Network Security, SQL","Adaptability, Time Management",None,None,7.11,Cybersecurity Analyst
+STU_099,Female,Undergraduate,B.Tech,Information Security,2028,"Cryptography, Linux, SQL","Adaptability, Time Management",None,Industry Foundation Certificate,7.1,Cybersecurity Analyst
+STU_100,Male,Undergraduate,B.Tech,Software Engineering,2028,"Javascript, Linux","Communication, Problem Solving, Teamwork",None,Industry Foundation Certificate,6.86,Backend Developer
+STU_101,Male,Undergraduate,B.Tech,Cloud Computing,2028,"Cloud, Python","Communication, Problem Solving, Teamwork",Applied Coursework Project,None,7.33,Cloud DevOps Engineer
+STU_102,Female,Undergraduate,B.Tech,Cloud Computing,2028,"AWS, Docker, Linux, Python",Problem Solving,Advanced Capstone Portfolio,Professional Industry Certification,9.1,Cloud DevOps Engineer
+STU_103,Female,Undergraduate,B.Tech,Information Security,2028,"Cryptography, SQL","Adaptability, Time Management",None,None,5.84,Cybersecurity Analyst
+STU_104,Male,Undergraduate,B.Tech,Information Security,2028,"Network Security, SQL","Adaptability, Time Management",None,None,5.55,Cybersecurity Analyst
+STU_105,Male,Undergraduate,B.Tech,Information Security,2028,"Linux, Network Security","Adaptability, Time Management",None,Industry Foundation Certificate,8.12,Cybersecurity Analyst
+STU_106,Female,Undergraduate,B.Tech,Information Security,2028,"Cryptography, SQL",Communication,None,None,5.6,Cybersecurity Analyst
+STU_107,Female,Undergraduate,B.Tech,Information Security,2028,"Cryptography, Network Security, SQL","Adaptability, Time Management",Applied Coursework Project,None,7.53,Cybersecurity Analyst
+STU_108,Male,Undergraduate,B.Tech,Cloud Computing,2028,"AWS, Cloud, Docker, Linux, SQL","Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.14,Cloud DevOps Engineer
+STU_109,Male,Undergraduate,B.Tech,Information Security,2028,"Linux, Network Security, SQL","Adaptability, Time Management",Applied Coursework Project,None,7.37,Cybersecurity Analyst
+STU_110,Male,Undergraduate,B.Tech,Cloud Computing,2028,"Docker, Python, SQL",Problem Solving,Applied Coursework Project,None,8.12,Cloud DevOps Engineer
+STU_111,Female,Undergraduate,B.Tech,Cloud Computing,2028,"AWS, Docker, Linux, SQL","Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.06,Cloud DevOps Engineer
+STU_112,Male,Undergraduate,B.Tech,Computer Science,2028,"Java, Python, React, SQL","Communication, Problem Solving, Teamwork",None,None,7.06,Full-Stack Developer
+STU_113,Male,Undergraduate,B.Tech,Information Security,2028,Network Security,Communication,None,None,4.83,Cybersecurity Analyst
+STU_114,Male,Undergraduate,B.Tech,Information Security,2028,SQL,Communication,None,None,6.23,Cybersecurity Analyst
+STU_115,Male,Undergraduate,B.Tech,Information Security,2028,"Network Security, SQL",Communication,None,None,5.77,Cybersecurity Analyst
+STU_116,Male,Undergraduate,B.Tech,Information Security,2028,Linux,Communication,None,None,5.34,Cybersecurity Analyst
+STU_117,Female,Undergraduate,B.Tech,Cloud Computing,2028,"Cloud, Docker, Python, SQL",Problem Solving,None,None,8.12,Cloud DevOps Engineer
+STU_118,Female,Undergraduate,B.Tech,Information Security,2028,"Cryptography, Linux, Network Security, SQL","Adaptability, Time Management",Advanced Capstone Portfolio,Professional Industry Certification,9.47,Cybersecurity Analyst
+STU_119,Female,Undergraduate,B.Tech,Information Security,2028,"Cryptography, Linux, Network Security","Adaptability, Time Management",Applied Coursework Project,Industry Foundation Certificate,7.79,Cybersecurity Analyst
+STU_120,Male,Undergraduate,B.Tech,Software Engineering,2028,"HTML, Java, Javascript","Communication, Problem Solving, Teamwork",None,None,7.89,Backend Developer
+STU_121,Male,Undergraduate,B.Tech,Information Security,2028,"Cryptography, SQL",Communication,None,Industry Foundation Certificate,7.02,Cybersecurity Analyst
+STU_122,Male,Undergraduate,B.Tech,Information Security,2028,"Linux, Network Security","Adaptability, Time Management",None,None,6.33,Cybersecurity Analyst
+STU_123,Female,Undergraduate,B.Tech,Cloud Computing,2028,"Docker, Linux, Python",Problem Solving,Applied Coursework Project,None,6.53,Cloud DevOps Engineer
+STU_124,Female,Undergraduate,B.Tech,Cloud Computing,2028,"Cloud, Linux, SQL",Problem Solving,Applied Coursework Project,Industry Foundation Certificate,7.12,Cloud DevOps Engineer
+STU_125,Male,Undergraduate,B.Tech,Information Security,2028,"Linux, SQL","Adaptability, Time Management",None,None,4.59,Cybersecurity Analyst
+STU_126,Male,Undergraduate,B.Tech,Information Security,2028,Linux,"Adaptability, Time Management",None,None,4.95,Cybersecurity Analyst
+STU_127,Female,Undergraduate,B.Tech,Information Security,2028,"Cryptography, Network Security, SQL",Communication,Applied Coursework Project,Industry Foundation Certificate,7.88,Cybersecurity Analyst
+STU_128,Male,Undergraduate,B.Tech,Software Engineering,2028,"HTML, Java",Problem Solving,None,None,4.91,Backend Developer
+STU_129,Male,Undergraduate,B.Tech,Information Security,2028,"Cryptography, Linux","Adaptability, Time Management",None,None,5.2,Cybersecurity Analyst
+STU_130,Male,Undergraduate,B.Tech,Cloud Computing,2028,"Cloud, Python",Problem Solving,None,None,6.34,Cloud DevOps Engineer
+STU_131,Female,Undergraduate,B.Tech,Information Security,2028,Linux,"Adaptability, Time Management",None,None,5.99,Cybersecurity Analyst
+STU_132,Male,Undergraduate,B.Tech,Software Engineering,2028,"Java, SQL","Communication, Problem Solving, Teamwork",None,Industry Foundation Certificate,8.04,Backend Developer
+STU_133,Male,Undergraduate,B.Tech,Information Security,2028,Network Security,"Adaptability, Time Management",None,None,5.53,Cybersecurity Analyst
+STU_134,Male,Undergraduate,B.Tech,Information Security,2028,Linux,Communication,None,None,5.18,Cybersecurity Analyst
+STU_135,Male,Undergraduate,BBA,Finance & Accounting,2027,"Excel, Finance, Financial Modeling","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.47,Financial Analyst
+STU_136,Female,Undergraduate,BBA,Finance & Accounting,2027,"Accounting, Excel, Financial Modeling","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,8.56,Financial Analyst
+STU_137,Female,Postgraduate,BBA,Finance & Accounting,2026,"Accounting, Excel, Finance","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.43,Financial Analyst
+STU_138,Female,Postgraduate,B.Sc,Information Systems,2026,"Data Warehousing, Database Management, Excel, SQL","Problem Solving, Teamwork",Applied Coursework Project,None,7.61,BI Developer
+STU_139,Female,Undergraduate,BBA,Finance & Accounting,2027,"Accounting, Excel, Finance, Financial Modeling","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,8.94,Financial Analyst
+STU_140,Male,Undergraduate,BBA,Business Analytics,2027,"Business Analytics, Power BI, SQL","Communication, Problem Solving, Teamwork",None,Industry Foundation Certificate,7.21,Business Analyst
+STU_141,Male,Undergraduate,BBA,Finance,2027,Finance,"Adaptability, Time Management",None,None,4.68,Financial Analyst
+STU_142,Male,Undergraduate,B.Sc,Information Systems,2027,Excel,"Adaptability, Time Management",None,None,5.77,BI Developer
+STU_143,Male,Undergraduate,BBA,Finance,2027,"Accounting, Finance","Adaptability, Time Management",None,None,7.46,Financial Analyst
+STU_144,Male,Undergraduate,BBA,Finance & Accounting,2027,"Accounting, Excel, Finance, Financial Modeling",Problem Solving,Advanced Capstone Portfolio,Professional Industry Certification,9.77,Financial Analyst
+STU_145,Male,Undergraduate,BBA,Finance,2027,"Accounting, Excel","Adaptability, Time Management",None,None,5.02,Financial Analyst
+STU_146,Male,Undergraduate,B.Sc,Information Systems,2027,"Business Analytics, Excel, SQL",Problem Solving,None,Industry Foundation Certificate,7.26,BI Developer
+STU_147,Female,Undergraduate,BBA,Finance & Accounting,2027,"Accounting, Finance, Financial Modeling","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.51,Financial Analyst
+STU_148,Female,Undergraduate,B.Sc,Information Systems,2027,"Database Management, SQL","Adaptability, Time Management",None,None,6.59,BI Developer
+STU_149,Female,Undergraduate,BBA,Finance,2027,"Accounting, Excel, Finance","Problem Solving, Teamwork",Applied Coursework Project,None,6.72,Financial Analyst
+STU_150,Female,Undergraduate,BBA,Finance & Accounting,2027,"Accounting, Excel, Finance, Financial Modeling","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.49,Financial Analyst
+STU_151,Male,Postgraduate,BBA,Finance & Accounting,2026,"Accounting, Finance, Financial Modeling","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.15,Financial Analyst
+STU_152,Male,Postgraduate,B.Sc,Business Analytics,2026,"Excel, Power BI",Communication,None,None,6.65,BI Developer
+STU_153,Female,Postgraduate,B.Sc,Data Science,2026,"Machine Learning, Python, SQL, Statistics","Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,8.61,Data Scientist
+STU_154,Male,Postgraduate,B.Tech,Information Technology,2026,"Python, SQL","Adaptability, Time Management",None,None,6.15,Database Administrator
+STU_155,Male,Postgraduate,BBA,Marketing Analytics,2026,"Customer Segmentation, Excel, Marketing Analytics","Communication, Problem Solving, Teamwork",Applied Coursework Project,None,6.87,Marketing Analyst
+STU_156,Male,Postgraduate,B.Tech,Artificial Intelligence,2026,"Machine Learning, Python, Statistics","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.74,AI Engineer
+STU_157,Female,Postgraduate,BBA,Marketing Analytics,2026,"Customer Segmentation, Marketing Analytics, Python","Communication, Problem Solving, Teamwork",Applied Coursework Project,Industry Foundation Certificate,7.39,Marketing Analyst
+STU_158,Male,Postgraduate,B.Sc,Data Analytics,2026,"Python, SQL","Problem Solving, Teamwork",Applied Coursework Project,None,6.61,Data Analyst
+STU_159,Male,Undergraduate,B.Tech,Computer Science,2027,"HTML, Python","Adaptability, Time Management",None,None,5.35,AI Engineer
+STU_160,Female,Undergraduate,B.Sc,Business Analytics,2027,"Excel, Power BI, SQL","Communication, Problem Solving, Teamwork",Applied Coursework Project,Industry Foundation Certificate,7.36,BI Developer
+STU_161,Female,Undergraduate,B.Sc,Data Science,2027,"Machine Learning, SQL, Statistics","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.18,Data Scientist
+STU_162,Male,Undergraduate,B.Sc,Business Analytics,2027,"Business Analytics, Power BI, SQL","Communication, Problem Solving, Teamwork",Applied Coursework Project,None,6.6,BI Developer
+STU_163,Female,Undergraduate,BBA,Product Management,2028,"Agile/Scrum, Communication, Product Strategy, User Research","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,8.9,Product Manager
+STU_164,Female,Undergraduate,B.Des,User Experience Design,2028,"CSS, HTML, Prototyping","Communication, Problem Solving, Teamwork",Applied Coursework Project,Industry Foundation Certificate,8.05,UI/UX Designer
+STU_165,Male,Undergraduate,B.Des,User Experience Design,2028,"Figma, HTML, UI Design, Wireframing",Problem Solving,Applied Coursework Project,None,7.15,UI/UX Designer
+STU_166,Female,Undergraduate,BBA,Product Management,2028,"Agile/Scrum, Communication, Product Strategy, User Research","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.3,Product Manager
+STU_167,Male,Undergraduate,B.Des,User Experience Design,2028,"HTML, Wireframing","Communication, Problem Solving, Teamwork",Applied Coursework Project,None,7.28,UI/UX Designer
+STU_168,Male,Undergraduate,B.Des,User Experience Design,2028,"CSS, HTML, UI Design, Wireframing","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.52,UI/UX Designer
+STU_169,Male,Undergraduate,B.Des,User Experience Design,2028,"CSS, HTML, UI Design, Wireframing","Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.56,UI/UX Designer
+STU_170,Male,Undergraduate,BBA,Digital Marketing,2028,"SEO, Social Media Analytics","Adaptability, Time Management",None,Industry Foundation Certificate,7.55,Digital Marketing Specialist
+STU_171,Male,Undergraduate,B.Des,User Experience Design,2028,"HTML, UI Design, Wireframing",Teamwork,Advanced Capstone Portfolio,Professional Industry Certification,8.62,UI/UX Designer
+STU_172,Male,Undergraduate,B.Des,User Experience Design,2028,"CSS, Prototyping, UI Design, Wireframing","Problem Solving, Teamwork",Applied Coursework Project,None,6.95,UI/UX Designer
+STU_173,Male,Undergraduate,BBA,Marketing Analytics,2028,"Excel, Marketing Analytics","Adaptability, Time Management",None,None,4.57,Marketing Analyst
+STU_174,Male,Undergraduate,B.Des,User Experience Design,2028,"CSS, HTML","Adaptability, Time Management",None,None,4.51,UI/UX Designer
+STU_175,Female,Undergraduate,B.Des,User Experience Design,2028,"HTML, Wireframing","Communication, Problem Solving, Teamwork",Applied Coursework Project,Industry Foundation Certificate,7.66,UI/UX Designer
+STU_176,Male,Undergraduate,BBA,Digital Marketing,2028,Digital Marketing,Communication,None,None,5.3,Digital Marketing Specialist
+STU_177,Male,Undergraduate,B.Des,User Experience Design,2028,"CSS, HTML, UI Design","Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,8.69,UI/UX Designer
+STU_178,Female,Undergraduate,B.Des,User Experience Design,2028,"CSS, HTML, UI Design, Wireframing","Adaptability, Time Management",Applied Coursework Project,None,6.66,UI/UX Designer
+STU_179,Female,Undergraduate,BBA,Marketing Analytics,2028,"Customer Segmentation, Excel, Marketing Analytics, Python",Problem Solving,Advanced Capstone Portfolio,Professional Industry Certification,8.96,Marketing Analyst
+STU_180,Male,Undergraduate,B.Des,User Experience Design,2028,"HTML, UI Design",Teamwork,Applied Coursework Project,Industry Foundation Certificate,7.14,UI/UX Designer
+STU_181,Female,Undergraduate,BBA,Product Management,2028,"Communication, Product Strategy, Roadmapping, User Research","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.53,Product Manager
+STU_182,Male,Undergraduate,B.Des,User Experience Design,2028,"CSS, Wireframing","Problem Solving, Teamwork",None,None,4.57,UI/UX Designer
+STU_183,Male,Undergraduate,B.Des,User Experience Design,2027,"CSS, HTML, Prototyping, UI Design, Wireframing","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.47,UI/UX Designer
+STU_184,Female,Undergraduate,BBA,Digital Marketing,2027,"Digital Marketing, SEO, Social Media Analytics",Communication,Applied Coursework Project,Industry Foundation Certificate,7.49,Digital Marketing Specialist
+STU_185,Male,Undergraduate,BBA,Marketing Analytics,2027,Customer Segmentation,"Adaptability, Time Management",None,None,5.11,Marketing Analyst
+STU_186,Male,Undergraduate,B.Des,User Experience Design,2027,"CSS, Figma, HTML, Prototyping, UI Design, Wireframing","Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.44,UI/UX Designer
+STU_187,Male,Undergraduate,BBA,Marketing Analytics,2027,"Excel, Marketing Analytics, Python","Communication, Problem Solving, Teamwork",Applied Coursework Project,None,7.79,Marketing Analyst
+STU_188,Female,Undergraduate,B.Des,User Experience Design,2027,"UI Design, Wireframing","Communication, Problem Solving, Teamwork",None,Industry Foundation Certificate,7.2,UI/UX Designer
+STU_189,Male,Undergraduate,B.Des,User Experience Design,2027,"CSS, HTML, Prototyping, UI Design, Wireframing","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,8.82,UI/UX Designer
+STU_190,Female,Undergraduate,B.Des,User Experience Design,2027,"CSS, HTML, Prototyping, UI Design",Problem Solving,None,Industry Foundation Certificate,7.84,UI/UX Designer
+STU_191,Male,Undergraduate,BBA,Marketing Analytics,2027,Excel,Communication,None,None,5.36,Marketing Analyst
+STU_192,Male,Undergraduate,BBA,Digital Marketing,2027,"SEO, Social Media Analytics","Adaptability, Time Management",None,None,5.85,Digital Marketing Specialist
+STU_193,Male,Undergraduate,B.Des,User Experience Design,2027,"HTML, UI Design, Wireframing","Communication, Problem Solving, Teamwork",None,None,7.47,UI/UX Designer
+STU_194,Male,Undergraduate,B.Des,User Experience Design,2027,"CSS, HTML","Communication, Problem Solving, Teamwork",Applied Coursework Project,None,7.39,UI/UX Designer
+STU_195,Male,Undergraduate,B.Des,User Experience Design,2027,"CSS, HTML, Wireframing",Problem Solving,None,Industry Foundation Certificate,8.06,UI/UX Designer
+STU_196,Male,Undergraduate,BBA,Digital Marketing,2027,"Digital Marketing, SEO, Social Media Analytics","Adaptability, Time Management",None,None,8.23,Digital Marketing Specialist
+STU_197,Male,Undergraduate,B.Des,User Experience Design,2027,"CSS, Figma, HTML, Prototyping, UI Design","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,8.76,UI/UX Designer
+STU_198,Male,Undergraduate,B.Des,User Experience Design,2027,"CSS, Figma, HTML, UI Design, Wireframing","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.57,UI/UX Designer
+STU_199,Male,Undergraduate,BBA,Marketing Analytics,2027,"Customer Segmentation, Marketing Analytics",Communication,None,None,5.29,Marketing Analyst
+STU_200,Male,Undergraduate,B.Des,User Experience Design,2027,"HTML, UI Design, Wireframing","Adaptability, Time Management",None,None,7.8,UI/UX Designer
+STU_201,Male,Undergraduate,BBA,Product Management,2027,"Agile/Scrum, Communication, Product Strategy, User Research",Communication,Advanced Capstone Portfolio,Professional Industry Certification,9.45,Product Manager
+STU_202,Female,Undergraduate,B.Des,User Experience Design,2027,"CSS, Figma, HTML, UI Design, Wireframing","Communication, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,8.63,UI/UX Designer
+STU_203,Male,Undergraduate,BBA,Marketing Analytics,2027,"Excel, Marketing Analytics, Python","Adaptability, Time Management",None,None,7.87,Marketing Analyst
+STU_204,Female,Undergraduate,B.Des,User Experience Design,2027,"CSS, HTML, UI Design","Adaptability, Time Management",Applied Coursework Project,None,7.46,UI/UX Designer
+STU_205,Male,Undergraduate,BBA,Marketing Analytics,2027,"Customer Segmentation, Python","Adaptability, Time Management",None,None,6.18,Marketing Analyst
+STU_206,Female,Undergraduate,B.Des,User Experience Design,2027,"CSS, HTML, UI Design, Wireframing",Problem Solving,Advanced Capstone Portfolio,Professional Industry Certification,9.45,UI/UX Designer
+STU_207,Male,Undergraduate,BBA,Marketing Analytics,2027,"Customer Segmentation, Excel, Marketing Analytics, Python",Problem Solving,Applied Coursework Project,Industry Foundation Certificate,6.64,Marketing Analyst
+STU_208,Male,Undergraduate,B.Tech,Information Technology,2027,"Deep Learning, Python, SQL","Adaptability, Time Management",None,None,7.56,AI Engineer
+STU_209,Male,Undergraduate,B.Tech,Information Technology,2027,"Linux, Power BI, Python","Adaptability, Time Management",Applied Coursework Project,None,8.03,Data Analyst
+STU_210,Male,Undergraduate,B.Tech,Information Technology,2027,"HTML, Linux, SQL","Communication, Problem Solving, Teamwork",Applied Coursework Project,None,7.46,Data Scientist
+STU_211,Male,Undergraduate,B.Tech,Information Technology,2027,"HTML, Python, SQL","Adaptability, Time Management",Advanced Capstone Portfolio,Professional Industry Certification,9.26,Business Analyst
+STU_212,Male,Undergraduate,B.Tech,Information Technology,2027,"HTML, Python, SQL","Adaptability, Time Management",Applied Coursework Project,Industry Foundation Certificate,6.82,BI Developer
+STU_213,Male,Undergraduate,B.Tech,Information Technology,2027,"CSS, HTML, Linux, Python, React",Problem Solving,Advanced Capstone Portfolio,Professional Industry Certification,9.4,Frontend Developer
+STU_214,Male,Undergraduate,B.Tech,Information Technology,2027,"HTML, Python","Adaptability, Time Management",None,None,4.76,Backend Developer
+STU_215,Male,Undergraduate,B.Tech,Information Technology,2027,"Linux, SQL","Adaptability, Time Management",None,None,6.32,Full-Stack Developer
+STU_216,Male,Undergraduate,B.Tech,Information Technology,2027,"HTML, Linux","Adaptability, Time Management",None,None,5.97,Cloud DevOps Engineer
+STU_217,Male,Undergraduate,B.Tech,Information Technology,2027,"Linux, Python, SQL",Communication,Applied Coursework Project,None,6.93,Cybersecurity Analyst
+STU_218,Female,Undergraduate,B.Tech,Information Technology,2027,"HTML, Linux, SQL",Problem Solving,Applied Coursework Project,None,8.28,Database Administrator
+STU_219,Male,Undergraduate,B.Tech,Information Technology,2027,"Accounting, HTML, Linux, Python, SQL","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.7,Financial Analyst
+STU_220,Male,Undergraduate,B.Tech,Information Technology,2027,"Digital Marketing, HTML, SQL","Problem Solving, Teamwork",None,Industry Foundation Certificate,7.82,Digital Marketing Specialist
+STU_221,Male,Undergraduate,B.Tech,Information Technology,2027,"Customer Segmentation, HTML, SQL",Problem Solving,Applied Coursework Project,None,7.29,Marketing Analyst
+STU_222,Male,Undergraduate,B.Tech,Information Technology,2027,"HTML, Linux",Problem Solving,Applied Coursework Project,None,8.17,Product Manager
+STU_223,Male,Undergraduate,B.Tech,Information Technology,2027,"HTML, Python","Problem Solving, Teamwork",Applied Coursework Project,Industry Foundation Certificate,7.52,UI/UX Designer
+STU_224,Male,Undergraduate,B.Tech,Information Technology,2027,"Linux, Python, SQL","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.75,AI Engineer
+STU_225,Male,Undergraduate,B.Tech,Information Technology,2027,"HTML, Linux, Python","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,8.94,Data Analyst
+STU_226,Male,Undergraduate,B.Tech,Information Technology,2027,"HTML, Linux, SQL, Statistics",Problem Solving,Applied Coursework Project,Industry Foundation Certificate,7.13,Data Scientist
+STU_227,Male,Undergraduate,B.Tech,Information Technology,2027,"Python, SQL","Adaptability, Time Management",None,None,5.66,Business Analyst
+STU_228,Male,Undergraduate,B.Tech,Information Technology,2027,"HTML, Python","Adaptability, Time Management",None,None,5.26,BI Developer
+STU_229,Male,Postgraduate,B.Tech,Artificial Intelligence,2026,"Deep Learning, Machine Learning, Python, SQL, Statistics","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,8.89,AI Engineer
+STU_230,Male,Undergraduate,B.Tech,Information Technology,2027,"Python, SQL","Adaptability, Time Management",None,None,5.77,Backend Developer
+STU_231,Male,Undergraduate,B.Tech,Information Technology,2027,"HTML, Linux, Python",Problem Solving,None,None,8.29,Full-Stack Developer
+STU_232,Male,Undergraduate,B.Tech,Information Technology,2027,"HTML, SQL","Adaptability, Time Management",None,None,5.83,Cloud DevOps Engineer
+STU_233,Male,Undergraduate,BBA,Business Analytics,2027,"Business Analytics, SQL",Communication,None,None,8.16,Business Analyst
+STU_234,Female,Undergraduate,B.Sc,Business Analytics,2027,"Excel, SQL","Communication, Teamwork",Applied Coursework Project,None,6.88,BI Developer
+STU_235,Male,Undergraduate,B.Sc,Business Analytics,2027,"Excel, Power BI","Communication, Teamwork",None,None,7.35,BI Developer
+STU_236,Male,Undergraduate,B.Sc,Data Analytics,2027,Tableau,"Adaptability, Time Management",None,None,5.78,Data Analyst
+STU_237,Male,Undergraduate,B.Tech,Computer Science,2027,"Java, Python",Problem Solving,None,None,5.92,AI Engineer
+STU_238,Male,Undergraduate,B.Sc,Business Analytics,2027,"Excel, Power BI, SQL","Communication, Problem Solving, Teamwork",Applied Coursework Project,Industry Foundation Certificate,6.61,BI Developer
+STU_239,Female,Undergraduate,B.Sc,Business Analytics,2027,"Business Analytics, Excel, Power BI","Communication, Problem Solving, Teamwork",Applied Coursework Project,None,7.35,BI Developer
+STU_240,Male,Undergraduate,B.Sc,Data Science,2027,"Machine Learning, Python, Statistics","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.01,Data Scientist
+STU_241,Male,Undergraduate,B.Sc,Data Science,2027,"Machine Learning, Python, SQL, Statistics","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.57,Data Scientist
+STU_242,Male,Undergraduate,B.Sc,Business Analytics,2027,"Excel, SQL","Communication, Problem Solving, Teamwork",None,Industry Foundation Certificate,7.88,BI Developer
+STU_243,Male,Undergraduate,B.Tech,Computer Science,2027,SQL,"Adaptability, Time Management",None,None,4.63,AI Engineer
+STU_244,Male,Undergraduate,B.Sc,Business Analytics,2027,"Business Analytics, Power BI, SQL",Communication,None,Industry Foundation Certificate,6.95,BI Developer
+STU_245,Male,Undergraduate,B.Tech,Computer Science,2027,"HTML, Java, Javascript, Linux, SQL","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.18,Full-Stack Developer
+STU_246,Female,Undergraduate,B.Tech,Software Engineering,2027,"Linux, SQL","Communication, Problem Solving, Teamwork",Applied Coursework Project,Industry Foundation Certificate,7.31,Backend Developer
+STU_247,Female,Undergraduate,B.Sc,Data Science,2027,"Machine Learning, Python, SQL, Statistics","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,8.89,Data Scientist
+STU_248,Female,Undergraduate,B.Sc,Data Science,2027,"Machine Learning, SQL","Communication, Problem Solving, Teamwork",None,None,6.75,Data Scientist
+STU_249,Female,Undergraduate,BBA,Finance,2027,"Accounting, Excel",Problem Solving,None,None,4.6,Financial Analyst
+STU_250,Male,Undergraduate,B.Tech,Cloud Computing,2028,"Cloud, Linux","Problem Solving, Teamwork",Applied Coursework Project,None,7.62,Cloud DevOps Engineer
+STU_251,Male,Undergraduate,B.Tech,Artificial Intelligence,2028,"Machine Learning, Python, SQL, Statistics","Adaptability, Time Management",Advanced Capstone Portfolio,Professional Industry Certification,9.02,AI Engineer
+STU_252,Male,Undergraduate,B.Des,User Experience Design,2028,"CSS, Wireframing","Adaptability, Time Management",None,None,5.51,UI/UX Designer
+STU_253,Female,Undergraduate,B.Sc,Business Analytics,2028,"Business Analytics, Excel, Power BI","Communication, Problem Solving, Teamwork",Applied Coursework Project,None,7.87,BI Developer
+STU_254,Male,Undergraduate,BBA,Digital Marketing,2028,"Digital Marketing, Social Media Analytics","Communication, Teamwork",None,None,5.91,Digital Marketing Specialist
+STU_255,Male,Undergraduate,BBA,Product Management,2028,"Agile/Scrum, Communication, Product Strategy, User Research","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.22,Product Manager
+STU_256,Male,Undergraduate,BBA,Digital Marketing,2028,"Content Strategy, Digital Marketing, SEO, Social Media Analytics","Adaptability, Time Management",Advanced Capstone Portfolio,Professional Industry Certification,9.18,Digital Marketing Specialist
+STU_257,Female,Undergraduate,B.Des,User Experience Design,2028,"CSS, Figma, HTML, UI Design","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,8.78,UI/UX Designer
+STU_258,Female,Undergraduate,BBA,Product Management,2028,"Agile/Scrum, Communication, Product Strategy","Communication, Problem Solving, Teamwork",None,Industry Foundation Certificate,7.28,Product Manager
+STU_259,Female,Undergraduate,BBA,Product Management,2028,"Agile/Scrum, Product Strategy, User Research","Communication, Problem Solving, Teamwork",Applied Coursework Project,None,6.96,Product Manager
+STU_260,Male,Undergraduate,BBA,Digital Marketing,2028,SEO,Problem Solving,None,None,6.32,Digital Marketing Specialist
+STU_261,Male,Undergraduate,BBA,Marketing Analytics,2028,Customer Segmentation,"Adaptability, Time Management",None,None,5.8,Marketing Analyst
+STU_262,Male,Undergraduate,BBA,Product Management,2028,"Agile/Scrum, Communication, User Research","Communication, Problem Solving, Teamwork",None,None,6.61,Product Manager
+STU_263,Female,Undergraduate,BBA,Marketing Analytics,2028,"Customer Segmentation, Excel, Python","Adaptability, Time Management",Applied Coursework Project,None,8.19,Marketing Analyst
+STU_264,Male,Undergraduate,B.Tech,Computer Science,2028,"Java, PostgreSQL, SQL",Problem Solving,Applied Coursework Project,Industry Foundation Certificate,7.62,Database Administrator
+STU_265,Female,Undergraduate,B.Des,User Experience Design,2027,"HTML, UI Design, Wireframing","Problem Solving, Teamwork",Applied Coursework Project,Industry Foundation Certificate,8.11,UI/UX Designer
+STU_266,Female,Undergraduate,B.Des,User Experience Design,2027,"CSS, HTML, Prototyping, UI Design","Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.29,UI/UX Designer
+STU_267,Male,Undergraduate,B.Des,User Experience Design,2027,"HTML, Wireframing","Adaptability, Time Management",Applied Coursework Project,None,7.18,UI/UX Designer
+STU_268,Male,Undergraduate,B.Des,User Experience Design,2027,"HTML, UI Design","Adaptability, Time Management",None,Industry Foundation Certificate,6.66,UI/UX Designer
+STU_269,Male,Undergraduate,BBA,Marketing Analytics,2027,"Customer Segmentation, Excel, Marketing Analytics, Python","Adaptability, Time Management",Applied Coursework Project,None,7.34,Marketing Analyst
+STU_270,Male,Undergraduate,BBA,Digital Marketing,2027,"Digital Marketing, SEO, Social Media Analytics","Adaptability, Time Management",Applied Coursework Project,Industry Foundation Certificate,7.55,Digital Marketing Specialist
+STU_271,Female,Undergraduate,B.Des,User Experience Design,2027,"CSS, Figma, HTML, UI Design, Wireframing",Problem Solving,Advanced Capstone Portfolio,Professional Industry Certification,8.85,UI/UX Designer
+STU_272,Female,Undergraduate,B.Des,User Experience Design,2027,"CSS, Prototyping, Wireframing","Problem Solving, Teamwork",None,None,7.42,UI/UX Designer
+STU_273,Male,Undergraduate,BBA,Marketing Analytics,2027,"Customer Segmentation, Excel, Marketing Analytics, Python","Adaptability, Time Management",None,Industry Foundation Certificate,8.3,Marketing Analyst
+STU_274,Male,Undergraduate,BBA,Digital Marketing,2027,"Digital Marketing, SEO, Social Media Analytics","Adaptability, Time Management",Advanced Capstone Portfolio,Professional Industry Certification,8.91,Digital Marketing Specialist
+STU_275,Female,Undergraduate,BBA,Product Management,2027,"Agile/Scrum, Communication, Product Strategy, User Research","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.01,Product Manager
+STU_276,Female,Undergraduate,B.Des,User Experience Design,2027,"HTML, UI Design, Wireframing","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.1,UI/UX Designer
+STU_277,Male,Undergraduate,BBA,Marketing Analytics,2027,"Customer Segmentation, Marketing Analytics, Python",Problem Solving,Advanced Capstone Portfolio,Professional Industry Certification,9.36,Marketing Analyst
+STU_278,Male,Undergraduate,BBA,Digital Marketing,2027,"Content Strategy, Digital Marketing, SEO, Social Media Analytics",Problem Solving,Advanced Capstone Portfolio,Professional Industry Certification,9.53,Digital Marketing Specialist
+STU_279,Male,Undergraduate,BBA,Marketing Analytics,2027,"Excel, Python",Problem Solving,Applied Coursework Project,None,7.17,Marketing Analyst
+STU_280,Male,Undergraduate,BBA,Digital Marketing,2027,"Digital Marketing, SEO, Social Media Analytics",Problem Solving,Applied Coursework Project,Industry Foundation Certificate,7.92,Digital Marketing Specialist
+STU_281,Male,Undergraduate,B.Des,User Experience Design,2027,"CSS, HTML, UI Design, Wireframing","Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.13,UI/UX Designer
+STU_282,Male,Undergraduate,B.Des,User Experience Design,2027,"CSS, HTML, UI Design, Wireframing","Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.13,UI/UX Designer
+STU_283,Female,Undergraduate,BBA,Product Management,2027,"Agile/Scrum, Communication, Product Strategy, User Research","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,8.65,Product Manager
+STU_284,Female,Undergraduate,BBA,Product Management,2027,"Agile/Scrum, Product Strategy, User Research","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.75,Product Manager
+STU_285,Male,Undergraduate,BBA,Marketing Analytics,2027,"Customer Segmentation, Marketing Analytics",Teamwork,Applied Coursework Project,Industry Foundation Certificate,7.25,Marketing Analyst
+STU_286,Male,Undergraduate,BBA,Digital Marketing,2027,"Digital Marketing, SEO, Social Media Analytics",Teamwork,None,None,8.04,Digital Marketing Specialist
+STU_287,Female,Undergraduate,BBA,Product Management,2027,"Agile/Scrum, Communication, Product Strategy, User Research","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.28,Product Manager
+STU_288,Female,Undergraduate,BBA,Product Management,2027,"Agile/Scrum, Communication, Product Strategy, User Research","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.27,Product Manager
+STU_289,Male,Undergraduate,BBA,Product Management,2027,"Agile/Scrum, Product Strategy","Communication, Problem Solving, Teamwork",None,Industry Foundation Certificate,6.77,Product Manager
+STU_290,Male,Undergraduate,BBA,Product Management,2027,"Agile/Scrum, Communication","Communication, Problem Solving, Teamwork",Applied Coursework Project,None,8.25,Product Manager
+STU_291,Female,Undergraduate,B.Tech,Computer Science,2028,SQL,"Communication, Problem Solving, Teamwork",None,None,5.1,AI Engineer
+STU_292,Female,Undergraduate,B.Sc,Data Analytics,2028,"Excel, SQL","Adaptability, Time Management",None,None,4.76,Data Analyst
+STU_293,Female,Undergraduate,B.Sc,Data Science,2028,"Machine Learning, Python, SQL, Statistics","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,8.61,Data Scientist
+STU_294,Female,Undergraduate,B.Sc,Data Science,2028,"Machine Learning, Python, SQL, Statistics","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.21,Data Scientist
+STU_295,Male,Undergraduate,B.Sc,Business Analytics,2028,"Excel, Power BI, SQL","Communication, Problem Solving, Teamwork",None,None,7.34,BI Developer
+STU_296,Male,Undergraduate,B.Sc,Business Analytics,2028,"Business Analytics, Excel, SQL","Communication, Problem Solving, Teamwork",Applied Coursework Project,None,8.39,BI Developer
+STU_297,Female,Undergraduate,B.Sc,Data Science,2028,"Machine Learning, Python, SQL, Statistics","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.55,Data Scientist
+STU_298,Female,Undergraduate,B.Sc,Data Science,2028,"Machine Learning, Python, SQL, Statistics","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.75,Data Scientist
+STU_299,Male,Undergraduate,B.Sc,Data Analytics,2028,"Excel, Python, SQL","Adaptability, Time Management",None,Industry Foundation Certificate,7.11,Data Analyst
+STU_300,Male,Undergraduate,B.Tech,Computer Science,2028,"HTML, Linux, Machine Learning, SQL","Adaptability, Time Management",Applied Coursework Project,Industry Foundation Certificate,7.27,AI Engineer
+STU_301,Male,Undergraduate,B.Sc,Data Analytics,2028,"Excel, Python","Adaptability, Time Management",None,None,4.68,Data Analyst
+STU_302,Male,Undergraduate,B.Sc,Data Analytics,2028,Tableau,"Adaptability, Time Management",None,None,4.91,Data Analyst
+STU_303,Female,Undergraduate,B.Tech,Computer Science,2028,"Java, Linux, Python, SQL","Adaptability, Time Management",Applied Coursework Project,Industry Foundation Certificate,6.75,AI Engineer
+STU_304,Female,Undergraduate,B.Sc,Data Analytics,2028,"Excel, Python, Tableau","Adaptability, Time Management",Applied Coursework Project,None,6.5,Data Analyst
+STU_305,Female,Undergraduate,B.Sc,Data Analytics,2028,"Excel, Python",Communication,None,Industry Foundation Certificate,6.98,Data Analyst
+STU_306,Female,Undergraduate,B.Sc,Business Analytics,2028,"Business Analytics, Excel, Power BI","Communication, Teamwork",Applied Coursework Project,None,6.5,BI Developer
+STU_307,Male,Undergraduate,B.Sc,Data Science,2028,"Python, SQL, Statistics","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.78,Data Scientist
+STU_308,Male,Undergraduate,B.Sc,Data Science,2028,"Machine Learning, Python, SQL, Statistics","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,8.91,Data Scientist
+STU_309,Male,Undergraduate,B.Sc,Business Analytics,2028,"Business Analytics, Excel","Communication, Problem Solving, Teamwork",Applied Coursework Project,None,6.52,BI Developer
+STU_310,Male,Undergraduate,B.Sc,Business Analytics,2028,"Excel, Power BI, SQL","Communication, Problem Solving, Teamwork",None,Industry Foundation Certificate,6.77,BI Developer
+STU_311,Male,Undergraduate,B.Sc,Data Analytics,2028,"SQL, Tableau","Adaptability, Time Management",Applied Coursework Project,Industry Foundation Certificate,6.97,Data Analyst
+STU_312,Male,Undergraduate,B.Tech,Computer Science,2028,"Java, Linux, Python, SQL",Teamwork,Applied Coursework Project,Industry Foundation Certificate,6.6,AI Engineer
+STU_313,Female,Undergraduate,B.Sc,Data Science,2028,"Machine Learning, Python, Statistics","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.71,Data Scientist
+STU_314,Female,Undergraduate,B.Sc,Data Science,2028,"Machine Learning, Python, SQL, Statistics","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.5,Data Scientist
+STU_315,Female,Undergraduate,B.Sc,Data Science,2028,"Machine Learning, Python, Statistics","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.73,Data Scientist
+STU_316,Female,Undergraduate,B.Sc,Data Science,2028,"Machine Learning, Python, SQL, Statistics","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,8.61,Data Scientist
+STU_317,Male,Undergraduate,B.Des,User Experience Design,2028,"Figma, HTML, UI Design, Wireframing",Problem Solving,Advanced Capstone Portfolio,Professional Industry Certification,8.58,UI/UX Designer
+STU_318,Male,Undergraduate,B.Des,User Experience Design,2028,"CSS, Figma, HTML, UI Design",Problem Solving,Advanced Capstone Portfolio,Professional Industry Certification,8.52,UI/UX Designer
+STU_319,Female,Undergraduate,B.Des,User Experience Design,2028,"CSS, HTML, UI Design, Wireframing",Problem Solving,Advanced Capstone Portfolio,Professional Industry Certification,9.52,UI/UX Designer
+STU_320,Female,Undergraduate,B.Des,User Experience Design,2028,"CSS, Figma, HTML, UI Design, Wireframing",Problem Solving,Advanced Capstone Portfolio,Professional Industry Certification,9.14,UI/UX Designer
+STU_321,Female,Undergraduate,B.Des,User Experience Design,2028,"CSS, Figma, UI Design, Wireframing",Problem Solving,Applied Coursework Project,None,8.2,UI/UX Designer
+STU_322,Female,Undergraduate,B.Des,User Experience Design,2028,"UI Design, Wireframing",Problem Solving,None,Industry Foundation Certificate,7.23,UI/UX Designer
+STU_323,Male,Undergraduate,BBA,Marketing Analytics,2028,Customer Segmentation,"Adaptability, Time Management",None,None,4.97,Marketing Analyst
+STU_324,Male,Undergraduate,BBA,Digital Marketing,2028,Social Media Analytics,"Adaptability, Time Management",None,None,5.21,Digital Marketing Specialist
+STU_325,Male,Undergraduate,BBA,Marketing Analytics,2028,"Customer Segmentation, Marketing Analytics","Adaptability, Time Management",None,None,8.31,Marketing Analyst
+STU_326,Male,Undergraduate,BBA,Digital Marketing,2028,"Digital Marketing, SEO, Social Media Analytics","Adaptability, Time Management",None,Industry Foundation Certificate,7.57,Digital Marketing Specialist
+STU_327,Male,Undergraduate,BBA,Marketing Analytics,2028,"Customer Segmentation, Marketing Analytics","Adaptability, Time Management",None,None,6.21,Marketing Analyst
+STU_328,Male,Undergraduate,BBA,Digital Marketing,2028,"Digital Marketing, Social Media Analytics","Adaptability, Time Management",None,None,5.53,Digital Marketing Specialist
+STU_329,Female,Undergraduate,BBA,Product Management,2028,"Agile/Scrum, Product Strategy, User Research","Communication, Problem Solving, Teamwork",None,Industry Foundation Certificate,7.88,Product Manager
+STU_330,Female,Undergraduate,BBA,Product Management,2028,"Agile/Scrum, Roadmapping, User Research","Communication, Problem Solving, Teamwork",Applied Coursework Project,Industry Foundation Certificate,8.25,Product Manager
+STU_331,Male,Undergraduate,BBA,Marketing Analytics,2028,Marketing Analytics,"Communication, Teamwork",None,None,5.71,Marketing Analyst
+STU_332,Male,Undergraduate,BBA,Digital Marketing,2028,SEO,Teamwork,None,None,5.76,Digital Marketing Specialist
+STU_333,Female,Undergraduate,B.Des,User Experience Design,2028,"CSS, HTML, Prototyping, Wireframing","Adaptability, Time Management",Applied Coursework Project,None,6.94,UI/UX Designer
+STU_334,Female,Undergraduate,B.Des,User Experience Design,2028,"CSS, Wireframing","Adaptability, Time Management",Applied Coursework Project,Industry Foundation Certificate,7.27,UI/UX Designer
+STU_335,Male,Undergraduate,BBA,Marketing Analytics,2028,"Customer Segmentation, Excel","Adaptability, Time Management",None,None,4.67,Marketing Analyst
+STU_336,Male,Undergraduate,BBA,Digital Marketing,2028,Digital Marketing,"Adaptability, Time Management",None,None,6.09,Digital Marketing Specialist
+STU_337,Female,Undergraduate,B.Des,User Experience Design,2028,"HTML, Wireframing",Problem Solving,None,Industry Foundation Certificate,7.79,UI/UX Designer
+STU_338,Female,Undergraduate,B.Des,User Experience Design,2028,"CSS, Figma, UI Design, Wireframing",Problem Solving,None,Industry Foundation Certificate,6.73,UI/UX Designer
+STU_339,Female,Undergraduate,B.Des,User Experience Design,2028,"CSS, HTML, UI Design",Problem Solving,Applied Coursework Project,None,6.99,UI/UX Designer
+STU_340,Female,Undergraduate,B.Des,User Experience Design,2028,"Prototyping, UI Design, Wireframing",Problem Solving,Applied Coursework Project,None,6.6,UI/UX Designer
+STU_341,Female,Undergraduate,B.Des,User Experience Design,2028,"CSS, Figma, UI Design, Wireframing","Adaptability, Time Management",Applied Coursework Project,None,7.02,UI/UX Designer
+STU_342,Female,Undergraduate,B.Des,User Experience Design,2028,"HTML, Wireframing","Adaptability, Time Management",None,None,7.55,UI/UX Designer
+STU_343,Male,Undergraduate,B.Des,User Experience Design,2028,"UI Design, Wireframing","Communication, Teamwork",Applied Coursework Project,None,7.18,UI/UX Designer
+STU_344,Male,Undergraduate,B.Des,User Experience Design,2028,"CSS, Figma, HTML, UI Design",Teamwork,Applied Coursework Project,None,6.56,UI/UX Designer
+STU_345,Female,Undergraduate,B.Des,User Experience Design,2028,"Figma, HTML, UI Design, Wireframing","Adaptability, Time Management",Advanced Capstone Portfolio,Professional Industry Certification,9.49,UI/UX Designer
+STU_346,Female,Undergraduate,B.Des,User Experience Design,2028,"CSS, HTML, UI Design, Wireframing","Adaptability, Time Management",Advanced Capstone Portfolio,Professional Industry Certification,9.41,UI/UX Designer
+STU_347,Female,Undergraduate,B.Des,User Experience Design,2028,"CSS, Figma, HTML, Wireframing","Adaptability, Time Management",Advanced Capstone Portfolio,Professional Industry Certification,8.57,UI/UX Designer
+STU_348,Female,Undergraduate,B.Des,User Experience Design,2028,"CSS, HTML, Prototyping, UI Design, Wireframing","Adaptability, Time Management",Advanced Capstone Portfolio,Professional Industry Certification,8.58,UI/UX Designer
+STU_349,Male,Undergraduate,BBA,Marketing Analytics,2028,Customer Segmentation,"Adaptability, Time Management",None,None,6.33,Marketing Analyst
+STU_350,Male,Undergraduate,BBA,Digital Marketing,2028,SEO,"Adaptability, Time Management",None,None,5.07,Digital Marketing Specialist
+STU_351,Male,Undergraduate,BBA,Marketing Analytics,2028,"Customer Segmentation, Excel","Adaptability, Time Management",None,None,5.84,Marketing Analyst
+STU_352,Male,Undergraduate,BBA,Digital Marketing,2028,"Digital Marketing, Social Media Analytics","Adaptability, Time Management",None,None,5.22,Digital Marketing Specialist
+STU_353,Female,Undergraduate,B.Des,User Experience Design,2028,"HTML, UI Design, Wireframing","Adaptability, Time Management",None,Industry Foundation Certificate,8.3,UI/UX Designer
+STU_354,Female,Undergraduate,B.Des,User Experience Design,2028,"HTML, UI Design, Wireframing","Adaptability, Time Management",Applied Coursework Project,None,6.77,UI/UX Designer
+STU_355,Male,Undergraduate,B.Des,User Experience Design,2028,"CSS, HTML, Prototyping, UI Design, Wireframing","Adaptability, Time Management",Advanced Capstone Portfolio,Professional Industry Certification,8.83,UI/UX Designer
+STU_356,Male,Undergraduate,B.Des,User Experience Design,2028,"CSS, HTML, Wireframing","Adaptability, Time Management",Advanced Capstone Portfolio,Professional Industry Certification,9.65,UI/UX Designer
+STU_357,Male,Undergraduate,B.Des,User Experience Design,2028,"CSS, UI Design, Wireframing","Adaptability, Time Management",Applied Coursework Project,None,7.6,UI/UX Designer
+STU_358,Male,Undergraduate,B.Des,User Experience Design,2028,"HTML, UI Design, Wireframing","Adaptability, Time Management",None,None,6.64,UI/UX Designer
+STU_359,Female,Undergraduate,B.Des,User Experience Design,2028,"CSS, HTML, UI Design, Wireframing",Problem Solving,Advanced Capstone Portfolio,Professional Industry Certification,8.71,UI/UX Designer
+STU_360,Female,Undergraduate,B.Des,User Experience Design,2028,"CSS, HTML, Prototyping, UI Design",Problem Solving,Advanced Capstone Portfolio,Professional Industry Certification,8.89,UI/UX Designer
+STU_361,Male,Undergraduate,B.Des,User Experience Design,2028,"CSS, Figma, UI Design, Wireframing","Adaptability, Time Management",Applied Coursework Project,Industry Foundation Certificate,7.06,UI/UX Designer
+STU_362,Male,Undergraduate,B.Des,User Experience Design,2028,"Figma, HTML, Wireframing","Adaptability, Time Management",None,Industry Foundation Certificate,7.4,UI/UX Designer
+STU_363,Male,Undergraduate,B.Des,User Experience Design,2028,"CSS, UI Design, Wireframing","Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,8.98,UI/UX Designer
+STU_364,Male,Undergraduate,B.Des,User Experience Design,2028,"CSS, HTML, UI Design, Wireframing","Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.37,UI/UX Designer
+STU_365,Male,Undergraduate,B.Des,User Experience Design,2028,"CSS, HTML, UI Design, Wireframing",Problem Solving,Advanced Capstone Portfolio,Professional Industry Certification,9.04,UI/UX Designer
+STU_366,Male,Undergraduate,B.Des,User Experience Design,2028,"CSS, UI Design, Wireframing",Problem Solving,Advanced Capstone Portfolio,Professional Industry Certification,9.24,UI/UX Designer
+STU_367,Male,Undergraduate,BBA,Marketing Analytics,2028,"Customer Segmentation, Excel, Marketing Analytics","Adaptability, Time Management",Applied Coursework Project,None,8.35,Marketing Analyst
+STU_368,Male,Undergraduate,B.Des,User Experience Design,2028,"HTML, UI Design, Wireframing",Communication,None,None,8.24,UI/UX Designer
+STU_369,Female,Undergraduate,B.Des,User Experience Design,2028,"CSS, HTML, UI Design, Wireframing","Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.26,UI/UX Designer
+STU_370,Female,Undergraduate,B.Des,User Experience Design,2028,"CSS, HTML, Wireframing","Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,8.84,UI/UX Designer
+STU_371,Male,Undergraduate,BBA,Marketing Analytics,2028,"Excel, Marketing Analytics, Python","Adaptability, Time Management",Applied Coursework Project,None,7.67,Marketing Analyst
+STU_372,Male,Undergraduate,BBA,Digital Marketing,2028,"Digital Marketing, SEO","Adaptability, Time Management",None,Industry Foundation Certificate,8.2,Digital Marketing Specialist
+STU_373,Female,Undergraduate,BBA,Product Management,2028,"Communication, Product Strategy",Communication,None,None,4.76,Product Manager
+STU_374,Female,Undergraduate,BBA,Product Management,2028,"Agile/Scrum, Communication",Communication,None,None,5.73,Product Manager
+STU_375,Male,Undergraduate,BBA,Marketing Analytics,2028,"Customer Segmentation, Python",Communication,None,None,6.15,Marketing Analyst
+STU_376,Male,Undergraduate,BBA,Digital Marketing,2028,SEO,"Adaptability, Time Management",None,None,5.85,Digital Marketing Specialist
+STU_377,Male,Undergraduate,BBA,Product Management,2028,"Product Strategy, User Research",Communication,None,None,6.88,Product Manager
+STU_378,Male,Undergraduate,BBA,Product Management,2028,"Agile/Scrum, User Research","Communication, Teamwork",Applied Coursework Project,None,7.46,Product Manager
+STU_379,Male,Undergraduate,BBA,Product Management,2028,"Communication, Product Strategy",Communication,None,None,6.32,Product Manager
+STU_380,Male,Undergraduate,BBA,Product Management,2028,"Agile/Scrum, Product Strategy",Communication,None,None,6.09,Product Manager
+STU_381,Female,Undergraduate,BBA,Product Management,2028,"Product Strategy, User Research",Communication,None,None,4.59,Product Manager
+STU_382,Female,Undergraduate,BBA,Product Management,2028,User Research,Communication,None,None,5.79,Product Manager
+STU_383,Male,Undergraduate,B.Des,User Experience Design,2028,"CSS, Figma, UI Design, Wireframing",Problem Solving,Advanced Capstone Portfolio,Professional Industry Certification,8.83,UI/UX Designer
+STU_384,Male,Undergraduate,B.Des,User Experience Design,2028,"CSS, HTML, Prototyping, UI Design, Wireframing","Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.26,UI/UX Designer
+STU_385,Female,Undergraduate,B.Des,User Experience Design,2028,"CSS, HTML, Prototyping, UI Design, Wireframing",Problem Solving,Advanced Capstone Portfolio,Professional Industry Certification,9.62,UI/UX Designer
+STU_386,Female,Undergraduate,B.Des,User Experience Design,2028,"HTML, UI Design, Wireframing",Problem Solving,Advanced Capstone Portfolio,Professional Industry Certification,9.55,UI/UX Designer
+STU_387,Male,Undergraduate,BBA,Product Management,2028,"Agile/Scrum, Product Strategy",Communication,Applied Coursework Project,None,7.06,Product Manager
+STU_388,Male,Undergraduate,BBA,Product Management,2028,"Agile/Scrum, Communication",Communication,Applied Coursework Project,None,7.8,Product Manager
+STU_389,Male,Undergraduate,BBA,Marketing Analytics,2028,Marketing Analytics,"Adaptability, Time Management",None,None,5.06,Marketing Analyst
+STU_390,Male,Undergraduate,BBA,Digital Marketing,2028,Social Media Analytics,"Adaptability, Time Management",None,None,6.21,Digital Marketing Specialist
+STU_391,Female,Undergraduate,B.Sc,Data Analytics,2027,"Python, SQL, Tableau",Problem Solving,None,Industry Foundation Certificate,8.19,Data Analyst
+STU_392,Female,Undergraduate,B.Sc,Data Analytics,2027,"Excel, Python, Tableau",Problem Solving,None,Industry Foundation Certificate,6.87,Data Analyst
+STU_393,Female,Undergraduate,B.Sc,Data Science,2027,"Machine Learning, Python, SQL, Statistics",Problem Solving,Advanced Capstone Portfolio,Professional Industry Certification,9.62,Data Scientist
+STU_394,Female,Undergraduate,B.Sc,Data Science,2027,"Machine Learning, Python, SQL, Statistics",Problem Solving,Advanced Capstone Portfolio,Professional Industry Certification,8.86,Data Scientist
+STU_395,Male,Undergraduate,B.Sc,Data Science,2027,"Machine Learning, Python, SQL, Statistics","Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,8.55,Data Scientist
+STU_396,Male,Undergraduate,B.Sc,Data Science,2027,"Machine Learning, Python, Statistics","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.45,Data Scientist
+STU_397,Male,Undergraduate,B.Sc,Business Analytics,2027,"Business Analytics, Excel, Power BI","Communication, Problem Solving, Teamwork",None,None,7.08,BI Developer
+STU_398,Male,Undergraduate,B.Sc,Business Analytics,2027,"Excel, Power BI, SQL","Communication, Problem Solving, Teamwork",None,Industry Foundation Certificate,7.18,BI Developer
+STU_399,Male,Undergraduate,B.Sc,Data Science,2027,"Python, SQL, Statistics","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,8.98,Data Scientist
+STU_400,Male,Undergraduate,B.Sc,Data Science,2027,"Machine Learning, Python, Statistics","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.4,Data Scientist
+STU_401,Male,Undergraduate,B.Sc,Data Analytics,2027,"Python, SQL","Adaptability, Time Management",Applied Coursework Project,None,6.89,Data Analyst
+STU_402,Male,Undergraduate,B.Tech,Computer Science,2027,"HTML, Linux, SQL","Adaptability, Time Management",Applied Coursework Project,None,6.7,AI Engineer
+STU_403,Male,Undergraduate,B.Sc,Data Science,2027,"Machine Learning, Python, SQL, Statistics","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.77,Data Scientist
+STU_404,Male,Undergraduate,B.Sc,Data Science,2027,"Machine Learning, Python, SQL, Statistics","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,8.5,Data Scientist
+STU_405,Female,Undergraduate,B.Sc,Data Science,2027,"Machine Learning, Python, SQL, Statistics","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.34,Data Scientist
+STU_406,Female,Undergraduate,B.Sc,Data Science,2027,"Machine Learning, Python, SQL, Statistics","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,8.97,Data Scientist
+STU_407,Male,Undergraduate,B.Sc,Data Analytics,2027,Excel,"Adaptability, Time Management",None,None,4.52,Data Analyst
+STU_408,Male,Undergraduate,B.Tech,Computer Science,2027,"HTML, Java","Adaptability, Time Management",None,None,6.31,AI Engineer
+STU_409,Male,Undergraduate,B.Sc,Data Analytics,2027,"Excel, Python, Tableau","Problem Solving, Teamwork",None,None,8.33,Data Analyst
+STU_410,Male,Undergraduate,B.Sc,Data Analytics,2027,"Excel, Tableau","Problem Solving, Teamwork",Applied Coursework Project,None,6.61,Data Analyst
+STU_411,Female,Undergraduate,B.Sc,Data Science,2027,"Machine Learning, Python, SQL, Statistics",Problem Solving,Advanced Capstone Portfolio,Professional Industry Certification,9.7,Data Scientist
+STU_412,Female,Undergraduate,B.Sc,Data Science,2027,"Machine Learning, Python, SQL, Statistics","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.64,Data Scientist
+STU_413,Male,Undergraduate,B.Sc,Business Analytics,2027,"Power BI, SQL","Communication, Problem Solving, Teamwork",Applied Coursework Project,Industry Foundation Certificate,7.42,BI Developer
+STU_414,Male,Undergraduate,B.Sc,Business Analytics,2027,"Excel, SQL","Communication, Problem Solving, Teamwork",Applied Coursework Project,None,7.46,BI Developer
+STU_415,Female,Undergraduate,B.Sc,Data Analytics,2027,"SQL, Tableau","Adaptability, Time Management",None,None,6.34,Data Analyst
+STU_416,Female,Undergraduate,B.Sc,Data Analytics,2027,"Excel, Tableau","Adaptability, Time Management",None,None,4.65,Data Analyst
+STU_417,Male,Undergraduate,B.Sc,Data Science,2027,"Machine Learning, Python, SQL, Statistics","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,8.63,Data Scientist
+STU_418,Male,Undergraduate,B.Sc,Data Science,2027,"Python, SQL, Statistics","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.23,Data Scientist
+STU_419,Male,Undergraduate,B.Sc,Data Science,2027,"Machine Learning, Python, SQL, Statistics","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.43,Data Scientist
+STU_420,Male,Undergraduate,B.Sc,Data Science,2027,"Machine Learning, Python, SQL, Statistics","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,8.56,Data Scientist
+STU_421,Female,Undergraduate,B.Sc,Data Science,2027,"Machine Learning, Python, SQL, Statistics","Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.57,Data Scientist
+STU_422,Female,Undergraduate,B.Sc,Data Science,2027,"Machine Learning, Python, Statistics","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.09,Data Scientist
+STU_423,Female,Undergraduate,B.Tech,Information Technology,2027,"HTML, Linux, Python","Communication, Problem Solving, Teamwork",Applied Coursework Project,Industry Foundation Certificate,7.32,Full-Stack Developer
+STU_424,Female,Undergraduate,B.Tech,Information Technology,2027,"Linux, Python, SQL","Communication, Problem Solving, Teamwork",None,Industry Foundation Certificate,7.65,Cloud DevOps Engineer
+STU_425,Female,Undergraduate,B.Tech,Information Technology,2027,"HTML, Linux, Python, SQL","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,8.68,Cybersecurity Analyst
+STU_426,Female,Undergraduate,B.Tech,Information Technology,2027,"HTML, Linux, Python, SQL","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.35,Database Administrator
+STU_427,Male,Undergraduate,B.Sc,Data Analytics,2027,"Excel, Python, SQL",Problem Solving,Applied Coursework Project,Industry Foundation Certificate,8.29,Data Analyst
+STU_428,Male,Undergraduate,B.Sc,Data Analytics,2027,"Excel, Tableau",Problem Solving,None,Industry Foundation Certificate,7.77,Data Analyst
+STU_429,Male,Undergraduate,B.Tech,Computer Science,2027,Python,Communication,None,None,5.81,AI Engineer
+STU_430,Male,Undergraduate,B.Sc,Business Analytics,2027,SQL,Communication,None,None,6.05,BI Developer
+STU_431,Male,Undergraduate,B.Tech,Information Technology,2027,"Linux, Prototyping, Python, SQL","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.0,UI/UX Designer
+STU_432,Male,Undergraduate,B.Tech,Information Technology,2027,"HTML, Python, SQL","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.68,AI Engineer
+STU_433,Male,Undergraduate,B.Tech,Information Technology,2027,"Linux, SQL","Communication, Problem Solving, Teamwork",None,Industry Foundation Certificate,8.37,Data Analyst
+STU_434,Male,Undergraduate,B.Tech,Information Technology,2027,"Linux, SQL","Communication, Problem Solving, Teamwork",Applied Coursework Project,None,6.75,Data Scientist
+STU_435,Male,Undergraduate,B.Tech,Computer Science,2027,"Java, SQL",Problem Solving,Applied Coursework Project,Industry Foundation Certificate,7.97,AI Engineer
+STU_436,Male,Undergraduate,B.Sc,Data Analytics,2027,"Excel, Python, SQL",Problem Solving,Applied Coursework Project,Industry Foundation Certificate,8.32,Data Analyst
+STU_437,Male,Undergraduate,B.Tech,Information Technology,2027,"Linux, Python, SQL",Problem Solving,None,None,7.76,Frontend Developer
+STU_438,Male,Undergraduate,B.Tech,Information Technology,2027,"HTML, Python, REST APIs",Problem Solving,Applied Coursework Project,Industry Foundation Certificate,8.22,Backend Developer
+STU_439,Male,Undergraduate,B.Sc,Data Analytics,2027,"Excel, Python, SQL",Problem Solving,Applied Coursework Project,Industry Foundation Certificate,7.04,Data Analyst
+STU_440,Male,Undergraduate,B.Sc,Data Analytics,2027,"Excel, SQL, Tableau",Problem Solving,Applied Coursework Project,Industry Foundation Certificate,6.87,Data Analyst
+STU_441,Male,Undergraduate,B.Tech,Information Technology,2027,"Linux, Python",Problem Solving,Applied Coursework Project,None,7.97,Cybersecurity Analyst
+STU_442,Male,Undergraduate,B.Tech,Information Technology,2027,"HTML, Linux, Python, SQL",Problem Solving,None,None,7.13,Database Administrator
+STU_443,Male,Undergraduate,BBA,Product Management,2027,"Agile/Scrum, Product Strategy, User Research","Communication, Problem Solving, Teamwork",None,None,7.27,Product Manager
+STU_444,Male,Undergraduate,BBA,Product Management,2027,"Agile/Scrum, Product Strategy","Communication, Problem Solving, Teamwork",Applied Coursework Project,None,7.18,Product Manager
+STU_445,Male,Undergraduate,B.Sc,Data Analytics,2027,"SQL, Tableau","Problem Solving, Teamwork",None,None,5.25,Data Analyst
+STU_446,Male,Undergraduate,B.Sc,Data Analytics,2027,SQL,"Problem Solving, Teamwork",None,None,4.76,Data Analyst
+STU_447,Male,Undergraduate,B.Tech,Information Technology,2027,"HTML, Linux, SQL","Communication, Problem Solving, Teamwork",Applied Coursework Project,None,6.52,UI/UX Designer
+STU_448,Male,Undergraduate,B.Tech,Information Technology,2027,"Linux, Python, SQL","Communication, Problem Solving, Teamwork",None,None,8.22,AI Engineer
+STU_449,Male,Undergraduate,BBA,Product Management,2027,"Agile/Scrum, Communication, Product Strategy, User Research","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.54,Product Manager
+STU_450,Male,Undergraduate,BBA,Product Management,2027,"Agile/Scrum, Communication, Product Strategy, User Research","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,8.67,Product Manager
+STU_451,Female,Undergraduate,B.Sc,Data Science,2027,"Machine Learning, Python, SQL, Statistics","Adaptability, Time Management",Advanced Capstone Portfolio,Professional Industry Certification,9.24,Data Scientist
+STU_452,Female,Undergraduate,B.Sc,Data Science,2027,"Machine Learning, Python, SQL, Statistics","Adaptability, Time Management",Advanced Capstone Portfolio,Professional Industry Certification,9.43,Data Scientist
+STU_453,Female,Undergraduate,B.Tech,Information Technology,2027,"HTML, SQL","Adaptability, Time Management",None,Industry Foundation Certificate,7.18,Frontend Developer
+STU_454,Female,Undergraduate,B.Tech,Information Technology,2027,"HTML, Python","Adaptability, Time Management",Applied Coursework Project,Industry Foundation Certificate,6.87,Backend Developer
+STU_455,Female,Undergraduate,BBA,Product Management,2027,"Agile/Scrum, Communication, Roadmapping","Communication, Teamwork",Applied Coursework Project,Industry Foundation Certificate,7.55,Product Manager
+STU_456,Female,Undergraduate,BBA,Product Management,2027,"Communication, Product Strategy, User Research","Communication, Teamwork",None,Industry Foundation Certificate,7.47,Product Manager
+STU_457,Female,Undergraduate,B.Sc,Data Science,2027,"Machine Learning, Python, SQL",Problem Solving,Advanced Capstone Portfolio,Professional Industry Certification,9.45,Data Scientist
+STU_458,Female,Undergraduate,B.Sc,Data Science,2027,"Machine Learning, Python, SQL, Statistics",Problem Solving,Advanced Capstone Portfolio,Professional Industry Certification,9.68,Data Scientist
+STU_459,Male,Undergraduate,B.Sc,Data Science,2027,"Machine Learning, Python, SQL, Statistics","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.25,Data Scientist
+STU_460,Male,Undergraduate,B.Sc,Data Science,2027,"Machine Learning, Python, SQL, Statistics","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.03,Data Scientist
+STU_461,Male,Undergraduate,B.Tech,Information Technology,2027,"Customer Segmentation, Linux, SQL","Communication, Problem Solving, Teamwork",None,None,7.48,Marketing Analyst
+STU_462,Male,Undergraduate,B.Tech,Information Technology,2027,"Linux, SQL","Communication, Problem Solving, Teamwork",Applied Coursework Project,None,7.87,Product Manager
+STU_463,Male,Undergraduate,BBA,Product Management,2027,"Agile/Scrum, Communication, Product Strategy","Communication, Problem Solving, Teamwork",Applied Coursework Project,None,6.81,Product Manager
+STU_464,Male,Undergraduate,BBA,Product Management,2027,"Agile/Scrum, Product Strategy","Communication, Problem Solving, Teamwork",Applied Coursework Project,Industry Foundation Certificate,7.27,Product Manager
+STU_465,Female,Undergraduate,B.Sc,Data Science,2027,"Machine Learning, SQL, Statistics","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,8.72,Data Scientist
+STU_466,Female,Undergraduate,B.Sc,Data Science,2027,"Python, SQL, Statistics","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.28,Data Scientist
+STU_467,Female,Undergraduate,B.Tech,Information Technology,2027,"Business Analytics, Excel, HTML, Linux, Python, SQL","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,8.73,Business Analyst
+STU_468,Female,Undergraduate,B.Tech,Information Technology,2027,"Linux, Python, SQL","Communication, Problem Solving, Teamwork",Advanced Capstone Portfolio,Professional Industry Certification,9.2,BI Developer
+STU_469,Female,Undergraduate,B.Sc,Business Analytics,2027,"Excel, SQL",Communication,None,None,5.83,BI Developer
+STU_470,Female,Undergraduate,B.Sc,Business Analytics,2027,"Power BI, SQL",Communication,None,None,6.03,BI Developer
+STU_471,Male,Undergraduate,B.Des,User Experience Design,2027,"CSS, HTML, Wireframing","Communication, Problem Solving, Teamwork",None,Industry Foundation Certificate,8.23,UI/UX Designer
+STU_472,Male,Undergraduate,B.Des,User Experience Design,2027,"HTML, UI Design","Communication, Problem Solving, Teamwork",Applied Coursework Project,Industry Foundation Certificate,6.51,UI/UX Designer
+STU_473,Male,Undergraduate,B.Tech,Information Technology,2027,"Linux, Python, SQL","Communication, Problem Solving, Teamwork",None,Industry Foundation Certificate,7.61,Cybersecurity Analyst
+STU_474,Male,Undergraduate,B.Tech,Information Technology,2027,"Linux, Python, SQL","Communication, Problem Solving, Teamwork",None,Industry Foundation Certificate,7.56,Database Administrator
+STU_475,Female,Undergraduate,B.Sc,Data Analytics,2027,"Python, Tableau","Adaptability, Time Management",None,None,4.76,Data Analyst
+STU_476,Female,Undergraduate,B.Sc,Data Analytics,2027,"Excel, SQL","Adaptability, Time Management",None,None,4.91,Data Analyst
+STU_477,Female,Undergraduate,B.Tech,Information Technology,2027,"Linux, SQL",Problem Solving,None,None,6.51,Marketing Analyst
+STU_478,Female,Undergraduate,B.Tech,Information Technology,2027,"HTML, Product Strategy, Python",Problem Solving,None,Industry Foundation Certificate,6.57,Product Manager
+STU_479,Female,Undergraduate,BBA,Marketing Analytics,2027,"Excel, Python",Communication,None,None,5.72,Marketing Analyst
+STU_480,Female,Undergraduate,BBA,Product Management,2027,"Product Strategy, User Research","Communication, Teamwork",None,None,5.99,Product Manager

@@ -6,7 +6,7 @@ matplotlib.use('Agg')  # Non-interactive backend for headless execution
 import matplotlib.pyplot as plt
 
 # Sklearn imports
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, StratifiedKFold
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 from sklearn.metrics import (
     accuracy_score, precision_score, recall_score, f1_score,
@@ -195,11 +195,43 @@ def main():
         "XGBoost": XGBClassifier(n_estimators=100, max_depth=6, learning_rate=0.1, eval_metric='mlogloss', random_state=42)
     }
 
-    results = []
-    print("\nTraining and evaluating models across test set (96 samples)...")
+    # 5-Fold Stratified Cross-Validation
+    print("\nExecuting 5-Fold Stratified Cross-Validation across entire dataset (480 samples)...")
+    skf = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+    cv_records = {}
 
     for name, model in models.items():
-        # Fit model (use scaled features for Logistic Regression, raw/tree features for tree ensembles)
+        fold_accs = []
+        fold_f1s = []
+        for train_idx, val_idx in skf.split(X, y):
+            X_fold_tr, X_fold_val = X.iloc[train_idx].copy(), X.iloc[val_idx].copy()
+            y_fold_tr, y_fold_val = y[train_idx], y[val_idx]
+            
+            if name == "Logistic Regression":
+                fold_scaler = StandardScaler()
+                X_fold_tr[num_cols] = fold_scaler.fit_transform(X_fold_tr[num_cols])
+                X_fold_val[num_cols] = fold_scaler.transform(X_fold_val[num_cols])
+                model.fit(X_fold_tr, y_fold_tr)
+                f_preds = model.predict(X_fold_val)
+            else:
+                model.fit(X_fold_tr, y_fold_tr)
+                f_preds = model.predict(X_fold_val)
+                
+            fold_accs.append(accuracy_score(y_fold_val, f_preds))
+            fold_f1s.append(f1_score(y_fold_val, f_preds, average='weighted', zero_division=0))
+            
+        cv_records[name] = {
+            "cv_acc_mean": np.mean(fold_accs) * 100,
+            "cv_acc_std": np.std(fold_accs) * 100,
+            "cv_f1_mean": np.mean(fold_f1s) * 100,
+            "cv_f1_std": np.std(fold_f1s) * 100
+        }
+
+    results = []
+    print("\nEvaluating models on 20% Holdout Test Set (96 samples)...")
+
+    for name, model in models.items():
+        # Fit model on 80% train set
         if name == "Logistic Regression":
             model.fit(X_train_scaled, y_train)
             preds = model.predict(X_test_scaled)
@@ -207,30 +239,37 @@ def main():
             model.fit(X_train, y_train)
             preds = model.predict(X_test)
 
-        acc = accuracy_score(y_test, preds)
-        prec = precision_score(y_test, preds, average='weighted', zero_division=0)
-        rec = recall_score(y_test, preds, average='weighted', zero_division=0)
-        f1 = f1_score(y_test, preds, average='weighted', zero_division=0)
+        acc = accuracy_score(y_test, preds) * 100
+        prec = precision_score(y_test, preds, average='weighted', zero_division=0) * 100
+        rec = recall_score(y_test, preds, average='weighted', zero_division=0) * 100
+        f1 = f1_score(y_test, preds, average='weighted', zero_division=0) * 100
 
         results.append({
             "Model": name,
-            "Accuracy": round(acc * 100, 2),
-            "Precision": round(prec * 100, 2),
-            "Recall": round(rec * 100, 2),
-            "F1-Score": round(f1 * 100, 2)
+            "5-Fold CV Accuracy": f"{round(cv_records[name]['cv_acc_mean'], 2)}% ± {round(cv_records[name]['cv_acc_std'], 2)}%",
+            "5-Fold CV F1-Score": f"{round(cv_records[name]['cv_f1_mean'], 2)}% ± {round(cv_records[name]['cv_f1_std'], 2)}%",
+            "Test Accuracy (%)": round(acc, 2),
+            "Test Precision (%)": round(prec, 2),
+            "Test Recall (%)": round(rec, 2),
+            "Test F1-Score (%)": round(f1, 2),
+            "_cv_f1_mean": cv_records[name]["cv_f1_mean"],
+            "_cv_f1_std": cv_records[name]["cv_f1_std"]
         })
 
     results_df = pd.DataFrame(results)
-    results_df = results_df.sort_values(by="F1-Score", ascending=False)
-    print("\n" + results_df.to_string(index=False))
+    results_df = results_df.sort_values(by="Test F1-Score (%)", ascending=False)
+    
+    display_cols = ["Model", "5-Fold CV Accuracy", "5-Fold CV F1-Score", "Test Accuracy (%)", "Test Precision (%)", "Test Recall (%)", "Test F1-Score (%)"]
+    print("\n" + results_df[display_cols].to_string(index=False))
 
     # Save metrics to CSV
     metrics_csv_path = os.path.join(data_dir, "model_comparison_metrics.csv")
-    results_df.to_csv(metrics_csv_path, index=False)
+    results_df[display_cols].to_csv(metrics_csv_path, index=False)
     print(f"\nSaved metrics table to: {metrics_csv_path}")
 
     # Top Feature Importances from Random Forest
     rf_model = models["Random Forest"]
+    rf_model.fit(X_train, y_train)
     importances = rf_model.feature_importances_
     top_indices = np.argsort(importances)[::-1][:8]
     top_features = X.columns[top_indices]
@@ -239,23 +278,25 @@ def main():
     # Plot Model Performance Comparison & Feature Importance
     fig, axes = plt.subplots(1, 2, figsize=(16, 6))
 
-    # Bar chart of Model Accuracies and F1-Scores
+    # Bar chart of Model Test Accuracies and F1-Scores with CV error bars
     x = np.arange(len(results_df))
     width = 0.35
-    axes[0].bar(x - width/2, results_df["Accuracy"], width, label='Accuracy (%)', color='#2196F3')
-    axes[0].bar(x + width/2, results_df["F1-Score"], width, label='F1-Score (%)', color='#4CAF50')
+    axes[0].bar(x - width/2, results_df["Test Accuracy (%)"], width, label='Test Accuracy (%)', color='#2196F3')
+    axes[0].bar(x + width/2, results_df["Test F1-Score (%)"], width, label='Test F1-Score (%)', color='#4CAF50')
+    axes[0].errorbar(x + width/2, results_df["_cv_f1_mean"], yerr=results_df["_cv_f1_std"], fmt='none', ecolor='#1B5E20', capsize=5, label='5-Fold CV F1 (±1σ)')
     axes[0].set_ylabel('Percentage (%)', fontsize=12)
-    axes[0].set_title('Supervised Model Comparison (Career Pathway Classification)', fontsize=13, fontweight='bold')
+    axes[0].set_title('Supervised Model Comparison (5-Fold CV & Holdout Test)', fontsize=13, fontweight='bold')
     axes[0].set_xticks(x)
     axes[0].set_xticklabels(results_df["Model"], fontsize=11)
-    axes[0].set_ylim(0, 110)
+    axes[0].set_ylim(0, 115)
     axes[0].grid(axis='y', linestyle='--', alpha=0.6)
-    axes[0].legend(fontsize=11)
+    axes[0].legend(fontsize=10)
 
-    # Add text labels on bars
-    for i in x:
-        axes[0].text(i - width/2, results_df["Accuracy"].iloc[i] + 1.5, f"{results_df['Accuracy'].iloc[i]}%", ha='center', fontsize=10, fontweight='bold')
-        axes[0].text(i + width/2, results_df["F1-Score"].iloc[i] + 1.5, f"{results_df['F1-Score'].iloc[i]}%", ha='center', fontsize=10, fontweight='bold')
+    for i in range(len(results_df)):
+        acc_val = results_df["Test Accuracy (%)"].iloc[i]
+        f1_val = results_df["Test F1-Score (%)"].iloc[i]
+        axes[0].text(i - width/2, acc_val + 2, f"{acc_val}%", ha='center', fontsize=9, fontweight='bold')
+        axes[0].text(i + width/2, f1_val + 2, f"{f1_val}%", ha='center', fontsize=9, fontweight='bold')
 
     # Top Feature Importance plot
     axes[1].barh(range(len(top_features)), top_scores[::-1], color='#FF9800', align='center')

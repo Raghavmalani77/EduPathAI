@@ -138,30 +138,70 @@ def map_stage_to_edu_level(stage):
     else:
         return "Postgraduate", 2026
 
-def get_skills_by_career(career, perf_class):
+def get_skills_by_student_background(degree, specialisation, career_interest, perf_class):
     """
-    Returns domain-specific technical skills aligned with the career pathway.
+    Generates realistic student skills based on academic background, with elective exploration
+    and realistic noise/variance, completely avoiding 1-to-1 deterministic target leakage.
     """
-    skill_definitions = {
-        "AI Engineer": ["Python", "SQL", "Machine Learning"] + (["Deep Learning"] if perf_class in ['M', 'H'] else []),
-        "Data Analyst": ["Excel", "SQL"] + (["Python", "Tableau"] if perf_class in ['M', 'H'] else []),
-        "Data Scientist": ["Python", "Statistics", "SQL"] + (["Machine Learning"] if perf_class in ['M', 'H'] else []),
-        "Business Analyst": ["Excel", "Business Analytics"] + (["SQL", "Power BI"] if perf_class in ['M', 'H'] else []),
-        "BI Developer": ["SQL", "Power BI"] + (["Tableau", "Data Warehousing"] if perf_class in ['M', 'H'] else []),
-        "Frontend Developer": ["HTML", "CSS", "Javascript"] + (["React"] if perf_class in ['M', 'H'] else []),
-        "Backend Developer": ["Java", "SQL"] + (["Python", "REST APIs"] if perf_class in ['M', 'H'] else []),
-        "Full-Stack Developer": ["HTML", "Javascript", "SQL"] + (["React", "Node.js"] if perf_class in ['M', 'H'] else []),
-        "Cloud DevOps Engineer": ["Linux", "Cloud"] + (["Docker", "AWS"] if perf_class in ['M', 'H'] else []),
-        "Cybersecurity Analyst": ["Linux", "Network Security"] + (["Cryptography", "Cybersecurity"] if perf_class in ['M', 'H'] else []),
-        "Database Administrator": ["SQL", "Database Management"] + (["PostgreSQL", "Linux"] if perf_class in ['M', 'H'] else []),
-        "Financial Analyst": ["Excel", "Finance"] + (["Financial Modeling", "Accounting"] if perf_class in ['M', 'H'] else []),
-        "Digital Marketing Specialist": ["Digital Marketing", "SEO"] + (["Social Media Analytics", "Content Strategy"] if perf_class in ['M', 'H'] else []),
-        "Marketing Analyst": ["Excel", "Marketing Analytics"] + (["Python", "Customer Segmentation"] if perf_class in ['M', 'H'] else []),
-        "Product Manager": ["Product Strategy", "User Research"] + (["Agile/Scrum", "Roadmapping"] if perf_class in ['M', 'H'] else []),
-        "UI/UX Designer": ["Figma", "UI Design"] + (["Wireframing", "Prototyping"] if perf_class in ['M', 'H'] else [])
+    spec_foundation = {
+        "Computer Science": ["Python", "SQL", "Java", "HTML", "Linux"],
+        "Software Engineering": ["Java", "SQL", "HTML", "Javascript", "Linux"],
+        "Cloud Computing": ["Linux", "Cloud", "Python", "SQL", "Docker"],
+        "Information Security": ["Linux", "Network Security", "Cryptography", "SQL"],
+        "Information Technology": ["Python", "SQL", "HTML", "Linux"],
+        "Artificial Intelligence": ["Python", "SQL", "Statistics", "Machine Learning"],
+        "Data Science": ["Python", "SQL", "Statistics", "Machine Learning"],
+        "Data Analytics": ["Excel", "SQL", "Python", "Tableau"],
+        "Statistics & Analytics": ["Statistics", "Excel", "SQL", "Python"],
+        "Business Analytics": ["Excel", "Business Analytics", "SQL", "Power BI"],
+        "Information Systems": ["SQL", "Database Management", "Excel", "Business Analytics"],
+        "Finance": ["Excel", "Finance", "Accounting"],
+        "Finance & Accounting": ["Excel", "Finance", "Accounting", "Financial Modeling"],
+        "Product Management": ["Product Strategy", "User Research", "Agile/Scrum", "Communication"],
+        "User Experience Design": ["UI Design", "Wireframing", "HTML", "CSS"],
+        "Digital Marketing": ["Digital Marketing", "SEO", "Social Media Analytics"],
+        "Marketing Analytics": ["Excel", "Marketing Analytics", "Customer Segmentation", "Python"]
     }
     
-    return skill_definitions.get(career, ["Python", "SQL"])
+    foundation = spec_foundation.get(specialisation, ["Python", "SQL", "Excel"])
+    
+    electives = {
+        "AI Engineer": ["Machine Learning", "Deep Learning", "Python"],
+        "Data Analyst": ["Tableau", "Power BI", "Excel"],
+        "Data Scientist": ["Statistics", "Machine Learning", "Python"],
+        "Business Analyst": ["Business Analytics", "Power BI", "Excel"],
+        "BI Developer": ["Tableau", "Power BI", "Data Warehousing"],
+        "Frontend Developer": ["React", "CSS", "Javascript"],
+        "Backend Developer": ["REST APIs", "Java", "Python"],
+        "Full-Stack Developer": ["React", "Node.js", "Javascript"],
+        "Cloud DevOps Engineer": ["AWS", "Docker", "Linux"],
+        "Cybersecurity Analyst": ["Cybersecurity", "Network Security", "Linux"],
+        "Database Administrator": ["PostgreSQL", "Database Management", "SQL"],
+        "Financial Analyst": ["Financial Modeling", "Accounting", "Finance"],
+        "Digital Marketing Specialist": ["Content Strategy", "SEO", "Digital Marketing"],
+        "Marketing Analyst": ["Customer Segmentation", "Marketing Analytics", "Excel"],
+        "Product Manager": ["Roadmapping", "Agile/Scrum", "Product Strategy"],
+        "UI/UX Designer": ["Figma", "Prototyping", "UI Design"]
+    }
+    
+    skills = set()
+    if perf_class == 'H':
+        sample_k = min(len(foundation), random.randint(3, 4))
+        skills.update(random.sample(foundation, sample_k))
+        if random.random() < 0.75:
+            cand_electives = electives.get(career_interest, ["Python", "SQL"])
+            skills.update(random.sample(cand_electives, min(len(cand_electives), random.randint(1, 2))))
+    elif perf_class == 'M':
+        sample_k = min(len(foundation), random.randint(2, 3))
+        skills.update(random.sample(foundation, sample_k))
+        if random.random() < 0.40:
+            cand_electives = electives.get(career_interest, ["Python", "SQL"])
+            skills.add(random.choice(cand_electives))
+    else:
+        sample_k = min(len(foundation), random.randint(1, 2))
+        skills.update(random.sample(foundation, sample_k))
+        
+    return sorted(list(skills))
 
 def get_soft_skills(raised_hands, discussion):
     skills = []
@@ -218,16 +258,16 @@ def main():
             career_counts[career_interest] += 1
             
             edu_level, grad_year = map_stage_to_edu_level(stage)
-            tech_skills = get_skills_by_career(career_interest, perf_class)
+            tech_skills = get_skills_by_student_background(degree, specialisation, career_interest, perf_class)
             soft_skills = get_soft_skills(raised_hands, discussion)
             
             if perf_class == 'H':
                 gpa = round(random.uniform(8.5, 9.8), 2)
-                projects = f"{career_interest} Capstone Portfolio"
-                certifications = f"Certified {career_interest} Professional"
+                projects = "Advanced Capstone Portfolio"
+                certifications = "Professional Industry Certification"
             elif perf_class == 'M':
                 gpa = round(random.uniform(6.5, 8.4), 2)
-                projects = f"{career_interest} Applied Lab Project" if random.random() > 0.4 else "None"
+                projects = "Applied Coursework Project" if random.random() > 0.4 else "None"
                 certifications = "Industry Foundation Certificate" if random.random() > 0.5 else "None"
             else:
                 gpa = round(random.uniform(4.5, 6.4), 2)
