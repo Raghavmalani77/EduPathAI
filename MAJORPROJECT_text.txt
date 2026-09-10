@@ -1,0 +1,334 @@
+PROJECT 6 
+AI-POWERED HOLISTIC STUDENT LEARNING, EMPLOYABILITY AND CAREER PATHWAY RECOMMENDATION SYSTEM 
+6.1 Background 
+Students often face difficulty in selecting appropriate career paths and determining which skills, courses, projects, certifications, and practical experiences they should pursue. 
+Students with different abilities, interests, learning behaviours, personality-related characteristics, and career aspirations are frequently provided with similar learning pathways. 
+A student's career readiness is influenced by multiple factors, including: 
+Existing technical skills 
+Domain and subject knowledge 
+Academic background 
+Interests and career aspirations 
+Learning behaviour 
+Willingness to learn 
+Communication skills 
+Interpersonal relationships and teamwork 
+Professional attitude 
+Ethical conduct 
+Attendance and punctuality 
+Cloud Counselage has access to student profiles, learning data, skill information, course participation, project participation, and employment-related information. 
+This creates an opportunity to develop an AI-powered system that creates a more holistic understanding of a student's skills, learning behaviour, employability attributes, and career aspirations. 
+ 
+6.2 Problem Statement 
+The problem is to develop an AI-Powered Holistic Student Learning, Employability and Career Pathway Recommendation System that analyses multiple dimensions of a student's profile. 
+A. Student Profile and Background 
+Academic background 
+Degree and specialisation 
+Existing technical skills 
+Existing soft skills 
+Domain and subject knowledge 
+Interests 
+Career goals and aspirations 
+B. Learning Behaviour 
+Courses enrolled 
+Courses completed 
+Assessment performance 
+Learning engagement 
+Learning progress 
+Willingness and readiness to learn 
+C. Employability and Behavioural Attributes 
+Where relevant and where reliable data is available: 
+Communication skills 
+Interpersonal relationships and teamwork 
+Professional attitude 
+Ethical conduct 
+Attendance and punctuality 
+Technical skills 
+Domain knowledge 
+The system should analyse these factors to identify: 
+Career suitability 
+Existing strengths 
+Skill gaps 
+Learning needs 
+Employability development areas 
+Based on this analysis, the system should recommend: 
+Suitable career pathways 
+Relevant job roles 
+Required technical and soft skills 
+Courses and learning programmes 
+Certifications 
+Practical projects 
+Internships 
+Recommended areas for personal and professional development 
+The system should provide personalised recommendations rather than applying a single learning pathway to all students. 
+Where possible, the system should also explain: 
+Why a particular career, course, project, internship, or development recommendation has been made. 
+ 
+6.3 Research Gap 
+Existing educational recommendation systems often focus primarily on recommending courses or learning content. 
+They may not sufficiently connect the complete student development journey: Student Profile → Skills → Behaviour → Learning → Projects → Employability → Career → Employment 
+Many recommendation systems also do not sufficiently consider: 
+Technical skills 
+Domain knowledge 
+Learning behaviour 
+Career aspirations 
+Employability attributes 
+Communication and teamwork 
+Willingness to learn 
+Practical project experience 
+This project will investigate whether an integrated AI-based recommendation system can create a more personalised and explainable pathway from student development to employability and career opportunities. 
+ 
+6.4 Research Objectives 
+The project aims to: 
+Develop a holistic student profile using academic, skill, learning, behavioural, and career-related data. 
+Identify student skill and capability patterns. 
+Analyse learning behaviour and engagement. 
+Identify technical, domain, and employability skill gaps. 
+Classify suitable career pathways and job roles. 
+Recommend personalised courses and learning programmes. 
+Recommend relevant certifications, projects, and internships. 
+Identify areas for employability development. 
+Develop an explainable recommendation system that communicates why recommendations are made. 
+Evaluate the effectiveness and relevance of the recommendations. 
+ 
+6.5 Required Data 
+A. Student Profile Data 
+Data Category Examples Academic Degree, branch, 
+Background specialisation 
+Technical Skills Python, SQL, Java, AI/ML 
+Soft Skills Communication, teamwork 
+Finance, Marketing, 
+Domain Knowledge 
+Healthcare 
+Interests 
+AI, Finance, Marketing 
+Career Goals 
+Desired role or industry 
+Projects 
+Project details and technologies 
+Certifications 
+Certification history 
+ 
+B. Learning Data 
+Data Category Examples 
+Courses Enrolled and completed courses 
+Assessment Scores and performance 
+Learning Progress Completion percentage 
+Engagement Login/activity data 
+Learning Behaviour Course participation patterns 
+Willingness to Course participation, skill development activity, learning Learn progression 
+Important: Willingness to learn should ideally be inferred from observable behaviour rather than simply assumed from a survey response. 
+For example: 
+Voluntary course participation 
+Completion of additional courses 
+Participation in projects 
+Improvement over time 
+Participation in certifications 
+Consistency of learning activity 
+ 
+C. Employability and Behavioural Data 
+Where available and collected through appropriate assessments or structured evaluation: 
+Attribute 
+Possible Data Source 
+Communication Skills 
+Assessment or structured evaluation 
+Teamwork 
+Project or peer evaluation 
+Professional Attitude 
+Structured assessment 
+Ethical Conduct 
+Scenario-based assessment 
+Attendance and Punctuality 
+Programme participation data 
+Domain Knowledge 
+Assessments and projects 
+Technical Skills 
+Assessments and project 
+evidence 
+Important Data Consideration 
+The project should not attempt to make unsupported judgements about a student's personality or character. 
+Attributes such as ethical conduct, professional attitude, teamwork, and communication should be based on: 
+Structured assessments 
+Defined evaluation criteria 
+Project feedback 
+Behavioural questionnaires 
+Scenario-based assessments 
+Verified participation data 
+This will make the project more scientifically valid and ethically responsible. 
+ 
+D. Job Data 
+Job Role 
+Required Skills 
+Data Analyst 
+SQL, Excel, Python 
+AI Engineer 
+Python, Machine Learning, Deep Learning 
+Business 
+Excel, SQL, Communication 
+Analyst 
+Additional data may include: 
+Job description 
+Industry 
+Experience requirements 
+Education requirements 
+Technical skills 
+Soft skills 
+Location 
+ 
+E. Learning Content Data 
+Course Skills Developed 
+Python Programming 
+Database and Data 
+SQL 
+Analysis 
+Machine 
+AI/ML 
+Learning 
+Power BI Data Visualisation 
+ 
+6.6 Data Source 
+Public Data 
+The project can use: 
+Public job descriptions 
+Public course catalogues 
+Public skill taxonomies 
+Public career and occupational datasets 
+Cloud Counselage Data 
+Strongly recommended: 
+Anonymised student profiles 
+Technical and soft skills 
+Course participation 
+Assessment data 
+Project information 
+Certification data 
+Career preferences 
+Learning engagement data 
+Where available and appropriately collected: 
+Structured employability assessment data 
+Project/team evaluation data 
+Attendance and participation data 
+Recommended Approach 
+The project should ideally combine: 
+Public Job Data + Public Skill Data + Anonymised Cloud Counselage Student/Learning Data 
+ 
+6.7 Proposed Methodology 
+Student profile creation 
+Data preprocessing and anonymisation 
+Exploratory data analysis 
+Student segmentation or clustering 
+Skill and employability attribute analysis 
+Skill-gap analysis 
+Career pathway classification 
+Job-role matching 
+Personalised recommendation system development 
+Job-market and learning-content integration 
+Explainability implementation 
+Recommendation evaluation 
+ 
+6.8 Example Recommendation 
+Current Student Profile 
+Python 
+Statistics 
+Basic Machine Learning 
+Strong learning engagement 
+Interest in data-driven careers 
+Recommended Career Pathway 
+Data Analytics and Business Intelligence 
+Recommended Job Roles 
+Data Analyst 
+Business Analyst 
+BI Analyst 
+Strengths 
+Strong analytical foundation 
+Good technical learning progress 
+Relevant interest in data-related careers 
+Skill Gaps 
+SQL 
+Power BI 
+Advanced Data Visualisation 
+Recommended Learning 
+SQL for Data Analysis 
+Power BI 
+Advanced Data Visualisation 
+Recommended Project 
+Customer Churn Prediction and Business Dashboard 
+Recommended Development Areas 
+Business communication 
+Presentation of analytical findings 
+Team-based project experience 
+ 
+6.9 Business Relevance 
+This project supports the complete Cloud Counselage ecosystem: 
+Student Profile → Assessment → Skills → Learning → Projects → Employability → Internship → Career → Hiring 
+The system could potentially support: 
+Personalised student development 
+Career guidance 
+AI-powered learning recommendations 
+Skill-gap analysis 
+Internship recommendations 
+Job matching 
+Student employability 
+College employability programmes 
+Corporate learning 
+Interview-Free Hiring 
+ 
+7. Standardised Cloud Counselage Research Datasets 
+To support the six projects, Cloud Counselage can create a standardised Anonymized research data package. 
+ 
+Dataset 1: Student Employability Dataset 
+Student_ID 
+Education_Level 
+Degree 
+Specialisation 
+Graduation_Year 
+Technical_Skills 
+Soft_Skills 
+Certifications 
+Projects 
+Courses_Completed 
+Assessment_Score 
+Career_Interest 
+ 
+Dataset 2: Learning Engagement Dataset 
+Student_ID 
+Course_ID 
+Registration_Date 
+Login_Count 
+Content_Completion_Percentage 
+Assessment_Score 
+Assignment_Submission 
+Last_Activity_Date 
+Course_Completed 
+Certificate_Issued 
+ 
+Dataset 3: Job Dataset 
+Job_ID 
+Job_Title 
+Industry 
+Location 
+Experience_Required 
+Education_Required Skills_Required Job_Description 
+Posting_Date 
+ 
+Dataset 4: B2B Lead Dataset 
+Lead_ID 
+Industry 
+Company_Size 
+Location 
+Service_Interest 
+Lead_Source 
+Engagement_Level 
+Contact_Status 
+Opportunity_Status Converted 
+This dataset should be shared only in Anonymized form. 
+ 
+Dataset 5: College Dataset 
+College_ID 
+Location 
+Student_Count 
+Programs 
+Placement_Percentage 
+Industry_Partnerships 
+Digital_Readiness 
+Student_Engagement Existing_Programs 
+Partnership_Status 
+ 
