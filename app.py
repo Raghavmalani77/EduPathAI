@@ -1,4 +1,5 @@
 import os
+import io
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -368,6 +369,31 @@ with tab2:
         rec_path = os.path.join(PLOTS_DIR, "phase7_recommendation_metrics.png")
         if os.path.exists(rec_path):
             st.image(rec_path, caption="Recommendation Precision & Recall across Top-K Courses", use_container_width=True)
+
+    # 4. Data & Concept Drift Monitoring (Rudra's Suite)
+    st.markdown("---")
+    st.markdown("#### 3. Production Data & Concept Drift Monitoring Suite")
+    st.write("Tracks Kolmogorov-Smirnov distribution shifts, Population Stability Index (PSI), and model performance decay across incoming student cohorts.")
+    
+    drift_report_path = os.path.join(DATA_DIR, "drift_monitoring_report.csv")
+    if os.path.exists(drift_report_path):
+        try:
+            with open(drift_report_path, "r", encoding="utf-8") as f:
+                content = f.read()
+            sections = content.split("## ")
+            for sec in sections[1:]:
+                lines = sec.strip().split("\n")
+                sec_title = lines[0]
+                csv_text = "\n".join(lines[1:]).strip()
+                sec_df = pd.read_csv(io.StringIO(csv_text))
+                st.markdown(f"**{sec_title}**")
+                st.dataframe(sec_df, use_container_width=True)
+        except Exception as e:
+            st.warning(f"Drift report format notice: {e}")
+        
+    drift_plot_path = os.path.join(PLOTS_DIR, "drift_analysis.png")
+    if os.path.exists(drift_plot_path):
+        st.image(drift_plot_path, caption="Statistical Feature Drift (KS-Test) & Concept Drift Accuracy Trajectory", use_container_width=True)
 
 # =============================================================================
 # TAB 3: SYSTEM ARCHITECTURE BLUEPRINT
