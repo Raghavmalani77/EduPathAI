@@ -212,9 +212,9 @@ with tab1:
                 st.markdown(f"""
                 <div class="course-card">
                     <b>{idx}. {rec['Job_Title']}</b><br>
-                    <span style="color:#546E7A; font-size:0.9rem;">📍 {rec['Company_Location']} | 💼 {rec['Industry']}</span><br>
+                    <span style="color:#546E7A; font-size:0.9rem;">📍 {rec.get('Location', 'Remote/Global')} | 💼 {rec.get('Industry', 'Technology')}</span><br>
                     <div style="margin-top:5px;">
-                        <b>Match Score:</b> <span style="color:#1E88E5; font-weight:700;">{rec['Match_Percentage']}%</span>
+                        <b>Match Score:</b> <span style="color:#1E88E5; font-weight:700;">{rec['Match_Score']}%</span>
                     </div>
                 </div>
                 """, unsafe_allow_html=True)
@@ -223,8 +223,8 @@ with tab1:
         top_match = target_recommendations[0]
         st.markdown(f"### 🎯 Skill-Gap Analysis for: *{top_match['Job_Title']}*")
         
-        gaps = top_match["Detected_Gaps"]
-        req_skills = top_match["Skills_Required"]
+        gaps, rec_courses = engine.get_skill_gap_and_courses(selected_student_id, top_match["Job_ID"])
+        req_skills = [s.strip() for s in str(top_match.get("Skills_Required", "")).split(",") if s.strip()]
         
         if not gaps:
             st.success("🎉 **No Skill Gaps Detected!** This student already possesses all required skills for this role.")
@@ -237,6 +237,8 @@ with tab1:
 
         # Plotly Radar Chart comparing Student Skills vs Job Required Skills
         sample_radar_skills = sorted(list(set(req_skills + s_tech[:4])))[:8]
+        if not sample_radar_skills:
+            sample_radar_skills = ["Python", "Problem Solving", "Analytics", "Communication"]
         student_has = [1 if sk.lower() in [s.lower() for s in (s_tech + s_soft)] else 0 for sk in sample_radar_skills]
         job_needs = [1 if sk.lower() in [r.lower() for r in req_skills] else 0 for sk in sample_radar_skills]
         
@@ -269,28 +271,28 @@ with tab1:
     st.markdown("### 📚 Recommended High-Impact Course Bridge")
     st.caption("Personalized courses selected to close the detected skill gaps with minimum student cognitive overload.")
 
-    rec_courses = top_match.get("Recommended_Courses", [])
     if not rec_courses:
         st.info("No courses required. Student skills are already fully aligned with the job demands.")
     else:
-        for c in rec_courses:
+        for c in rec_courses[:4]:
             with st.container():
                 st.markdown(f"""
                 <div class="course-card" style="border-left: 5px solid #4CAF50;">
                     <b>📖 {c['Course_Title']}</b> ({c['Platform']})<br>
-                    <span style="color:#546E7A; font-size:0.9rem;">⏳ Duration: {c['Duration_Hours']} Hours | 🎯 Covers Missing Skill: <b>{', '.join(c['Skills_Covered'])}</b></span><br>
+                    <span style="color:#546E7A; font-size:0.9rem;">⏳ Duration: {c['Duration_Hours']} Hours | 🎯 Covers Missing Skill: <b>{c['Skills_Covered']}</b></span><br>
                     <p style="margin-top:6px; font-size:0.88rem; color:#37474F;">{c['Description']}</p>
                 </div>
                 """, unsafe_allow_html=True)
 
     # Explainable AI Text Card
     st.markdown("### 💡 Explainable AI (XAI) Reasoning")
+    xai_explanation = engine.generate_explanation(selected_student_id, top_match["Job_ID"], rec_courses[:3])
     with st.container():
         st.markdown(f"""
         <div style="background-color: #E8F0FE; border-left: 5px solid #1A73E8; border-radius: 8px; padding: 15px;">
             <b>Why was this recommendation generated?</b><br>
             <p style="margin-top:8px; font-size:0.92rem; color:#202124;">
-                {top_match['XAI_Explanation'].replace(chr(10), '<br>')}
+                {xai_explanation.replace(chr(10), '<br>')}
             </p>
         </div>
         """, unsafe_allow_html=True)

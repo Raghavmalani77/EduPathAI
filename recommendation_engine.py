@@ -190,7 +190,8 @@ class RecommendationEngine:
                     "Platform": course["Platform"],
                     "Skills_Developed": course["Skills_Developed"],
                     "Skills_Covered": ", ".join(sorted([s.title() for s in matching_skills])),
-                    "Duration_Hours": course["Duration_Hours"]
+                    "Duration_Hours": course["Duration_Hours"],
+                    "Description": course["Description"]
                 })
                 
         # Sort courses by duration or coverage (let's do count of matching skills covered)
