@@ -17,3 +17,7 @@ requests>=2.31.0
 
 # Interactive Web Application
 streamlit>=1.30.0
+
+# Natural Language Processing & Dense Vector Search
+sentence-transformers>=2.2.0
+torch>=2.0.0
