@@ -577,7 +577,7 @@ with tab3:
     | **3. Live Job Matcher** | **Cosine Similarity Engine** | Measures geometric alignment between 66-D student competency vectors and 240 active job postings (India + Global). | Top-3 ranked job matching with **85%–95% precision compatibility**. |
     | **4. Dense Semantic Course Bridge** | **Sentence-BERT (`all-MiniLM-L6-v2`)** | 384-D dense embeddings match non-exact terminology between job needs and course syllabi (e.g. *PyTorch* ↔ *Deep Learning*). | **+18.4% Vocabulary Recall Boost**, **76.8% Skill Gap Recovery Rate**. |
     | **5. Explainable AI (XAI)** | **Glass-Box Gap Decomposer + NLG** | Performs explicit set subtraction ($\text{Job} \setminus \text{Student}$) and synthesizes natural-language justification for every recommendation. | **100% auditable transparency**; eliminates recommendation black-box. |
-    | **6. Presentation Layer** | **Streamlit Web App (Port 8501)** | Interactive web UI with dynamic Plotly radar charts, country filters (India, EU, Global), and benchmark suite. | Live sub-120ms reactive inference dashboard. |
+    | **6. Presentation Layer** | **Interactive Web Application & Portal (Port 8501)** | Interactive web UI with dynamic Plotly radar charts, country filters (India, EU, Global), and benchmark suite. | Live sub-120ms reactive inference dashboard. |
     """)
 
 # =============================================================================
