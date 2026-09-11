@@ -30,18 +30,19 @@ st.markdown("""
     }
     .sub-header {
         font-size: 1.05rem;
-        color: #546E7A;
+        color: var(--text-color, #546E7A);
+        opacity: 0.85;
         margin-bottom: 25px;
     }
     .metric-card {
-        background-color: #F8F9FA;
+        background-color: var(--secondary-background-color, #F8F9FA);
         border-radius: 10px;
         padding: 15px;
         border-left: 5px solid #1E88E5;
         box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
     .badge-high {
-        background-color: #E8F5E9;
+        background-color: rgba(46, 125, 50, 0.15);
         color: #2E7D32;
         padding: 4px 10px;
         border-radius: 6px;
@@ -49,7 +50,7 @@ st.markdown("""
         display: inline-block;
     }
     .badge-mod {
-        background-color: #FFF8E1;
+        background-color: rgba(245, 127, 23, 0.15);
         color: #F57F17;
         padding: 4px 10px;
         border-radius: 6px;
@@ -57,7 +58,7 @@ st.markdown("""
         display: inline-block;
     }
     .badge-low {
-        background-color: #FFEBEE;
+        background-color: rgba(198, 40, 40, 0.15);
         color: #C62828;
         padding: 4px 10px;
         border-radius: 6px;
@@ -65,8 +66,8 @@ st.markdown("""
         display: inline-block;
     }
     .gap-badge {
-        background-color: #FCE4EC;
-        color: #C2185B;
+        background-color: rgba(194, 24, 91, 0.15);
+        color: #E91E63;
         padding: 4px 8px;
         border-radius: 4px;
         font-size: 0.85rem;
@@ -75,8 +76,8 @@ st.markdown("""
         display: inline-block;
     }
     .skill-badge {
-        background-color: #E3F2FD;
-        color: #1565C0;
+        background-color: rgba(21, 101, 192, 0.15);
+        color: #1E88E5;
         padding: 4px 8px;
         border-radius: 4px;
         font-size: 0.85rem;
@@ -84,12 +85,62 @@ st.markdown("""
         margin: 2px;
         display: inline-block;
     }
+    .semantic-badge {
+        background-color: rgba(142, 36, 170, 0.15);
+        color: #AB47BC;
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-size: 0.78rem;
+        font-weight: 600;
+        margin-right: 5px;
+        display: inline-block;
+    }
     .course-card {
-        background: #FFFFFF;
-        border: 1px solid #E0E0E0;
+        background-color: var(--secondary-background-color, #F8F9FA);
+        border: 1px solid rgba(128, 128, 128, 0.22);
         border-radius: 8px;
-        padding: 12px 16px;
-        margin-bottom: 10px;
+        padding: 14px 18px;
+        margin-bottom: 12px;
+        color: var(--text-color, #1A202C);
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .card-title {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--text-color, #1A202C);
+    }
+    .card-meta {
+        font-size: 0.88rem;
+        color: var(--text-color, #546E7A);
+        opacity: 0.85;
+        margin-top: 3px;
+        margin-bottom: 6px;
+    }
+    .card-desc {
+        margin-top: 6px;
+        font-size: 0.88rem;
+        color: var(--text-color, #37474F);
+        opacity: 0.95;
+        line-height: 1.45;
+    }
+    .xai-card {
+        background-color: rgba(26, 115, 232, 0.08);
+        border-left: 5px solid #1A73E8;
+        border-radius: 8px;
+        padding: 15px;
+        color: var(--text-color, #202124);
+    }
+    .xai-title {
+        font-weight: 700;
+        font-size: 0.98rem;
+        color: #1A73E8;
+        margin-bottom: 6px;
+    }
+    .xai-body {
+        font-size: 0.92rem;
+        color: var(--text-color, #202124);
+        opacity: 0.95;
+        line-height: 1.55;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -255,16 +306,15 @@ with tab1:
         
         for idx, rec in enumerate(target_recommendations, start=1):
             with st.container():
-                st.markdown(f"""
-                <div class="course-card">
-                    <b>{idx}. {rec['Job_Title']}</b><br>
-                    <span style="color:#1E88E5; font-weight:600;">🏢 {rec.get('Company_Name', 'Enterprise Tech')}</span><br>
-                    <span style="color:#546E7A; font-size:0.9rem;">📍 {rec.get('Location', 'Remote/Global')} ({rec.get('Country', 'Global')}) | 💼 {rec.get('Industry', 'Technology')}</span><br>
-                    <div style="margin-top:5px;">
-                        <b>Match Score:</b> <span style="color:#2E7D32; font-weight:700;">{rec['Match_Score']}%</span>
-                    </div>
-                </div>
-                """, unsafe_allow_html=True)
+                job_html = (
+                    f'<div class="course-card">'
+                    f'<div class="card-title">{idx}. {rec["Job_Title"]}</div>'
+                    f'<div style="color: #1E88E5; font-weight: 600; margin-top: 3px;">🏢 {rec.get("Company_Name", "Enterprise Tech")}</div>'
+                    f'<div class="card-meta">📍 {rec.get("Location", "Remote/Global")} ({rec.get("Country", "Global")}) | 💼 {rec.get("Industry", "Technology")}</div>'
+                    f'<div style="margin-top: 6px;"><b>Match Score:</b> <span style="color: #2E7D32; font-weight: 700;">{rec["Match_Score"]}%</span></div>'
+                    f'</div>'
+                )
+                st.markdown(job_html, unsafe_allow_html=True)
 
     with col_gaps:
         top_match = target_recommendations[0]
@@ -321,11 +371,15 @@ with tab1:
 
     # Dense Semantic Vector Search Status Pill
     semantic_mode = engine.semantic_matcher.get_mode_name()
-    st.markdown(f"""
-    <div style="display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #EDE7F6 0%, #D1C4E9 100%); color: #4A148C; padding: 5px 14px; border-radius: 16px; font-size: 0.83rem; font-weight: 600; margin-bottom: 12px; border: 1px solid #B39DDB;">
-        <span>🧠 Dense Semantic Vector Search Active: <b>{semantic_mode}</b></span>
-    </div>
-    """, unsafe_allow_html=True)
+    status_pill_html = (
+        f'<div style="display: inline-flex; align-items: center; gap: 8px; '
+        f'background: rgba(142, 36, 170, 0.12); color: var(--text-color, #4A148C); '
+        f'padding: 6px 14px; border-radius: 16px; font-size: 0.83rem; font-weight: 600; '
+        f'margin-bottom: 12px; border: 1px solid rgba(179, 157, 219, 0.4);">'
+        f'<span>🧠 Dense Semantic Vector Search Active: <b style="color:#8E24AA;">{semantic_mode}</b></span>'
+        f'</div>'
+    )
+    st.markdown(status_pill_html, unsafe_allow_html=True)
 
     if not rec_courses:
         st.info("No courses required. Student skills are already fully aligned with the job demands.")
@@ -334,59 +388,53 @@ with tab1:
             match_type = c.get("Match_Type", "Curated Bridge")
             if match_type == "Dense Semantic Bridge":
                 card_border = "#8E24AA" # Purple
-                badge_bg = "#F3E5F5"
-                badge_color = "#6A1B9A"
+                badge_bg = "rgba(142, 36, 170, 0.15)"
+                badge_color = "#AB47BC"
             elif match_type == "Hybrid (Exact + Semantic)":
                 card_border = "#00897B" # Teal
-                badge_bg = "#E0F2F1"
-                badge_color = "#004D40"
+                badge_bg = "rgba(0, 137, 123, 0.15)"
+                badge_color = "#26A69A"
             else:
                 card_border = "#43A047" # Green
-                badge_bg = "#E8F5E9"
-                badge_color = "#1B5E20"
+                badge_bg = "rgba(67, 160, 71, 0.15)"
+                badge_color = "#43A047"
 
             semantic_badges_html = ""
             if c.get("Semantic_Bridges"):
                 for b in c["Semantic_Bridges"]:
-                    semantic_badges_html += f"""
-                    <span style="background-color: #EDE7F6; color: #4A148C; padding: 2px 8px; border-radius: 4px; font-size: 0.78rem; font-weight: 600; margin-right: 5px;">
-                        ✨ Semantic: {b['gap']} ↔ {b['concept']} ({b['similarity']}%)
-                    </span>
-                    """
+                    semantic_badges_html += f'<span class="semantic-badge">✨ Semantic: {b["gap"]} ↔ {b["concept"]} ({b["similarity"]}%)</span> '
 
             exact_html = ""
             if c.get("Skills_Covered"):
                 exact_html = f"🎯 Covers Missing: <b>{c['Skills_Covered']}</b>"
 
+            badges_line = f'<div style="margin-bottom: 6px;">{semantic_badges_html}</div>' if semantic_badges_html else ''
+
             with st.container():
-                st.markdown(f"""
-                <div class="course-card" style="border-left: 5px solid {card_border};">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-                        <b>📖 {c['Course_Title']}</b>
-                        <span style="background-color: {badge_bg}; color: {badge_color}; padding: 3px 8px; border-radius: 4px; font-size: 0.76rem; font-weight: 700;">
-                            {match_type}
-                        </span>
-                    </div>
-                    <div style="font-size: 0.88rem; color: #546E7A; margin-bottom: 6px;">
-                        🏛️ Platform: <b>{c['Platform']}</b> | ⏳ Duration: <b>{c['Duration_Hours']} Hours</b> {('| ' + exact_html) if exact_html else ''}
-                    </div>
-                    {f'<div style="margin-bottom: 6px;">{semantic_badges_html}</div>' if semantic_badges_html else ''}
-                    <p style="margin-top:4px; font-size:0.87rem; color:#37474F; line-height: 1.4;">{c['Description']}</p>
-                </div>
-                """, unsafe_allow_html=True)
+                course_html = (
+                    f'<div class="course-card" style="border-left: 5px solid {card_border};">'
+                    f'<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">'
+                    f'<span class="card-title">📖 {c["Course_Title"]}</span>'
+                    f'<span style="background-color: {badge_bg}; color: {badge_color}; padding: 3px 8px; border-radius: 4px; font-size: 0.76rem; font-weight: 700;">{match_type}</span>'
+                    f'</div>'
+                    f'<div class="card-meta">🏛️ Platform: <b>{c["Platform"]}</b> | ⏳ Duration: <b>{c["Duration_Hours"]} Hours</b> {("| " + exact_html) if exact_html else ""}</div>'
+                    f'{badges_line}'
+                    f'<div class="card-desc">{c["Description"]}</div>'
+                    f'</div>'
+                )
+                st.markdown(course_html, unsafe_allow_html=True)
 
     # Explainable AI Text Card
     st.markdown("### 💡 Explainable AI (XAI) Reasoning")
     xai_explanation = engine.generate_explanation(selected_student_id, top_match["Job_ID"], rec_courses[:3])
     with st.container():
-        st.markdown(f"""
-        <div style="background-color: #E8F0FE; border-left: 5px solid #1A73E8; border-radius: 8px; padding: 15px;">
-            <b>Why was this recommendation generated?</b><br>
-            <p style="margin-top:8px; font-size:0.92rem; color:#202124; line-height: 1.5;">
-                {xai_explanation.replace(chr(10), '<br>')}
-            </p>
-        </div>
-        """, unsafe_allow_html=True)
+        xai_html = (
+            f'<div class="xai-card">'
+            f'<div class="xai-title">Why was this recommendation generated?</div>'
+            f'<div class="xai-body">{xai_explanation.replace(chr(10), "<br>")}</div>'
+            f'</div>'
+        )
+        st.markdown(xai_html, unsafe_allow_html=True)
 
 # =============================================================================
 # TAB 2: MODEL EVALUATION & BENCHMARKS
@@ -443,17 +491,19 @@ with tab2:
             st.image(acc_roc_path, caption="Comparative Benchmark: Accuracy vs. Multi-Class ROC-AUC Across 6 Classifiers", use_container_width=True)
 
     with c_img6:
-        st.markdown("""
-        <div style="background-color: #F1F8E9; border-left: 5px solid #43A047; border-radius: 8px; padding: 14px; margin-top: 15px;">
-            <b style="color: #2E7D32;">🎯 Benchmark Insights (16 Pathways)</b><br>
-            <ul style="margin-top: 8px; font-size: 0.86rem; color: #1B5E20; padding-left: 18px; line-height: 1.55;">
-                <li><b>Random Forest Champion</b>: Achieves <b>87.50% 5-fold CV</b> and <b>0.9910 ROC-AUC</b> across all 16 career categories.</li>
-                <li><b>Continuous Proficiencies</b>: Mapping skills via Bloom's Taxonomy (0.0 to 1.0) improves boundary sensitivity over binary 0/1 encoding.</li>
-                <li><b>XGBoost & LightGBM</b>: Compete strongly at <b>86.46%</b> and <b>85.42%</b> accuracy respectively.</li>
-                <li><b>High Separability</b>: All top ensemble models exceed 0.98 ROC-AUC, proving robust multi-class discriminative power.</li>
-            </ul>
-        </div>
-        """, unsafe_allow_html=True)
+        insight_html = (
+            f'<div style="background-color: rgba(67, 160, 71, 0.12); border-left: 5px solid #43A047; '
+            f'border-radius: 8px; padding: 14px; margin-top: 15px; color: var(--text-color, #1B5E20);">'
+            f'<b style="color: #2E7D32; font-size: 0.95rem;">🎯 Benchmark Insights (16 Pathways)</b><br>'
+            f'<ul style="margin-top: 8px; font-size: 0.86rem; padding-left: 18px; line-height: 1.55;">'
+            f'<li><b>Random Forest Champion</b>: Achieves <b>87.50% 5-fold CV</b> and <b>0.9910 ROC-AUC</b> across all 16 career categories.</li>'
+            f'<li><b>Continuous Proficiencies</b>: Mapping skills via Bloom\'s Taxonomy (0.0 to 1.0) improves boundary sensitivity over binary 0/1 encoding.</li>'
+            f'<li><b>XGBoost & LightGBM</b>: Compete strongly at <b>86.46%</b> and <b>85.42%</b> accuracy respectively.</li>'
+            f'<li><b>High Separability</b>: All top ensemble models exceed 0.98 ROC-AUC, proving robust multi-class discriminative power.</li>'
+            f'</ul>'
+            f'</div>'
+        )
+        st.markdown(insight_html, unsafe_allow_html=True)
 
     # 4. Data & Concept Drift Monitoring (Rudra's Suite)
     st.markdown("---")
