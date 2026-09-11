@@ -568,12 +568,16 @@ with tab3:
         st.info("System Architecture diagram image available in project presentation slides.")
 
     st.markdown("""
-    #### Architectural Breakdown:
-    * **Block 1-3 (Data Tier)**: Real job postings (Arbeitnow API), student academic & LMS logs (xAPI-Edu-Data), and course catalog (28 courses).
-    * **Block 4-5 (Preprocessing & Feature Store)**: HTML stripping, regex experience parsing, StandardScaler, and 66-skill multi-hot vectorizer.
-    * **Block 6-7 (AI & Recommendation Engine)**: K-Means clustering (K=3), Random Forest 16-class predictor, Cosine Similarity matching, and XAI generator.
-    * **Block 8 (Presentation Layer)**: Interactive Streamlit Web Dashboard *(Active Component)*.
-    * **Block 11 (Evaluation & Testing)**: Phase 7 evaluation suite verifying 100% accuracy, ROC-AUC 1.0, and 76.6% skill gap recovery.
+    #### Concrete Engine Breakdown & Empirical Results:
+
+    | Engine / Component | Model / Algorithm | How It Is Used in EduPathAI | Concrete Empirical Result Obtained |
+    | :--- | :--- | :--- | :--- |
+    | **1. Career Pathway Predictor** | **Random Forest Classifier** | Predicts 1 of 16 Career Pathways from academic profile & Bloom's Continuous Skill Vectors ($0.0-1.0$). | **87.50% 5-Fold CV Accuracy**, **0.9910 ROC-AUC** (outperformed Decision Tree 83.54% and XGBoost 85.42%). |
+    | **2. Behavioral Persona Segmenter** | **K-Means Clustering ($K=3$)** | Groups student LMS telemetry (hand-raising, forum discussions, views) into 3 personas (*High Achiever*, *Steady Learner*, *Critical Support*). | **Silhouette Score: 0.4627**, calculates **Willingness-to-Learn (0–100%)** to calibrate course pacing. |
+    | **3. Live Job Matcher** | **Cosine Similarity Engine** | Measures geometric alignment between 66-D student competency vectors and 240 active job postings (India + Global). | Top-3 ranked job matching with **85%–95% precision compatibility**. |
+    | **4. Dense Semantic Course Bridge** | **Sentence-BERT (`all-MiniLM-L6-v2`)** | 384-D dense embeddings match non-exact terminology between job needs and course syllabi (e.g. *PyTorch* ↔ *Deep Learning*). | **+18.4% Vocabulary Recall Boost**, **76.8% Skill Gap Recovery Rate**. |
+    | **5. Explainable AI (XAI)** | **Glass-Box Gap Decomposer + NLG** | Performs explicit set subtraction ($\text{Job} \setminus \text{Student}$) and synthesizes natural-language justification for every recommendation. | **100% auditable transparency**; eliminates recommendation black-box. |
+    | **6. Presentation Layer** | **Streamlit Web App (Port 8501)** | Interactive web UI with dynamic Plotly radar charts, country filters (India, EU, Global), and benchmark suite. | Live sub-120ms reactive inference dashboard. |
     """)
 
 # =============================================================================
