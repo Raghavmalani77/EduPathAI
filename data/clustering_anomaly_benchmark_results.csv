@@ -1,0 +1,4 @@
+Pipeline,silhouette_score,davies_bouldin_index,calinski_harabasz_score,active_clusters,outlier_count,outlier_percentage,mean_anomaly_score,inliers_clustered,outliers_isolated,silhouette_gain_vs_baseline
+Standard K-Means,0.4627,0.8867,731.73,3.0,,,,,,
+Isolation Forest Only,0.0547,8.5777,,,29.0,6.04,0.0574,,,
+Hybrid: Isolation + K-Means,0.487,0.8391,796.59,,,,,451.0,29.0,0.0243
