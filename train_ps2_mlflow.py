@@ -20,6 +20,7 @@ plots_dir = os.path.join(proj_dir, "plots")
 os.makedirs(plots_dir, exist_ok=True)
 
 # Set MLflow tracking
+mlflow.set_tracking_uri("sqlite:///mlflow.db")
 experiment_name = "EduPathAI_PS2_Benchmark"
 mlflow.set_experiment(experiment_name)
 
