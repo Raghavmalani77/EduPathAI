@@ -1,0 +1,39 @@
+{
+    "dataset_name": "PS2_Dataset (Career Role Prediction Benchmark)",
+    "source_file": "data/raw_ps2_dataset.csv",
+    "cleaned_file": "data/cleaned_ps2_dataset.csv",
+    "processed_file": "data/processed_ps2_dataset.csv",
+    "total_records": 6901,
+    "raw_features_count": 20,
+    "processed_features_count": 87,
+    "target_variable": "suggested_job_role",
+    "target_classes_count": 12,
+    "target_classes": [
+        "Applications Developer",
+        "CRM Technical Developer",
+        "Database Developer",
+        "Mobile Applications Developer",
+        "Network Security Engineer",
+        "Software Developer",
+        "Software Engineer",
+        "Software Quality Assurance (QA) / Testing",
+        "Systems Security Administrator",
+        "Technical Support",
+        "UX Designer",
+        "Web Developer"
+    ],
+    "class_distribution": {
+        "Network Security Engineer": 630,
+        "Software Engineer": 590,
+        "UX Designer": 589,
+        "Software Developer": 587,
+        "Database Developer": 581,
+        "Software Quality Assurance (QA) / Testing": 571,
+        "Web Developer": 570,
+        "CRM Technical Developer": 567,
+        "Technical Support": 565,
+        "Systems Security Administrator": 562,
+        "Applications Developer": 551,
+        "Mobile Applications Developer": 538
+    }
+}

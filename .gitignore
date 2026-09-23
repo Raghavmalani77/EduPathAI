@@ -12,3 +12,7 @@ env/
 # IDE files
 .vscode/
 .idea/
+
+# MLflow local run tracking DB
+mlflow.db
+mlruns/
