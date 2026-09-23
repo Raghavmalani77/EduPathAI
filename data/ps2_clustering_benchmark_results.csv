@@ -1,0 +1,4 @@
+Pipeline,silhouette_score,davies_bouldin_index,calinski_harabasz_score,records_clustered,clusters_count,inliers_clustered,outliers_isolated,silhouette_gain_vs_baseline
+"Standard K-Means (6,901 rows)",0.0639,3.2103,455.6,6901.0,3.0,,,
+"Isolation Forest Only (6,901 rows)",,,,6901.0,2.0,,,
+"Hybrid: Isolation + K-Means (6,901 rows)",0.0658,3.1864,441.41,,,6556.0,345.0,0.0019
