@@ -1,0 +1,5 @@
+Pipeline,silhouette_score,davies_bouldin_index,calinski_harabasz_score,records_clustered,inliers_clustered,outliers_isolated,silhouette_gain_vs_baseline
+"Cumulative K-Means Baseline (7,381 rows)",0.1315,2.1411,1015.78,7381.0,,,
+"Cumulative Isolation Forest (7,381 rows)",,,,7381.0,,,
+"Cumulative Hybrid: Isolation + K-Means (7,381 rows)",0.1346,2.1001,998.96,,7012.0,369.0,0.0031
+"Cumulative Career Domain Classifier (7,381 rows)",,,,7381.0,,,
