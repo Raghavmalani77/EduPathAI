@@ -17,6 +17,10 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier
+import mlflow
+import mlflow.sklearn
+
+os.environ["MLFLOW_DISABLE_AGENT_HINT"] = "1"
 
 def print_banner(text, char="="):
     print("\n" + char * 80)
@@ -28,6 +32,9 @@ def main():
     data_dir = os.path.join(base_dir, "data")
     plots_dir = os.path.join(base_dir, "plots")
     os.makedirs(plots_dir, exist_ok=True)
+
+    mlflow.set_tracking_uri("sqlite:///mlflow.db")
+    mlflow.set_experiment("EduPathAI_Model_Comparison")
 
     print_banner("PHASE 6: COMPREHENSIVE MODEL DEVELOPMENT & COMPARISON")
 
@@ -133,6 +140,40 @@ def main():
     plt.savefig(clustering_plot_path, dpi=300)
     plt.close()
     print(f"\nSaved clustering visual plot to: {clustering_plot_path}")
+
+    # Log Clustering Models to MLflow
+    with mlflow.start_run(run_name="KMeans_Clustering_K3"):
+        mlflow.log_params({
+            "algorithm": "K-Means",
+            "n_clusters": 3,
+            "init": "k-means++",
+            "n_init": 10,
+            "random_state": 42,
+            "n_samples": len(cluster_df),
+            "features": ", ".join(cluster_features)
+        })
+        mlflow.log_metrics({
+            "silhouette_score": round(float(km_sil), 4),
+            "davies_bouldin_index": round(float(km_db), 4),
+            "inertia": round(float(kmeans_optimal.inertia_), 2)
+        })
+        mlflow.log_artifact(clustering_plot_path, artifact_path="plots")
+        mlflow.sklearn.log_model(kmeans_optimal, name="model", serialization_format="pickle")
+        print("[MLflow] K-Means Clustering run logged successfully!")
+
+    with mlflow.start_run(run_name="Hierarchical_Clustering_Ward_K3"):
+        mlflow.log_params({
+            "algorithm": "AgglomerativeClustering",
+            "n_clusters": 3,
+            "linkage": "ward",
+            "n_samples": len(cluster_df)
+        })
+        mlflow.log_metrics({
+            "silhouette_score": round(float(agg_sil), 4),
+            "davies_bouldin_index": round(float(agg_db), 4)
+        })
+        mlflow.log_artifact(clustering_plot_path, artifact_path="plots")
+        print("[MLflow] Hierarchical Clustering run logged successfully!")
 
     # -------------------------------------------------------------------------
     # PART 2: SUPERVISED LEARNING - CAREER PATHWAY CLASSIFICATION
@@ -331,6 +372,30 @@ def main():
     plt.savefig(comparison_plot_path, dpi=300)
     plt.close()
     print(f"Saved classification comparison visual plot to: {comparison_plot_path}")
+
+    # Log Supervised Classification Models to MLflow
+    for _, row in results_df.iterrows():
+        m_name = str(row["Model"])
+        run_title = f"Supervised_{m_name.replace(' ', '_')}"
+        with mlflow.start_run(run_name=run_title):
+            mlflow.log_params({
+                "model_name": m_name,
+                "train_samples": len(X_train),
+                "test_samples": len(X_test),
+                "features_count": X.shape[1]
+            })
+            mlflow.log_metrics({
+                "test_accuracy": float(row["Test Accuracy (%)"]) / 100.0,
+                "test_f1_score": float(row["Test F1-Score (%)"]) / 100.0,
+                "test_precision": float(row["Test Precision (%)"]) / 100.0,
+                "test_recall": float(row["Test Recall (%)"]) / 100.0,
+                "cv_f1_mean": float(row["_cv_f1_mean"]) / 100.0,
+                "cv_f1_std": float(row["_cv_f1_std"]) / 100.0
+            })
+            mlflow.log_artifact(comparison_plot_path, artifact_path="plots")
+            if m_name in models:
+                mlflow.sklearn.log_model(models[m_name], name="model", serialization_format="pickle")
+    print("[MLflow] All Supervised Classification runs logged successfully!")
 
     print_banner("PHASE 6 EXECUTION COMPLETE: MULTIPLE APPROACHES EVALUATED")
 
