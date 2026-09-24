@@ -145,9 +145,9 @@ X_pca = pca.fit_transform(X_scaled)
 results = []
 
 # ==============================================================================
-# RUN 1: CUMULATIVE K-MEANS BASELINE (7,381 RECORDS)
+# RUN 1: CUMULATIVE K-MEANS CLUSTERING (ALL 7,381 RECORDS)
 # ==============================================================================
-print("\n[1/4] Running Run 1: Cumulative Standard K-Means (7,381 records)...")
+print("\n[1/4] Running Run 1: Pure K-Means on ALL 7,381 Unified Records...")
 kmeans_params = {
     "n_clusters": 3,
     "init": "k-means++",
@@ -155,15 +155,21 @@ kmeans_params = {
     "random_state": 42
 }
 
-with mlflow.start_run(run_name="1_Cumulative_KMeans_Baseline_7381"):
+with mlflow.start_run(run_name="1_KMeans_Clustering_ALL_7381_Records"):
     mlflow.log_params(kmeans_params)
     mlflow.log_param("dataset", "Cumulative_Unified_Dataset")
-    mlflow.log_param("total_records", n_total)
+    mlflow.log_param("total_records_clustered", n_total)
     mlflow.log_param("edupathai_core_records", len(d1))
     mlflow.log_param("ps2_benchmark_records", len(d2))
 
     km = KMeans(**kmeans_params)
     km_labels = km.fit_predict(X_scaled)
+
+    # Compute cluster distributions across all 7,381
+    cluster_counts = pd.Series(km_labels).value_counts().sort_index().to_dict()
+    for c_id, count in cluster_counts.items():
+        mlflow.log_metric(f"cluster_{c_id}_size", count)
+        mlflow.log_metric(f"cluster_{c_id}_pct", round(float(count / n_total * 100), 2))
 
     sil = float(silhouette_score(X_scaled, km_labels, sample_size=3000, random_state=42))
     db = float(davies_bouldin_score(X_scaled, km_labels))
@@ -173,9 +179,25 @@ with mlflow.start_run(run_name="1_Cumulative_KMeans_Baseline_7381"):
         "silhouette_score": round(sil, 4),
         "davies_bouldin_index": round(db, 4),
         "calinski_harabasz_score": round(ch, 2),
-        "records_clustered": n_total
+        "inertia": round(float(km.inertia_), 2),
+        "total_records_clustered": n_total
     }
     mlflow.log_metrics(metrics_km)
+
+    # Cluster Size Bar Chart
+    plt.figure(figsize=(7, 4.5))
+    bars = plt.bar([f"Persona Cluster {k}" for k in cluster_counts.keys()], list(cluster_counts.values()), color=["#1E88E5", "#43A047", "#FB8C00"], width=0.5)
+    plt.ylabel("Number of Students / Candidates")
+    plt.title(f"K-Means Cluster Breakdown Across ALL {n_total} Records", fontsize=11, fontweight="bold")
+    plt.ylim(0, max(cluster_counts.values()) * 1.2)
+    for b in bars:
+        h = b.get_height()
+        plt.text(b.get_x() + b.get_width()/2., h + 60, f"{h:,} ({h/n_total*100:.1f}%)", ha="center", va="bottom", fontweight="bold")
+    plt.tight_layout()
+    km_bar_plot = os.path.join(plots_dir, "cumulative_kmeans_cluster_sizes.png")
+    plt.savefig(km_bar_plot, dpi=200)
+    plt.close()
+    mlflow.log_artifact(km_bar_plot, artifact_path="plots")
 
     # 2D PCA Visual
     plt.figure(figsize=(8, 6))
@@ -191,23 +213,25 @@ with mlflow.start_run(run_name="1_Cumulative_KMeans_Baseline_7381"):
     mlflow.log_artifact(km_plot, artifact_path="plots")
 
     mlflow.sklearn.log_model(km, name="model", serialization_format="pickle")
-    results.append({"Pipeline": "Cumulative K-Means Baseline (7,381 rows)", **metrics_km})
+    results.append({"Pipeline": f"Cumulative K-Means Baseline ({n_total} rows)", **metrics_km})
     print(f" -> Logged! Cumulative Silhouette: {sil:.4f}, Davies-Bouldin: {db:.4f}")
+    for c_id, count in cluster_counts.items():
+        print(f"    - Cluster {c_id}: {count:,} students ({count/n_total*100:.1f}%)")
 
 # ==============================================================================
-# RUN 2: CUMULATIVE ISOLATION FOREST ANOMALY PURGE (7,381 RECORDS)
+# RUN 2: CUMULATIVE ISOLATION FOREST (ALL 7,381 RECORDS)
 # ==============================================================================
-print("\n[2/4] Running Run 2: Cumulative Isolation Forest Anomaly Detection (7,381 records)...")
+print("\n[2/4] Running Run 2: Pure Isolation Forest on ALL 7,381 Unified Records...")
 iso_params = {
     "n_estimators": 100,
     "contamination": 0.05,
     "random_state": 42
 }
 
-with mlflow.start_run(run_name="2_Cumulative_IsolationForest_Only_7381"):
+with mlflow.start_run(run_name="2_Isolation_Forest_Scoring_ALL_7381_Records"):
     mlflow.log_params(iso_params)
     mlflow.log_param("dataset", "Cumulative_Unified_Dataset")
-    mlflow.log_param("total_records", n_total)
+    mlflow.log_param("total_records_scored", n_total)
 
     iso = IsolationForest(**iso_params)
     iso_preds = iso.fit_predict(X_scaled)
@@ -215,6 +239,7 @@ with mlflow.start_run(run_name="2_Cumulative_IsolationForest_Only_7381"):
 
     is_outlier = (iso_preds == -1)
     outlier_count = int(np.sum(is_outlier))
+    inlier_count = n_total - outlier_count
     outlier_pct = float(outlier_count / n_total * 100)
 
     # Cross-source anomaly breakdown
@@ -222,14 +247,32 @@ with mlflow.start_run(run_name="2_Cumulative_IsolationForest_Only_7381"):
     ps2_outliers = int(np.sum(is_outlier[len(d1):]))
 
     metrics_iso = {
-        "total_anomalies_detected": outlier_count,
-        "clean_inliers_count": n_total - outlier_count,
+        "total_records_scored": n_total,
+        "normal_inliers_count": inlier_count,
+        "anomalies_detected": outlier_count,
         "anomaly_percentage": round(outlier_pct, 2),
         "edupath_core_anomalies": edupath_outliers,
         "ps2_benchmark_anomalies": ps2_outliers,
-        "mean_anomaly_score": round(float(np.mean(anomaly_scores)), 4)
+        "mean_anomaly_score": round(float(np.mean(anomaly_scores)), 4),
+        "min_anomaly_score": round(float(np.min(anomaly_scores)), 4),
+        "max_anomaly_score": round(float(np.max(anomaly_scores)), 4)
     }
     mlflow.log_metrics(metrics_iso)
+
+    # Anomaly Score Histogram across all 7,381 students
+    plt.figure(figsize=(8, 4.5))
+    plt.hist(anomaly_scores[~is_outlier], bins=40, color="#1E88E5", alpha=0.7, label=f"Normal Inliers ({inlier_count:,})")
+    plt.hist(anomaly_scores[is_outlier], bins=20, color="#E53935", alpha=0.9, label=f"Detected Anomalies ({outlier_count:,})")
+    plt.axvline(0.0, color="black", linestyle="--", linewidth=1.5, label="Decision Boundary")
+    plt.xlabel("Isolation Forest Anomaly Score (Lower = More Anomalous)")
+    plt.ylabel("Number of Students")
+    plt.title(f"Isolation Forest Anomaly Score Distribution Across ALL {n_total} Records", fontsize=11, fontweight="bold")
+    plt.legend()
+    plt.tight_layout()
+    iso_hist_plot = os.path.join(plots_dir, "cumulative_anomaly_score_histogram.png")
+    plt.savefig(iso_hist_plot, dpi=200)
+    plt.close()
+    mlflow.log_artifact(iso_hist_plot, artifact_path="plots")
 
     # Plot Outlier Scatter
     plt.figure(figsize=(8, 6))
@@ -245,8 +288,8 @@ with mlflow.start_run(run_name="2_Cumulative_IsolationForest_Only_7381"):
     mlflow.log_artifact(iso_plot, artifact_path="plots")
 
     mlflow.sklearn.log_model(iso, name="model", serialization_format="pickle")
-    results.append({"Pipeline": "Cumulative Isolation Forest (7,381 rows)", "silhouette_score": np.nan, "davies_bouldin_index": np.nan, "calinski_harabasz_score": np.nan, "records_clustered": n_total})
-    print(f" -> Logged! Anomalies: {outlier_count} (EduPath: {edupath_outliers}, PS2: {ps2_outliers})")
+    results.append({"Pipeline": f"Cumulative Isolation Forest ({n_total} rows)", "silhouette_score": np.nan, "davies_bouldin_index": np.nan, "calinski_harabasz_score": np.nan, "records_clustered": n_total})
+    print(f" -> Logged! Scored all {n_total:,} records: {inlier_count:,} Normal Inliers (95%), {outlier_count:,} Anomalies (5%)")
 
 # ==============================================================================
 # RUN 3: CUMULATIVE HYBRID ISOLATION + K-MEANS (7,381 RECORDS)
@@ -259,12 +302,13 @@ hybrid_params = {
     "random_state": 42
 }
 
-with mlflow.start_run(run_name="3_Cumulative_Hybrid_Isolation_KMeans_7381"):
+with mlflow.start_run(run_name="3_Hybrid_Isolation_KMeans_ALL_7381_Records"):
     mlflow.log_params(hybrid_params)
     mlflow.log_param("dataset", "Cumulative_Unified_Dataset")
+    mlflow.log_param("total_cohort_records", n_total)
     mlflow.log_param("architecture", "Two-Stage Anomaly Filtering + Persona Clustering")
 
-    # Stage 1: Purge anomalies
+    # Stage 1: Purge anomalies across all 7,381
     iso_hyb = IsolationForest(
         n_estimators=hybrid_params["iso_n_estimators"],
         contamination=hybrid_params["iso_contamination"],
@@ -292,6 +336,7 @@ with mlflow.start_run(run_name="3_Cumulative_Hybrid_Isolation_KMeans_7381"):
         "silhouette_score": round(sil_hyb, 4),
         "davies_bouldin_index": round(db_hyb, 4),
         "calinski_harabasz_score": round(ch_hyb, 2),
+        "total_records_processed": n_total,
         "inliers_clustered": n_inliers,
         "outliers_isolated": n_outliers,
         "silhouette_gain_vs_baseline": round(sil_hyb - sil, 4)
@@ -303,8 +348,8 @@ with mlflow.start_run(run_name="3_Cumulative_Hybrid_Isolation_KMeans_7381"):
     X_inliers_pca = X_pca[inlier_mask]
     X_outliers_pca = X_pca[~inlier_mask]
 
-    scatter = plt.scatter(X_inliers_pca[:, 0], X_inliers_pca[:, 1], c=inlier_labels, cmap="viridis", alpha=0.6, edgecolors="none", s=18, label=f"Clean Persona Cohorts (N={n_inliers})")
-    plt.scatter(X_outliers_pca[:, 0], X_outliers_pca[:, 1], color="#E53935", marker="x", s=40, linewidths=1.5, label=f"Isolated Anomalies (N={n_outliers})")
+    scatter = plt.scatter(X_inliers_pca[:, 0], X_inliers_pca[:, 1], c=inlier_labels, cmap="viridis", alpha=0.6, edgecolors="none", s=18, label=f"Clean Persona Cohorts (N={n_inliers:,})")
+    plt.scatter(X_outliers_pca[:, 0], X_outliers_pca[:, 1], color="#E53935", marker="x", s=40, linewidths=1.5, label=f"Isolated Anomalies (N={n_outliers:,})")
     plt.title(f"Cumulative Hybrid: Isolation + K-Means (Silhouette: {sil:.4f} -> {sil_hyb:.4f})", fontsize=11, fontweight="bold")
     plt.xlabel("PCA Component 1")
     plt.ylabel("PCA Component 2")
@@ -318,11 +363,11 @@ with mlflow.start_run(run_name="3_Cumulative_Hybrid_Isolation_KMeans_7381"):
 
     # Comparative Silhouette Chart
     plt.figure(figsize=(7, 4.5))
-    models = ["Cumulative Standard K-Means\n(All 7,381 Rows)", "Cumulative Hybrid Isolation + K-Means\n(Clean 7,012 Inliers)"]
+    models = [f"Cumulative Standard K-Means\n(ALL {n_total:,} Rows)", f"Cumulative Hybrid\n(Clean {n_inliers:,} Inliers)"]
     scores = [sil, sil_hyb]
     bars = plt.bar(models, scores, color=["#90CAF9", "#1E88E5"], width=0.45)
     plt.ylabel("Silhouette Score (Higher=Better)")
-    plt.title("Cumulative Pipeline: Silhouette Comparison (7,381 Records)", fontsize=11, fontweight="bold")
+    plt.title(f"Cumulative Pipeline: Silhouette Comparison ({n_total:,} Records)", fontsize=11, fontweight="bold")
     plt.ylim(0, max(scores) * 1.35)
     for b in bars:
         h = b.get_height()
@@ -333,10 +378,24 @@ with mlflow.start_run(run_name="3_Cumulative_Hybrid_Isolation_KMeans_7381"):
     plt.close()
     mlflow.log_artifact(comp_plot, artifact_path="plots")
 
+    # Export Per-Student Predictions Table across ALL 7,381 students
+    predictions_df = unified.copy()
+    predictions_df["kmeans_cluster_all_7381"] = km_labels
+    predictions_df["isolation_forest_label"] = np.where(iso_preds == 1, "Normal_Inlier", "Anomalous_Outlier")
+    predictions_df["isolation_forest_anomaly_score"] = np.round(anomaly_scores, 4)
+    hybrid_persona_labels = np.full(n_total, "Targeted_Academic_Intervention", dtype=object)
+    hybrid_persona_labels[inlier_mask] = [f"Clean_Persona_{lbl}" for lbl in inlier_labels]
+    predictions_df["hybrid_persona_assignment"] = hybrid_persona_labels
+
+    pred_csv_path = os.path.join(data_dir, "unified_cumulative_student_predictions.csv")
+    predictions_df.to_csv(pred_csv_path, index=False)
+    mlflow.log_artifact(pred_csv_path, artifact_path="predictions")
+    print(f" -> Exported individual predictions for all {n_total:,} students to: {pred_csv_path}")
+
     mlflow.sklearn.log_model(km_hyb, name="kmeans_model", serialization_format="pickle")
     mlflow.sklearn.log_model(iso_hyb, name="isolation_forest_model", serialization_format="pickle")
-    results.append({"Pipeline": "Cumulative Hybrid: Isolation + K-Means (7,381 rows)", **metrics_hybrid})
-    print(f" -> Logged! Cumulative Hybrid Silhouette: {sil_hyb:.4f} (Inliers={n_inliers}, Outliers={n_outliers})")
+    results.append({"Pipeline": f"Cumulative Hybrid: Isolation + K-Means ({n_total} rows)", **metrics_hybrid})
+    print(f" -> Logged! Cumulative Hybrid Silhouette: {sil_hyb:.4f} (Inliers={n_inliers:,}, Outliers={n_outliers:,})")
 
 # ==============================================================================
 # RUN 4: CUMULATIVE CAREER DOMAIN CLASSIFIER (7,381 RECORDS)
