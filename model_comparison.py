@@ -15,7 +15,7 @@ from sklearn.metrics import (
 from sklearn.cluster import KMeans, AgglomerativeClustering
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import RandomForestClassifier, IsolationForest
 from xgboost import XGBClassifier
 import mlflow
 import mlflow.sklearn
@@ -174,6 +174,31 @@ def main():
         })
         mlflow.log_artifact(clustering_plot_path, artifact_path="plots")
         print("[MLflow] Hierarchical Clustering run logged successfully!")
+
+    # C. Fit Isolation Forest Anomaly Detection
+    iso_model = IsolationForest(n_estimators=100, contamination=0.06, random_state=42)
+    iso_preds = iso_model.fit_predict(X_cluster)
+    iso_scores = iso_model.decision_function(X_cluster)
+    n_outliers = int(np.sum(iso_preds == -1))
+
+    with mlflow.start_run(run_name="Isolation_Forest_Anomaly_Detection"):
+        mlflow.log_params({
+            "algorithm": "Isolation Forest",
+            "n_estimators": 100,
+            "contamination": 0.06,
+            "random_state": 42,
+            "n_samples": len(cluster_df),
+            "features": ", ".join(cluster_features)
+        })
+        mlflow.log_metrics({
+            "outlier_count": n_outliers,
+            "inlier_count": len(cluster_df) - n_outliers,
+            "outlier_percentage": round(float(n_outliers / len(cluster_df) * 100), 2),
+            "mean_anomaly_score": round(float(np.mean(iso_scores)), 4)
+        })
+        mlflow.log_artifact(clustering_plot_path, artifact_path="plots")
+        mlflow.sklearn.log_model(iso_model, name="model", serialization_format="pickle")
+        print("[MLflow] Isolation Forest Anomaly Detection run logged successfully!")
 
     # -------------------------------------------------------------------------
     # PART 2: SUPERVISED LEARNING - CAREER PATHWAY CLASSIFICATION
