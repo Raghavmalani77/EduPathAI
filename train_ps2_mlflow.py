@@ -14,14 +14,16 @@ import mlflow.xgboost
 
 os.environ["MLFLOW_DISABLE_AGENT_HINT"] = "1"
 
-proj_dir = r"C:\Users\admin\.gemini\antigravity\scratch\major-project"
+proj_dir = os.path.dirname(os.path.abspath(__file__))
 data_dir = os.path.join(proj_dir, "data")
 plots_dir = os.path.join(proj_dir, "plots")
 os.makedirs(plots_dir, exist_ok=True)
 
-# Set MLflow tracking
-mlflow.set_tracking_uri("sqlite:///mlflow.db")
-experiment_name = "EduPathAI_PS2_Benchmark"
+# Use a local MLflow SQLite database in this project so the script works
+# without depending on a hardcoded Windows path or a running MLflow server.
+mlflow_db_path = os.path.join(proj_dir, "mlflow.db")
+mlflow.set_tracking_uri(f"sqlite:///{mlflow_db_path}")
+experiment_name = "EduPathAI_All_Benchmarks"
 mlflow.set_experiment(experiment_name)
 
 # Load processed data

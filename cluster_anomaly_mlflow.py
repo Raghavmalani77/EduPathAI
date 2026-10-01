@@ -14,14 +14,14 @@ import mlflow.sklearn
 
 os.environ["MLFLOW_DISABLE_AGENT_HINT"] = "1"
 
-proj_dir = r"C:\Users\admin\.gemini\antigravity\scratch\major-project"
+proj_dir = os.path.dirname(os.path.abspath(__file__))
 data_dir = os.path.join(proj_dir, "data")
 plots_dir = os.path.join(proj_dir, "plots")
 os.makedirs(plots_dir, exist_ok=True)
 
 # 1. Setup MLflow Tracking with SQLite Backend
 mlflow.set_tracking_uri("sqlite:///mlflow.db")
-experiment_name = "EduPathAI_Clustering_Anomaly_Benchmark"
+experiment_name = "EduPathAI_All_Benchmarks"
 mlflow.set_experiment(experiment_name)
 
 print("=" * 80)
