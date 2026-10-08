@@ -167,12 +167,18 @@ class DenseSemanticMatcher:
         return "Domain Semantic Vector Search"
 
 class RecommendationEngine:
-    def __init__(self, data_dir=None):
+    def __init__(self, data_dir=None, use_cumulative=False):
         if data_dir is None:
             base_dir = os.path.dirname(os.path.abspath(__file__))
             self.data_dir = os.path.join(base_dir, "data")
         else:
             self.data_dir = data_dir
+            
+        # Dual-mode architecture support: benchmark vs production dataset
+        env_cumulative = os.environ.get("EDUPATH_USE_CUMULATIVE", "0").lower() in ("1", "true", "yes")
+        self.use_cumulative = use_cumulative or env_cumulative
+        self.students_filename = "unified_cumulative_dataset.csv" if self.use_cumulative else "students_employability.csv"
+        
         self.jobs_df = None
         self.courses_df = None
         self.students_df = None
@@ -192,16 +198,34 @@ class RecommendationEngine:
     def load_data(self):
         print("Loading datasets...")
         self.jobs_df = pd.read_csv(os.path.join(self.data_dir, "jobs.csv"))
+        # Impute missing job metadata to prevent NaN serialization errors (BUG-API-01)
+        self.jobs_df["Location"] = self.jobs_df["Location"].fillna("Remote / Global")
+        self.jobs_df["Company_Name"] = self.jobs_df["Company_Name"].fillna("Global Tech")
+        self.jobs_df["Industry"] = self.jobs_df["Industry"].fillna("Technology")
+        
         self.courses_df = pd.read_csv(os.path.join(self.data_dir, "courses.csv"))
-        self.students_df = pd.read_csv(os.path.join(self.data_dir, "students_employability.csv"))
+        
+        students_path = os.path.join(self.data_dir, self.students_filename)
+        if not os.path.exists(students_path) and self.use_cumulative:
+            print(f"Warning: {students_path} not found. Falling back to students_employability.csv")
+            students_path = os.path.join(self.data_dir, "students_employability.csv")
+        self.students_df = pd.read_csv(students_path)
+        
+        # Ensure 'Name' column is present and properly initialized to prevent NaN float serialization (BUG-API-01)
+        if "Name" not in self.students_df.columns:
+            self.students_df["Name"] = self.students_df["Student_ID"]
+        else:
+            self.students_df["Name"] = self.students_df["Name"].fillna(self.students_df["Student_ID"])
+            
         self.engagement_df = pd.read_csv(os.path.join(self.data_dir, "learning_engagement.csv"))
         
         # Build master skills list
         all_skills = set()
         for df, col in [(self.jobs_df, "Skills_Required"), (self.courses_df, "Skills_Developed"), (self.students_df, "Technical_Skills"), (self.students_df, "Soft_Skills")]:
-            for row in df[col].dropna():
-                skills = [s.strip() for s in row.split(",")]
-                all_skills.update(skills)
+            if col in df.columns:
+                for row in df[col].dropna():
+                    skills = [s.strip() for s in str(row).split(",")]
+                    all_skills.update(skills)
         self.master_skills = sorted(list(all_skills))
         print(f"Master skill inventory constructed with {len(self.master_skills)} unique skills.")
 
@@ -358,14 +382,26 @@ class RecommendationEngine:
         for _, job in target_jobs.iterrows():
             job_vector = job["Skill_Vector"]
             similarity = self.cosine_similarity(student_vector, job_vector)
+            loc_val = job.get("Location", "Remote / Global")
+            if pd.isna(loc_val) or not str(loc_val).strip():
+                loc_val = "Remote / Global"
+            comp_val = job.get("Company_Name", "Global Enterprise")
+            if pd.isna(comp_val) or not str(comp_val).strip():
+                comp_val = "Global Enterprise"
+            ind_val = job.get("Industry", "Tech")
+            if pd.isna(ind_val) or not str(ind_val).strip():
+                ind_val = "Tech"
+            cntry_val = job.get("Country", "Global")
+            if pd.isna(cntry_val) or not str(cntry_val).strip():
+                cntry_val = "Global"
             matches.append({
-                "Job_ID": job["Job_ID"],
-                "Job_Title": job["Job_Title"],
-                "Company_Name": job.get("Company_Name", "Global Enterprise"),
-                "Industry": job["Industry"],
-                "Location": job["Location"],
-                "Country": job.get("Country", "Global"),
-                "Skills_Required": job["Skills_Required"],
+                "Job_ID": str(job["Job_ID"]),
+                "Job_Title": str(job["Job_Title"]),
+                "Company_Name": str(comp_val),
+                "Industry": str(ind_val),
+                "Location": str(loc_val),
+                "Country": str(cntry_val),
+                "Skills_Required": str(job["Skills_Required"]),
                 "Match_Score": round(similarity * 100, 1)
             })
 

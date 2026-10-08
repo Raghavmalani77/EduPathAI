@@ -92,7 +92,8 @@ export default function CareerPathView({ filters }) {
       const data = await res.json();
       
       // Also fetch the synthetic student details
-      const detailRes = await fetch('/api/student/CUSTOM_USER');
+      const studentIdToFetch = (data && data.student_id) ? data.student_id : 'CUSTOM_USER';
+      const detailRes = await fetch(`/api/student/${studentIdToFetch}`);
       const detailData = await detailRes.json();
       
       setStudentDetails(detailData);

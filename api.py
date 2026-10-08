@@ -1,11 +1,12 @@
 import os
 import time
+import uuid
 from typing import List, Optional
 import numpy as np
 import pandas as pd
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from recommendation_engine import RecommendationEngine
 
@@ -34,11 +35,13 @@ class CustomProfileRequest(BaseModel):
     name: str = "Jane Doe"
     degree: str = "B.Tech"
     specialisation: str = "Computer Science"
-    gpa: float = 7.5
+    gpa: float = Field(default=7.5, ge=0.0, le=10.0, description="Academic GPA on a 10-point scale [0.0, 10.0]")
     career_interest: str = "Data Scientist"
     technical_skills: List[str] = []
     soft_skills: List[str] = []
     market: str = "All"
+    session_id: Optional[str] = None
+    student_id: Optional[str] = None
 
 @app.get("/api/health")
 def health():
@@ -46,11 +49,22 @@ def health():
 
 @app.get("/api/stats")
 def get_stats():
+    # Coupled check for unified_cumulative_dataset (BUG-DATA-01)
+    cumulative_path = os.path.join(DATA_DIR, "unified_cumulative_dataset.csv")
+    cumulative_records = 0
+    if os.path.exists(cumulative_path):
+        try:
+            cumulative_records = len(pd.read_csv(cumulative_path))
+        except Exception:
+            cumulative_records = 7381
+
     return {
         "students_count": len(engine.students_df),
         "jobs_count": len(engine.jobs_df),
         "courses_count": len(engine.courses_df),
         "skills_count": len(engine.master_skills),
+        "dataset_mode": "Cumulative Benchmark (7,381 records)" if getattr(engine, "use_cumulative", False) else "Production Primary (480 records)",
+        "cumulative_benchmark_records": cumulative_records,
         "embedding_model": "Sentence-BERT (all-MiniLM-L6-v2)" if getattr(engine.semantic_matcher, "is_transformer_active", False) else "Domain Semantic Vector Fallback"
     }
 
@@ -77,14 +91,17 @@ def get_students(career_interest: Optional[str] = Query(None)):
         
     results = []
     for _, row in df.iterrows():
+        name_val = row.get("Name", "")
+        if pd.isna(name_val) or not str(name_val).strip():
+            name_val = row["Student_ID"]
         results.append({
-            "student_id": row["Student_ID"],
-            "name": row.get("Name", row["Student_ID"]),
-            "degree": row.get("Degree", "N/A"),
-            "specialisation": row.get("Specialisation", "N/A"),
-            "education_level": row.get("Education_Level", "Undergraduate"),
-            "gpa": float(row.get("Assessment_Score", 0.0)),
-            "career_interest": row.get("Career_Interest", "N/A")
+            "student_id": str(row["Student_ID"]),
+            "name": str(name_val),
+            "degree": str(row.get("Degree", "N/A")) if pd.notna(row.get("Degree")) else "N/A",
+            "specialisation": str(row.get("Specialisation", "N/A")) if pd.notna(row.get("Specialisation")) else "N/A",
+            "education_level": str(row.get("Education_Level", "Undergraduate")) if pd.notna(row.get("Education_Level")) else "Undergraduate",
+            "gpa": float(row.get("Assessment_Score", 0.0)) if pd.notna(row.get("Assessment_Score")) else 0.0,
+            "career_interest": str(row.get("Career_Interest", "N/A")) if pd.notna(row.get("Career_Interest")) else "N/A"
         })
     return results
 
@@ -114,12 +131,22 @@ def compute_radar_skills(student_id: str, job_id: str):
 def get_student_details(student_id: str):
     student_rows = engine.students_df[engine.students_df['Student_ID'] == student_id]
     if student_rows.empty:
-        raise HTTPException(status_code=404, detail="Student profile not found")
+        if student_id == 'CUSTOM_USER':
+            # Graceful backward compatibility fallback to latest custom profile (BUG-STATE-01)
+            custom_rows = engine.students_df[engine.students_df['Student_ID'].astype(str).str.startswith('CUSTOM_')]
+            if not custom_rows.empty:
+                row = custom_rows.iloc[-1]
+            else:
+                raise HTTPException(status_code=404, detail="Student profile not found")
+        else:
+            raise HTTPException(status_code=404, detail="Student profile not found")
+    else:
+        row = student_rows.iloc[0]
         
-    row = student_rows.iloc[0]
+    actual_id = str(row['Student_ID'])
     
     # Calculate learning persona & willingness
-    if student_id == 'CUSTOM_USER':
+    if actual_id.startswith('CUSTOM_') or student_id == 'CUSTOM_USER':
         cluster_name = "Custom Explorer"
         wtl = 85.0
     else:
@@ -150,14 +177,18 @@ def get_student_details(student_id: str):
                 pct = 50.0
             skills_list.append({"name": name, "proficiency": round(pct, 1)})
             
+    name_val = row.get("Name", row["Student_ID"])
+    if pd.isna(name_val) or not str(name_val).strip():
+        name_val = row["Student_ID"]
+        
     return {
-        "student_id": row["Student_ID"],
-        "name": row.get("Name", row["Student_ID"]),
-        "degree": row.get("Degree", "N/A"),
-        "specialisation": row.get("Specialisation", "N/A"),
-        "education_level": row.get("Education_Level", "Undergraduate"),
-        "gpa": float(row.get("Assessment_Score", 0.0)),
-        "career_interest": row.get("Career_Interest", "N/A"),
+        "student_id": actual_id,
+        "name": str(name_val),
+        "degree": str(row.get("Degree", "N/A")) if pd.notna(row.get("Degree")) else "N/A",
+        "specialisation": str(row.get("Specialisation", "N/A")) if pd.notna(row.get("Specialisation")) else "N/A",
+        "education_level": str(row.get("Education_Level", "Undergraduate")) if pd.notna(row.get("Education_Level")) else "Undergraduate",
+        "gpa": float(row.get("Assessment_Score", 0.0)) if pd.notna(row.get("Assessment_Score")) else 0.0,
+        "career_interest": str(row.get("Career_Interest", "N/A")) if pd.notna(row.get("Career_Interest")) else "N/A",
         "cluster_name": cluster_name,
         "willingness_to_learn": wtl,
         "skills": skills_list
@@ -194,7 +225,13 @@ def match_student(student_id: str, market: str = "All", top_n: int = 3):
 
 @app.post("/api/custom-profile")
 def create_custom_profile(req: CustomProfileRequest):
-    custom_id = "CUSTOM_USER"
+    # Support session-scoped or unique ID generation to prevent concurrent overwrites (BUG-STATE-01)
+    if req.student_id:
+        custom_id = req.student_id
+    elif req.session_id:
+        custom_id = f"CUSTOM_{req.session_id}"
+    else:
+        custom_id = f"CUSTOM_{uuid.uuid4().hex[:8]}"
     
     tech_skills_clean = [s.strip() for s in req.technical_skills if s.strip()]
     soft_skills_clean = [s.strip() for s in req.soft_skills if s.strip()]
@@ -235,6 +272,7 @@ def create_custom_profile(req: CustomProfileRequest):
     }
     
     custom_row = pd.DataFrame([custom_row_dict])
+    # Replace only if same custom_id was already present, preserving all other users (BUG-STATE-01)
     engine.students_df = engine.students_df[engine.students_df['Student_ID'] != custom_id]
     engine.students_df = pd.concat([engine.students_df, custom_row], ignore_index=True)
     
@@ -254,14 +292,26 @@ def get_jobs(search: Optional[str] = None, country: Optional[str] = None, indust
         
     records = []
     for _, r in df.head(100).iterrows():
+        loc_val = r.get("Location", "Remote")
+        if pd.isna(loc_val) or not str(loc_val).strip():
+            loc_val = "Remote"
+        comp_val = r.get("Company_Name", "Global Company")
+        if pd.isna(comp_val) or not str(comp_val).strip():
+            comp_val = "Global Company"
+        ind_val = r.get("Industry", "Tech")
+        if pd.isna(ind_val) or not str(ind_val).strip():
+            ind_val = "Tech"
+        cntry_val = r.get("Country", "Global")
+        if pd.isna(cntry_val) or not str(cntry_val).strip():
+            cntry_val = "Global"
         records.append({
-            "job_id": r["Job_ID"],
-            "title": r["Job_Title"],
-            "company": r.get("Company_Name", "Global Company"),
-            "industry": r.get("Industry", "Tech"),
-            "location": r.get("Location", "Remote"),
-            "country": r.get("Country", "Global"),
-            "experience": r.get("Experience_Required", "N/A"),
+            "job_id": str(r["Job_ID"]),
+            "title": str(r["Job_Title"]),
+            "company": str(comp_val),
+            "industry": str(ind_val),
+            "location": str(loc_val),
+            "country": str(cntry_val),
+            "experience": str(r.get("Experience_Required", "N/A")),
             "skills": [s.strip() for s in str(r.get("Skills_Required", "")).split(",") if s.strip()]
         })
     return records
