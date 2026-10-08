@@ -1,1234 +1,841 @@
-import os
-import io
 import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
-import plotly.express as px
-from recommendation_engine import RecommendationEngine
+import os
+import time
 
-# ─────────────────────────────────────────────────────────────
-# PAGE CONFIG
-# ─────────────────────────────────────────────────────────────
+# Attempt to import RecommendationEngine
+try:
+    from recommendation_engine import RecommendationEngine
+except ImportError:
+    st.error("Could not import RecommendationEngine. Please ensure `recommendation_engine.py` exists in the same directory.")
+    st.stop()
+
+# ------------------------------------------------------------------------
+# 1. PAGE CONFIGURATION & CSS
+# ------------------------------------------------------------------------
 st.set_page_config(
-    page_title="EduPathAI — Career Intelligence Platform",
+    page_title="EduPathAI - Student Portal",
     page_icon="🎓",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DATA_DIR = os.path.join(BASE_DIR, "data")
-PLOTS_DIR = os.path.join(BASE_DIR, "plots")
-
-# ─────────────────────────────────────────────────────────────
-# MODERN CSS — Glassmorphism, Gradient Accents, Smooth Animations
-# ─────────────────────────────────────────────────────────────
-st.markdown("""
+# Clean, modern CSS for student-friendly UI
+CSS = """
 <style>
-    /* ── Import Google Fonts ── */
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
+/* Import Inter font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-    /* ── Global Reset & Typography ── */
-    html, body, [class*="css"] {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    }
-    
-    /* ── Hide Streamlit Defaults ── */
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
-    header {visibility: hidden;}
-    
-    /* ── Sidebar Styling ── */
-    [data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
-    }
-    [data-testid="stSidebar"] * {
-        color: #e0e0e0 !important;
-    }
-    [data-testid="stSidebar"] .stMarkdown h1,
-    [data-testid="stSidebar"] .stMarkdown h2,
-    [data-testid="stSidebar"] .stMarkdown h3 {
-        color: #ffffff !important;
-    }
+html, body, [class*="css"] {
+    font-family: 'Inter', sans-serif;
+    background-color: #f8fafc;
+    color: #0f172a;
+}
 
-    /* ── Hero Banner ── */
-    .hero-banner {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        border-radius: 16px;
-        padding: 32px 40px;
-        margin-bottom: 28px;
-        position: relative;
-        overflow: hidden;
-        box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
-    }
-    .hero-banner::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        right: -20%;
-        width: 300px;
-        height: 300px;
-        background: rgba(255,255,255,0.06);
-        border-radius: 50%;
-    }
-    .hero-banner::after {
-        content: '';
-        position: absolute;
-        bottom: -30%;
-        left: 10%;
-        width: 200px;
-        height: 200px;
-        background: rgba(255,255,255,0.04);
-        border-radius: 50%;
-    }
-    .hero-title {
-        font-size: 2rem;
-        font-weight: 800;
-        color: #ffffff;
-        margin: 0 0 6px 0;
-        letter-spacing: -0.5px;
-    }
-    .hero-subtitle {
-        font-size: 1rem;
-        color: rgba(255,255,255,0.82);
-        margin: 0;
-        font-weight: 400;
-        line-height: 1.5;
-    }
+/* Ensure root app container has clean light background */
+.stApp {
+    background-color: #f8fafc !important;
+    color: #0f172a !important;
+}
 
-    /* ── Glass Cards ── */
-    .glass-card {
-        background: var(--secondary-background-color, rgba(255,255,255,0.8));
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(128,128,128,0.12);
-        border-radius: 16px;
-        padding: 22px 26px;
-        margin-bottom: 16px;
-        box-shadow: 0 4px 24px rgba(0,0,0,0.04);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .glass-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 32px rgba(0,0,0,0.08);
-    }
-    
-    /* ── Stat Cards ── */
-    .stat-card {
-        background: var(--secondary-background-color, #f8f9ff);
-        border-radius: 14px;
-        padding: 20px 24px;
-        text-align: center;
-        border: 1px solid rgba(102,126,234,0.12);
-        box-shadow: 0 2px 12px rgba(102,126,234,0.06);
-        transition: transform 0.2s ease;
-    }
-    .stat-card:hover {
-        transform: translateY(-3px);
-    }
-    .stat-icon {
-        font-size: 1.8rem;
-        margin-bottom: 4px;
-    }
-    .stat-value {
-        font-size: 1.5rem;
-        font-weight: 800;
-        color: var(--text-color, #1a1a2e);
-        margin: 4px 0;
-        letter-spacing: -0.5px;
-    }
-    .stat-label {
-        font-size: 0.78rem;
-        color: var(--text-color, #64748b);
-        opacity: 0.7;
-        font-weight: 500;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
+.main .block-container {
+    padding-top: 2rem !important;
+    padding-bottom: 3rem !important;
+}
 
-    /* ── Section Headers ── */
-    .section-header {
-        font-size: 1.3rem;
-        font-weight: 700;
-        color: var(--text-color, #1a1a2e);
-        margin: 24px 0 12px 0;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-    .section-header .accent-line {
-        width: 4px;
-        height: 24px;
-        background: linear-gradient(180deg, #667eea, #764ba2);
-        border-radius: 4px;
-        display: inline-block;
-    }
-    .section-desc {
-        font-size: 0.88rem;
-        color: var(--text-color, #64748b);
-        opacity: 0.75;
-        margin-bottom: 16px;
-        line-height: 1.5;
-    }
+/* Hide Streamlit Chrome */
+#MainMenu {visibility: hidden;}
+header {visibility: hidden;}
+footer {visibility: hidden;}
 
-    /* ── Profile Cards ── */
-    .profile-card {
-        background: var(--secondary-background-color, #f8f9ff);
-        border-radius: 14px;
-        padding: 18px 22px;
-        border-left: 4px solid;
-        min-height: 120px;
-        transition: transform 0.2s ease;
-    }
-    .profile-card:hover {
-        transform: translateY(-2px);
-    }
-    .profile-card.academic { border-left-color: #667eea; }
-    .profile-card.score { border-left-color: #f59e0b; }
-    .profile-card.persona { border-left-color: #10b981; }
-    .profile-card.wtl { border-left-color: #8b5cf6; }
-    .profile-label {
-        font-size: 0.72rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        color: var(--text-color, #94a3b8);
-        opacity: 0.7;
-        margin-bottom: 8px;
-    }
-    .profile-value {
-        font-size: 0.92rem;
-        font-weight: 500;
-        color: var(--text-color, #334155);
-        line-height: 1.6;
-    }
-    .profile-big-value {
-        font-size: 1.75rem;
-        font-weight: 800;
-        color: var(--text-color, #1a1a2e);
-        letter-spacing: -0.5px;
-    }
+/* Sidebar Styling */
+[data-testid="stSidebar"] {
+    background: #ffffff !important;
+    border-right: 1px solid #e2e8f0;
+}
+[data-testid="stSidebar"] * {
+    color: #1e293b;
+}
+[data-testid="stSidebar"] h1,
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3,
+[data-testid="stSidebar"] h4,
+[data-testid="stSidebar"] p {
+    color: #0f172a !important;
+}
 
-    /* ── Skill Chips ── */
-    .skill-chip {
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
-        background: linear-gradient(135deg, rgba(102,126,234,0.1) 0%, rgba(118,75,162,0.1) 100%);
-        color: var(--text-color, #4338ca);
-        padding: 6px 14px;
-        border-radius: 20px;
-        font-size: 0.8rem;
-        font-weight: 600;
-        margin: 3px;
-        border: 1px solid rgba(102,126,234,0.15);
-        transition: all 0.2s ease;
-    }
-    .skill-chip:hover {
-        background: linear-gradient(135deg, rgba(102,126,234,0.2) 0%, rgba(118,75,162,0.2) 100%);
-        transform: translateY(-1px);
-    }
-    .skill-chip.advanced { border-color: rgba(16,185,129,0.3); background: rgba(16,185,129,0.08); color: #059669; }
-    .skill-chip.intermediate { border-color: rgba(102,126,234,0.3); background: rgba(102,126,234,0.08); color: #4338ca; }
-    .skill-chip.beginner { border-color: rgba(245,158,11,0.3); background: rgba(245,158,11,0.08); color: #d97706; }
-    
-    /* ── Gap Chips ── */
-    .gap-chip {
-        display: inline-flex;
-        align-items: center;
-        gap: 4px;
-        background: rgba(239, 68, 68, 0.08);
-        color: #dc2626;
-        padding: 5px 12px;
-        border-radius: 20px;
-        font-size: 0.8rem;
-        font-weight: 600;
-        margin: 3px;
-        border: 1px solid rgba(239, 68, 68, 0.15);
-    }
+/* Sidebar Radio Navigation items */
+[data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] label {
+    background-color: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 8px !important;
+    padding: 10px 14px !important;
+    margin-bottom: 8px !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+}
 
-    /* ── Job Cards ── */
-    .job-card {
-        background: var(--secondary-background-color, #ffffff);
-        border: 1px solid rgba(128,128,128,0.1);
-        border-radius: 14px;
-        padding: 20px 24px;
-        margin-bottom: 14px;
-        box-shadow: 0 2px 16px rgba(0,0,0,0.03);
-        transition: all 0.25s ease;
-        position: relative;
-        overflow: hidden;
-    }
-    .job-card:hover {
-        box-shadow: 0 8px 32px rgba(102,126,234,0.12);
-        transform: translateY(-2px);
-    }
-    .job-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 4px;
-        height: 100%;
-        background: linear-gradient(180deg, #667eea, #764ba2);
-        border-radius: 4px 0 0 4px;
-    }
-    .job-rank {
-        position: absolute;
-        top: 14px;
-        right: 16px;
-        background: linear-gradient(135deg, #667eea, #764ba2);
-        color: white;
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 800;
-        font-size: 0.82rem;
-    }
-    .job-title {
-        font-size: 1.05rem;
-        font-weight: 700;
-        color: var(--text-color, #1e293b);
-        margin-bottom: 4px;
-        padding-right: 40px;
-    }
-    .job-company {
-        font-size: 0.88rem;
-        font-weight: 600;
-        color: #667eea;
-        margin-bottom: 6px;
-    }
-    .job-meta {
-        font-size: 0.8rem;
-        color: var(--text-color, #64748b);
-        opacity: 0.8;
-        margin-bottom: 10px;
-    }
-    .match-score {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        font-size: 0.88rem;
-        font-weight: 700;
-        padding: 4px 12px;
-        border-radius: 8px;
-    }
-    .match-high { background: rgba(16,185,129,0.12); color: #059669; }
-    .match-med { background: rgba(245,158,11,0.12); color: #d97706; }
-    .match-low { background: rgba(239,68,68,0.12); color: #dc2626; }
+[data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] label:hover {
+    background-color: #eff6ff !important;
+    border-color: #93c5fd !important;
+}
 
-    /* ── Course Cards ── */
-    .course-card-v2 {
-        background: var(--secondary-background-color, #ffffff);
-        border: 1px solid rgba(128,128,128,0.1);
-        border-radius: 14px;
-        padding: 22px 26px;
-        margin-bottom: 14px;
-        box-shadow: 0 2px 16px rgba(0,0,0,0.03);
-        transition: all 0.25s ease;
-        position: relative;
-    }
-    .course-card-v2:hover {
-        box-shadow: 0 8px 32px rgba(0,0,0,0.08);
-        transform: translateY(-2px);
-    }
-    .course-title-v2 {
-        font-size: 1rem;
-        font-weight: 700;
-        color: var(--text-color, #1e293b);
-        margin-bottom: 6px;
-    }
-    .course-meta-v2 {
-        font-size: 0.82rem;
-        color: var(--text-color, #64748b);
-        opacity: 0.8;
-        margin-bottom: 8px;
-    }
-    .course-desc-v2 {
-        font-size: 0.84rem;
-        color: var(--text-color, #475569);
-        line-height: 1.55;
-        opacity: 0.9;
-    }
-    .match-type-pill {
-        display: inline-flex;
-        align-items: center;
-        gap: 4px;
-        font-size: 0.7rem;
-        font-weight: 700;
-        padding: 3px 10px;
-        border-radius: 12px;
-        text-transform: uppercase;
-        letter-spacing: 0.4px;
-    }
-    .pill-exact { background: rgba(16,185,129,0.12); color: #059669; }
-    .pill-semantic { background: rgba(139,92,246,0.12); color: #7c3aed; }
-    .pill-hybrid { background: rgba(6,182,212,0.12); color: #0891b2; }
-    
-    .semantic-bridge-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 4px;
-        background: rgba(139,92,246,0.08);
-        color: #7c3aed;
-        padding: 3px 10px;
-        border-radius: 10px;
-        font-size: 0.75rem;
-        font-weight: 600;
-        margin: 2px;
-        border: 1px solid rgba(139,92,246,0.15);
-    }
+[data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] label p,
+[data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] label span {
+    color: #0f172a !important;
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+}
 
-    /* ── XAI Card ── */
-    .xai-card-v2 {
-        background: linear-gradient(135deg, rgba(102,126,234,0.06) 0%, rgba(118,75,162,0.06) 100%);
-        border: 1px solid rgba(102,126,234,0.15);
-        border-radius: 14px;
-        padding: 24px 28px;
-        position: relative;
-    }
-    .xai-card-v2::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 4px;
-        height: 100%;
-        background: linear-gradient(180deg, #667eea, #764ba2);
-        border-radius: 4px 0 0 4px;
-    }
-    .xai-title-v2 {
-        font-size: 0.95rem;
-        font-weight: 700;
-        color: #667eea;
-        margin-bottom: 10px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-    .xai-body-v2 {
-        font-size: 0.88rem;
-        color: var(--text-color, #334155);
-        line-height: 1.7;
-    }
+/* Form inputs & selectbox labels readability */
+.stSelectbox label, .stTextInput label, .stSlider label {
+    color: #1e293b !important;
+    font-weight: 600 !important;
+}
 
-    /* ── Persona Badges ── */
-    .persona-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        padding: 6px 16px;
-        border-radius: 20px;
-        font-weight: 700;
-        font-size: 0.82rem;
-    }
-    .persona-high {
-        background: rgba(16,185,129,0.12);
-        color: #059669;
-        border: 1px solid rgba(16,185,129,0.2);
-    }
-    .persona-mod {
-        background: rgba(245,158,11,0.12);
-        color: #d97706;
-        border: 1px solid rgba(245,158,11,0.2);
-    }
-    .persona-low {
-        background: rgba(239,68,68,0.12);
-        color: #dc2626;
-        border: 1px solid rgba(239,68,68,0.2);
-    }
+.sidebar-logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2563eb;
+    margin-bottom: 2rem;
+    padding: 0.5rem;
+}
+.sidebar-tagline {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: #64748b;
+    margin-top: -5px;
+    display: block;
+}
 
-    /* ── WTL Progress Bar ── */
-    .wtl-bar-outer {
-        width: 100%;
-        height: 10px;
-        background: rgba(128,128,128,0.1);
-        border-radius: 6px;
-        overflow: hidden;
-        margin-top: 8px;
-    }
-    .wtl-bar-inner {
-        height: 100%;
-        border-radius: 6px;
-        background: linear-gradient(90deg, #667eea, #764ba2);
-        transition: width 0.8s ease;
-    }
+/* Cards */
+.custom-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    border: 1px solid #e2e8f0;
+    margin-bottom: 1rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.custom-card:hover {
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+    transform: translateY(-2px);
+}
+.card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+}
+.card-subtitle {
+    font-size: 0.9rem;
+    color: #64748b;
+    margin-bottom: 1rem;
+}
 
-    /* ── Semantic Engine Pill ── */
-    .engine-pill {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        background: linear-gradient(135deg, rgba(139,92,246,0.1), rgba(102,126,234,0.1));
-        border: 1px solid rgba(139,92,246,0.2);
-        padding: 8px 18px;
-        border-radius: 24px;
-        font-size: 0.82rem;
-        font-weight: 600;
-        color: #7c3aed;
-        margin-bottom: 16px;
-    }
-    .engine-dot {
-        width: 8px;
-        height: 8px;
-        background: #10b981;
-        border-radius: 50%;
-        animation: pulse-dot 2s infinite;
-    }
-    @keyframes pulse-dot {
-        0%, 100% { opacity: 1; transform: scale(1); }
-        50% { opacity: 0.5; transform: scale(1.3); }
-    }
+/* Skill Chips */
+.skill-chip {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin: 0.2rem;
+}
+.skill-chip-strong {
+    background-color: #dcfce7;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+}
+.skill-chip-moderate {
+    background-color: #dbeafe;
+    color: #1e40af;
+    border: 1px solid #bfdbfe;
+}
+.skill-chip-basic {
+    background-color: #fef3c7;
+    color: #92400e;
+    border: 1px solid #fde68a;
+}
+.skill-chip-gap {
+    background-color: #fee2e2;
+    color: #b91c1c;
+    border: 1px solid #fecaca;
+}
 
-    /* ── Insights Box ── */
-    .insights-box {
-        background: linear-gradient(135deg, rgba(16,185,129,0.06), rgba(6,182,212,0.06));
-        border: 1px solid rgba(16,185,129,0.15);
-        border-radius: 14px;
-        padding: 20px 24px;
-    }
-    .insights-box h4 {
-        color: #059669;
-        font-size: 0.92rem;
-        margin-bottom: 10px;
-    }
-    .insights-box li {
-        font-size: 0.84rem;
-        color: var(--text-color, #334155);
-        line-height: 1.65;
-        margin-bottom: 4px;
-    }
+/* Progress Bars */
+.progress-bg {
+    width: 100%;
+    background-color: #e2e8f0;
+    border-radius: 9999px;
+    height: 6px;
+    margin-top: 4px;
+}
+.progress-fill-green {
+    background-color: #10b981;
+    height: 100%;
+    border-radius: 9999px;
+}
+.progress-fill-amber {
+    background-color: #f59e0b;
+    height: 100%;
+    border-radius: 9999px;
+}
+.progress-fill-red {
+    background-color: #ef4444;
+    height: 100%;
+    border-radius: 9999px;
+}
 
-    /* ── Divider ── */
-    .styled-divider {
-        height: 2px;
-        background: linear-gradient(90deg, transparent, rgba(102,126,234,0.2), transparent);
-        border: none;
-        margin: 28px 0;
-    }
+/* Hero Section */
+.hero-container {
+    background: linear-gradient(135deg, #2563eb 0%, #0891b2 100%);
+    border-radius: 16px;
+    padding: 3rem 2rem;
+    color: white;
+    text-align: center;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+}
+.hero-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: white;
+}
+.hero-subtitle {
+    font-size: 1.1rem;
+    font-weight: 400;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto;
+}
 
-    /* ── Tab Styling ── */
-    .stTabs [data-baseweb="tab-list"] {
-        gap: 4px;
-        background: var(--secondary-background-color, rgba(248,249,255,0.8));
-        padding: 6px;
-        border-radius: 14px;
-    }
-    .stTabs [data-baseweb="tab"] {
-        border-radius: 10px;
-        font-weight: 600;
-        font-size: 0.88rem;
-        padding: 10px 20px;
-    }
-    .stTabs [data-baseweb="tab-highlight"] {
-        background: linear-gradient(135deg, #667eea, #764ba2);
-        border-radius: 10px;
-    }
-    .stTabs [aria-selected="true"] {
-        color: white !important;
-    }
-    
-    /* ── Metric Override ── */
-    [data-testid="stMetricValue"] {
-        font-weight: 800 !important;
-    }
+/* Metrics Row */
+.metric-box {
+    text-align: center;
+    padding: 1rem;
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+.metric-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #2563eb;
+}
+.metric-label {
+    font-size: 0.85rem;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Buttons */
+.stButton > button {
+    border-radius: 8px !important;
+    font-weight: 500 !important;
+    transition: all 0.2s !important;
+}
+.stButton > button[kind="primary"] {
+    background-color: #2563eb !important;
+    color: white !important;
+    border: none !important;
+}
+.stButton > button[kind="primary"]:hover {
+    background-color: #1d4ed8 !important;
+    box-shadow: 0 4px 6px -1px rgba(37,99,235,0.2) !important;
+}
 </style>
-""", unsafe_allow_html=True)
+"""
+st.markdown(CSS, unsafe_allow_html=True)
 
-# ─────────────────────────────────────────────────────────────
-# DATA LOADING
-# ─────────────────────────────────────────────────────────────
-@st.cache_resource
-def load_engine():
+# ------------------------------------------------------------------------
+# 2. INITIALIZATION & DATA LOADING
+# ------------------------------------------------------------------------
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(BASE_DIR, 'data')
+
+@st.cache_resource(show_spinner="Loading EduPathAI Engine...")
+def init_engine():
     engine = RecommendationEngine(data_dir=DATA_DIR)
     engine.load_data()
     engine.build_vectors()
     engine.perform_clustering()
     return engine
 
-@st.cache_data
-def load_evaluation_data():
-    class_metrics_path = os.path.join(DATA_DIR, "model_comparison_metrics.csv")
-    class_df = pd.read_csv(class_metrics_path) if os.path.exists(class_metrics_path) else None
-    return class_df
+engine = init_engine()
 
-engine = load_engine()
-class_df = load_evaluation_data()
+# Helper function to get clean progress bar HTML
+def get_progress_bar_html(percentage, height="6px"):
+    color_class = "progress-fill-green" if percentage >= 70 else "progress-fill-amber" if percentage >= 50 else "progress-fill-red"
+    return f"""
+    <div class="progress-bg" style="height: {height};">
+        <div class="{color_class}" style="width: {percentage}%; height: 100%;"></div>
+    </div>
+    """
 
-# ─────────────────────────────────────────────────────────────
-# SIDEBAR
-# ─────────────────────────────────────────────────────────────
+# ------------------------------------------------------------------------
+# 3. SIDEBAR NAVIGATION
+# ------------------------------------------------------------------------
+NAV_PAGES = ["🏠 Home", "🎯 Find My Career Path", "🔍 Explore Jobs & Courses", "ℹ️ About"]
+
+if "nav_page" not in st.session_state:
+    st.session_state.nav_page = NAV_PAGES[0]
+
 with st.sidebar:
     st.markdown("""
-    <div style="text-align: center; padding: 16px 0 8px 0;">
-        <div style="font-size: 2.5rem; margin-bottom: 4px;">🎓</div>
-        <div style="font-size: 1.2rem; font-weight: 800; letter-spacing: -0.5px; color: #ffffff !important;">EduPathAI</div>
-        <div style="font-size: 0.72rem; font-weight: 500; opacity: 0.6; text-transform: uppercase; letter-spacing: 1.5px; color: #e0e0e0 !important;">Career Intelligence Platform</div>
-    </div>
-    """, unsafe_allow_html=True)
-    st.markdown("---")
-
-    st.markdown("""
-    <div style="padding: 12px 0;">
-        <div style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; opacity: 0.5; margin-bottom: 12px; color: #e0e0e0 !important;">Platform Stats</div>
-    </div>
-    """, unsafe_allow_html=True)
-
-    stat_cols = st.columns(2)
-    stat_cols[0].metric("👥 Students", len(engine.students_df))
-    stat_cols[1].metric("💼 Jobs", len(engine.jobs_df))
-    stat_cols2 = st.columns(2)
-    stat_cols2[0].metric("📚 Courses", len(engine.courses_df))
-    stat_cols2[1].metric("🧬 Skills", len(engine.master_skills))
-
-    st.markdown("---")
-    st.markdown("""
-    <div style="padding: 8px 0;">
-        <div style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; opacity: 0.5; margin-bottom: 8px; color: #e0e0e0 !important;">AI Engines</div>
-        <div style="font-size: 0.78rem; line-height: 1.8; color: #e0e0e0 !important;">
-            ✅ Random Forest (87.5% CV)<br>
-            ✅ K-Means Clusterer (K=3)<br>
-            ✅ Cosine Similarity Matcher<br>
-            ✅ S-BERT Dense Vectors<br>
-            ✅ XAI Glass-Box Engine
+        <div class='sidebar-logo'>
+            🎓 EduPathAI
+            <span class='sidebar-tagline'>Your AI Career Guide</span>
         </div>
-    </div>
     """, unsafe_allow_html=True)
+    
+    st.markdown("<p style='font-size:0.9rem; font-weight:700; color:#334155; margin-bottom:0.5rem; text-transform:uppercase; letter-spacing:0.05em;'>Navigation</p>", unsafe_allow_html=True)
+    
+    curr_index = NAV_PAGES.index(st.session_state.nav_page) if st.session_state.nav_page in NAV_PAGES else 0
+    selected_page = st.radio(
+        "Navigation Menu",
+        NAV_PAGES,
+        index=curr_index,
+        key="sidebar_radio_selection",
+        label_visibility="collapsed"
+    )
+    if selected_page != st.session_state.nav_page:
+        st.session_state.nav_page = selected_page
+    
+    st.markdown("<div style='margin-top: 35vh; font-size: 0.8rem; color: #64748b; font-weight: 500;'>v2.0.0 | Student Portal</div>", unsafe_allow_html=True)
 
-    st.markdown("---")
+# ------------------------------------------------------------------------
+# 4. PAGE IMPLEMENTATIONS
+# ------------------------------------------------------------------------
+
+def render_home():
     st.markdown("""
-    <div style="text-align: center; padding: 8px 0;">
-        <div style="font-size: 0.7rem; opacity: 0.4; color: #e0e0e0 !important;">EduPathAI v2.0 — Major Project</div>
-        <div style="font-size: 0.7rem; opacity: 0.4; color: #e0e0e0 !important;">Python · Streamlit · Scikit-Learn · Plotly</div>
-    </div>
+        <div class="hero-container">
+            <div class="hero-title">Discover Your Perfect Career Path with AI</div>
+            <div class="hero-subtitle">Get personalized job matches, identify skill gaps, and find the right courses to bridge them. Start your journey today!</div>
+        </div>
     """, unsafe_allow_html=True)
-
-# ─────────────────────────────────────────────────────────────
-# HERO BANNER
-# ─────────────────────────────────────────────────────────────
-st.markdown("""
-<div class="hero-banner">
-    <div class="hero-title">🎓 EduPathAI</div>
-    <div class="hero-subtitle">
-        AI-Powered Career Pathway Prediction · LMS Behavioral Profiling · Explainable Skill-Gap Bridging via Dense Semantic Vector Search
-    </div>
-</div>
-""", unsafe_allow_html=True)
-
-# ─────────────────────────────────────────────────────────────
-# NAVIGATION TABS
-# ─────────────────────────────────────────────────────────────
-tab1, tab2, tab3, tab4 = st.tabs([
-    "🎯  Career Portal",
-    "📊  Model Benchmarks",
-    "🏛️  Architecture",
-    "📖  Documentation"
-])
-
-# =============================================================================
-# TAB 1: STUDENT CAREER & LEARNING PORTAL
-# =============================================================================
-with tab1:
-    # ── Filter Controls ──
-    col_filter1, col_filter2, col_filter3 = st.columns([1, 1.5, 1.2])
-
-    with col_filter1:
-        careers_list = ["All 16 Pathways"] + sorted(list(engine.students_df["Career_Interest"].unique()))
-        selected_career_filter = st.selectbox(
-            "🎯 Career Pathway",
-            careers_list,
-            help="Filter students by their predicted career pathway"
-        )
-        filtered_students = engine.students_df
-        if selected_career_filter != "All 16 Pathways":
-            filtered_students = filtered_students[filtered_students["Career_Interest"] == selected_career_filter]
-
-    with col_filter2:
-        student_options = []
-        for _, s in filtered_students.iterrows():
-            student_options.append(f"{s['Student_ID']} — {s['Career_Interest']} ({s['Degree']}, {s['Specialisation']})")
-
-        if not student_options:
-            st.warning("No student profiles found for the selected filter.")
-            st.stop()
-
-        selected_student_str = st.selectbox(
-            "👤 Student Profile",
-            student_options,
-            help="Select a student to analyze"
-        )
-        selected_student_id = selected_student_str.split(" — ")[0]
-
-    with col_filter3:
-        location_options = [
-            "🇮🇳 India (Bengaluru, Pune, Mumbai)",
-            "🌍 All Locations (Global)",
-            "🇩🇪 Germany / Europe",
-            "🇬🇧 United Kingdom",
-            "🌐 Remote Only"
-        ]
-        selected_loc_choice = st.selectbox(
-            "📍 Job Market",
-            location_options,
-            index=0,
-            help="Filter jobs by geographic preference"
-        )
-        if "India" in selected_loc_choice:
-            selected_country = "India"
-        elif "Germany" in selected_loc_choice:
-            selected_country = "Germany"
-        elif "United Kingdom" in selected_loc_choice:
-            selected_country = "United Kingdom"
-        elif "Remote" in selected_loc_choice:
-            selected_country = "Remote"
-        else:
-            selected_country = "All"
-
-    # ── Retrieve Student Profile ──
-    student_row = engine.students_df[engine.students_df["Student_ID"] == selected_student_id].iloc[0]
-    cluster_name = engine.get_student_cluster_name(selected_student_id)
-    wtl = engine.calculate_willingness_to_learn(selected_student_id)
-
-    st.markdown('<div class="styled-divider"></div>', unsafe_allow_html=True)
-
-    # ── Profile Cards Row ──
-    c1, c2, c3, c4 = st.columns(4)
-
+    
+    c1, c2, c3 = st.columns(3)
     with c1:
-        st.markdown(f"""
-        <div class="profile-card academic">
-            <div class="profile-label">Academic Profile</div>
-            <div class="profile-value">
-                🎓 <strong>{student_row['Degree']}</strong><br>
-                📚 {student_row['Specialisation']}<br>
-                📅 Class of {student_row['Graduation_Year']}
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
-
-    with c2:
-        gpa = student_row['Assessment_Score']
-        gpa_color = "#059669" if gpa >= 8 else ("#d97706" if gpa >= 6 else "#dc2626")
-        st.markdown(f"""
-        <div class="profile-card score">
-            <div class="profile-label">Academic Score</div>
-            <div class="profile-big-value" style="color: {gpa_color};">{gpa}<span style="font-size: 0.9rem; opacity: 0.5;"> / 10.0</span></div>
-            <div class="profile-value" style="margin-top: 4px;">🏅 {student_row['Certifications']}</div>
-        </div>
-        """, unsafe_allow_html=True)
-
-    with c3:
-        if "High" in cluster_name:
-            badge_cls = "persona-high"
-            badge_icon = "🟢"
-            badge_text = "High Achiever"
-        elif "Steady" in cluster_name or "Moderate" in cluster_name:
-            badge_cls = "persona-mod"
-            badge_icon = "🟡"
-            badge_text = "Steady Learner"
-        else:
-            badge_cls = "persona-low"
-            badge_icon = "🔴"
-            badge_text = "Needs Support"
-
-        st.markdown(f"""
-        <div class="profile-card persona">
-            <div class="profile-label">LMS Behavioral Persona</div>
-            <div style="margin: 8px 0;">
-                <span class="persona-badge {badge_cls}">{badge_icon} {badge_text}</span>
-            </div>
-            <div style="font-size: 0.78rem; color: var(--text-color, #64748b); opacity: 0.7;">{cluster_name}</div>
-        </div>
-        """, unsafe_allow_html=True)
-
-    with c4:
-        wtl_color = "#059669" if wtl >= 70 else ("#d97706" if wtl >= 40 else "#dc2626")
-        st.markdown(f"""
-        <div class="profile-card wtl">
-            <div class="profile-label">Willingness to Learn</div>
-            <div class="profile-big-value" style="color: {wtl_color};">{wtl}<span style="font-size: 0.9rem; opacity: 0.5;">%</span></div>
-            <div class="wtl-bar-outer">
-                <div class="wtl-bar-inner" style="width: {min(100, max(0, wtl))}%;"></div>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
-
-    st.markdown('<div class="styled-divider"></div>', unsafe_allow_html=True)
-
-    # ── Skills Display ──
-    st.markdown("""
-    <div class="section-header"><span class="accent-line"></span> Current Skill Portfolio & Competency Depth</div>
-    <div class="section-desc">Continuous proficiency weights mapped via Bloom's Cognitive Taxonomy [0.0 – 1.0]</div>
-    """, unsafe_allow_html=True)
-
-    prof_dict = {}
-    if "Skill_Proficiencies" in student_row and pd.notna(student_row["Skill_Proficiencies"]):
-        for item in str(student_row["Skill_Proficiencies"]).split(","):
-            if ":" in item:
-                s_name, s_val = item.rsplit(":", 1)
-                try:
-                    prof_dict[s_name.strip().lower()] = float(s_val.strip())
-                except ValueError:
-                    pass
-
-    s_tech = [s.strip() for s in str(student_row["Technical_Skills"]).split(",") if s.strip()]
-    s_soft = [s.strip() for s in str(student_row["Soft_Skills"]).split(",") if s.strip()]
-
-    skills_html = ""
-    for s in s_tech:
-        w = prof_dict.get(s.lower(), 0.70)
-        pct = int(w * 100)
-        tier = "advanced" if w >= 0.85 else ("intermediate" if w >= 0.60 else "beginner")
-        tier_label = "Advanced" if w >= 0.85 else ("Intermediate" if w >= 0.60 else "Beginner")
-        skills_html += f'<span class="skill-chip {tier}">💻 {s} <span style="opacity:0.7;">({tier_label} {pct}%)</span></span> '
-    for s in s_soft:
-        w = prof_dict.get(s.lower(), 0.70)
-        pct = int(w * 100)
-        tier = "advanced" if w >= 0.85 else ("intermediate" if w >= 0.60 else "beginner")
-        tier_label = "Advanced" if w >= 0.85 else ("Intermediate" if w >= 0.60 else "Beginner")
-        skills_html += f'<span class="skill-chip {tier}">🤝 {s} <span style="opacity:0.7;">({tier_label} {pct}%)</span></span> '
-    st.markdown(skills_html, unsafe_allow_html=True)
-
-    st.markdown('<div class="styled-divider"></div>', unsafe_allow_html=True)
-
-    # ── Job Matching & Skill Gap Analysis ──
-    target_recommendations = engine.match_jobs(selected_student_id, top_n=3, country_filter=selected_country)
-    if not target_recommendations:
-        target_recommendations = engine.match_jobs(selected_student_id, top_n=3, country_filter="All")
-
-    col_jobs, col_gaps = st.columns([1.1, 1.9])
-
-    with col_jobs:
-        market_label = "India 🇮🇳" if selected_country == "India" else (selected_country if selected_country != "All" else "Global 🌍")
-        st.markdown(f"""
-        <div class="section-header"><span class="accent-line"></span> Top Matched Jobs</div>
-        <div class="section-desc">Cosine similarity against active vacancies in {market_label}</div>
-        """, unsafe_allow_html=True)
-
-        for idx, rec in enumerate(target_recommendations, start=1):
-            score = rec["Match_Score"]
-            score_cls = "match-high" if score >= 70 else ("match-med" if score >= 50 else "match-low")
-            st.markdown(f"""
-            <div class="job-card">
-                <div class="job-rank">{idx}</div>
-                <div class="job-title">{rec['Job_Title']}</div>
-                <div class="job-company">🏢 {rec.get('Company_Name', 'Enterprise Tech')}</div>
-                <div class="job-meta">📍 {rec.get('Location', 'Remote')} · {rec.get('Country', 'Global')} &nbsp;|&nbsp; 💼 {rec.get('Industry', 'Technology')}</div>
-                <span class="match-score {score_cls}">✦ {score}% Match</span>
-            </div>
-            """, unsafe_allow_html=True)
-
-    with col_gaps:
-        top_match = target_recommendations[0]
-        st.markdown(f"""
-        <div class="section-header"><span class="accent-line"></span> Skill-Gap Analysis — {top_match['Job_Title']}</div>
-        """, unsafe_allow_html=True)
-
-        gaps, rec_courses = engine.get_skill_gap_and_courses(selected_student_id, top_match["Job_ID"])
-        req_skills = [s.strip() for s in str(top_match.get("Skills_Required", "")).split(",") if s.strip()]
-
-        if not gaps:
-            st.success("🎉 **No Skill Gaps Detected!** This student already possesses all required skills for this role.")
-        else:
-            st.markdown(f'<div class="section-desc">⚠️ <strong>{len(gaps)} skill gap(s)</strong> detected for this role:</div>', unsafe_allow_html=True)
-            gaps_html = ""
-            for g in gaps:
-                gaps_html += f'<span class="gap-chip">✕ {g}</span> '
-            st.markdown(gaps_html, unsafe_allow_html=True)
-
-        # ── Radar Chart ──
-        sample_radar_skills = sorted(list(set(req_skills + s_tech[:4])))[:8]
-        if not sample_radar_skills:
-            sample_radar_skills = ["Python", "Problem Solving", "Analytics", "Communication"]
-
-        student_prof = [prof_dict.get(sk.lower(), 0.0) for sk in sample_radar_skills]
-        job_needs = [0.85 if sk.lower() in [r.lower() for r in req_skills] else 0.0 for sk in sample_radar_skills]
-
-        fig_radar = go.Figure()
-        fig_radar.add_trace(go.Scatterpolar(
-            r=job_needs + [job_needs[0]],
-            theta=sample_radar_skills + [sample_radar_skills[0]],
-            fill='toself',
-            name='Job Requirement (85%)',
-            line_color='#ef4444',
-            fillcolor='rgba(239,68,68,0.08)',
-            line_width=2
-        ))
-        fig_radar.add_trace(go.Scatterpolar(
-            r=student_prof + [student_prof[0]],
-            theta=sample_radar_skills + [sample_radar_skills[0]],
-            fill='toself',
-            name='Student Mastery',
-            line_color='#667eea',
-            fillcolor='rgba(102,126,234,0.12)',
-            line_width=2.5
-        ))
-        fig_radar.update_layout(
-            polar=dict(
-                radialaxis=dict(visible=True, range=[0.0, 1.0], showticklabels=True, tickfont=dict(size=10, color='#94a3b8')),
-                angularaxis=dict(tickfont=dict(size=11, color='#64748b'))
-            ),
-            showlegend=True,
-            legend=dict(
-                orientation="h",
-                yanchor="bottom",
-                y=-0.15,
-                xanchor="center",
-                x=0.5,
-                font=dict(size=11)
-            ),
-            height=340,
-            margin=dict(l=60, r=60, t=30, b=50),
-            paper_bgcolor='rgba(0,0,0,0)',
-            plot_bgcolor='rgba(0,0,0,0)',
-            font=dict(family="Inter, sans-serif")
-        )
-        st.plotly_chart(fig_radar, use_container_width=True)
-
-    st.markdown('<div class="styled-divider"></div>', unsafe_allow_html=True)
-
-    # ── Recommended Courses ──
-    st.markdown("""
-    <div class="section-header"><span class="accent-line"></span> Recommended Course Bridges</div>
-    <div class="section-desc">Personalized courses to close skill gaps with minimum cognitive overload</div>
-    """, unsafe_allow_html=True)
-
-    # Semantic engine status pill
-    semantic_mode = engine.semantic_matcher.get_mode_name()
-    st.markdown(f"""
-    <div class="engine-pill">
-        <span class="engine-dot"></span>
-        <span>Dense Semantic Search: <strong>{semantic_mode}</strong></span>
-    </div>
-    """, unsafe_allow_html=True)
-
-    if not rec_courses:
-        st.info("✅ No courses required — student skills are already fully aligned with job demands.")
-    else:
-        for c in rec_courses[:4]:
-            match_type = c.get("Match_Type", "Curated Bridge")
-            if match_type == "Dense Semantic Bridge":
-                pill_cls = "pill-semantic"
-                border_color = "#8b5cf6"
-            elif match_type == "Hybrid (Exact + Semantic)":
-                pill_cls = "pill-hybrid"
-                border_color = "#0891b2"
-            else:
-                pill_cls = "pill-exact"
-                border_color = "#10b981"
-
-            semantic_badges_html = ""
-            if c.get("Semantic_Bridges"):
-                for b in c["Semantic_Bridges"]:
-                    semantic_badges_html += f'<span class="semantic-bridge-badge">✨ {b["gap"]} ↔ {b["concept"]} ({b["similarity"]}%)</span> '
-
-            exact_html = ""
-            if c.get("Skills_Covered"):
-                exact_html = f'<div style="font-size: 0.82rem; margin-top: 6px;">🎯 Directly covers: <strong>{c["Skills_Covered"]}</strong></div>'
-
-            badges_line = f'<div style="margin-top: 6px;">{semantic_badges_html}</div>' if semantic_badges_html else ''
-
-            st.markdown(f"""
-            <div class="course-card-v2" style="border-left: 4px solid {border_color};">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                    <span class="course-title-v2">📖 {c['Course_Title']}</span>
-                    <span class="match-type-pill {pill_cls}">{match_type}</span>
-                </div>
-                <div class="course-meta-v2">🏛️ {c['Platform']} &nbsp;·&nbsp; ⏳ {c['Duration_Hours']} Hours</div>
-                {exact_html}
-                {badges_line}
-                <div class="course-desc-v2" style="margin-top: 8px;">{c['Description']}</div>
-            </div>
-            """, unsafe_allow_html=True)
-
-    st.markdown('<div class="styled-divider"></div>', unsafe_allow_html=True)
-
-    # ── Explainable AI ──
-    st.markdown("""
-    <div class="section-header"><span class="accent-line"></span> Explainable AI (XAI) Reasoning</div>
-    """, unsafe_allow_html=True)
-
-    xai_explanation = engine.generate_explanation(selected_student_id, top_match["Job_ID"], rec_courses[:3])
-    st.markdown(f"""
-    <div class="xai-card-v2">
-        <div class="xai-title-v2">🧠 Why was this recommendation generated?</div>
-        <div class="xai-body-v2">{xai_explanation.replace(chr(10), '<br>')}</div>
-    </div>
-    """, unsafe_allow_html=True)
-
-
-# =============================================================================
-# TAB 2: MODEL EVALUATION & BENCHMARKS
-# =============================================================================
-with tab2:
-    st.markdown("""
-    <div class="section-header"><span class="accent-line"></span> Machine Learning Evaluation Suite</div>
-    <div class="section-desc">Rigorous benchmarks across 16 career pathways — supervised classifiers, unsupervised clustering, and recommendation metrics</div>
-    """, unsafe_allow_html=True)
-
-    # ── Key Metrics Row ──
-    m1, m2, m3, m4 = st.columns(4)
-    m1.markdown("""
-    <div class="stat-card">
-        <div class="stat-icon">🏆</div>
-        <div class="stat-value">87.50%</div>
-        <div class="stat-label">RF 5-Fold CV Accuracy</div>
-    </div>
-    """, unsafe_allow_html=True)
-    m2.markdown("""
-    <div class="stat-card">
-        <div class="stat-icon">⚡</div>
-        <div class="stat-value">87.67%</div>
-        <div class="stat-label">XGBoost F1-Score</div>
-    </div>
-    """, unsafe_allow_html=True)
-    m3.markdown("""
-    <div class="stat-card">
-        <div class="stat-icon">📈</div>
-        <div class="stat-value">0.9910</div>
-        <div class="stat-label">Multi-Class ROC-AUC</div>
-    </div>
-    """, unsafe_allow_html=True)
-    m4.markdown("""
-    <div class="stat-card">
-        <div class="stat-icon">🎯</div>
-        <div class="stat-value">0.4627</div>
-        <div class="stat-label">K-Means Silhouette</div>
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown('<div class="styled-divider"></div>', unsafe_allow_html=True)
-
-    # ── Classification Benchmark Table ──
-    st.markdown("""
-    <div class="section-header"><span class="accent-line"></span> Supervised Classification Benchmarks</div>
-    <div class="section-desc">16 career classes · N=96 test samples · Stratified 5-Fold Cross-Validation</div>
-    """, unsafe_allow_html=True)
-
-    if class_df is not None:
-        st.dataframe(class_df, use_container_width=True, hide_index=True)
-    else:
-        st.info("Metrics CSV not found. Run `model_comparison.py` to generate.")
-
-    st.markdown('<div class="styled-divider"></div>', unsafe_allow_html=True)
-
-    # ── Visual Validation Gallery ──
-    st.markdown("""
-    <div class="section-header"><span class="accent-line"></span> Experimental Plots & Confusion Matrices</div>
-    """, unsafe_allow_html=True)
-
-    c_img1, c_img2 = st.columns(2)
-    with c_img1:
-        cm_path = os.path.join(PLOTS_DIR, "phase7_confusion_and_roc.png")
-        if os.path.exists(cm_path):
-            st.image(cm_path, caption="16×16 Confusion Matrix & Multi-Class ROC Curves", use_container_width=True)
-    with c_img2:
-        model_comp_path = os.path.join(PLOTS_DIR, "classification_model_comparison.png")
-        if os.path.exists(model_comp_path):
-            st.image(model_comp_path, caption="Model Accuracy Comparison & RF Feature Importance", use_container_width=True)
-
-    c_img3, c_img4 = st.columns(2)
-    with c_img3:
-        cluster_path = os.path.join(PLOTS_DIR, "clustering_evaluation.png")
-        if os.path.exists(cluster_path):
-            st.image(cluster_path, caption="K-Means Elbow & 2D PCA Cluster Map (K=3)", use_container_width=True)
-    with c_img4:
-        rec_path = os.path.join(PLOTS_DIR, "phase7_recommendation_metrics.png")
-        if os.path.exists(rec_path):
-            st.image(rec_path, caption="Recommendation Precision & Recall @ K", use_container_width=True)
-
-    c_img5, c_img6 = st.columns([1.3, 0.7])
-    with c_img5:
-        acc_roc_path = os.path.join(PLOTS_DIR, "accuracy_vs_roc_auc_comparison.png")
-        if os.path.exists(acc_roc_path):
-            st.image(acc_roc_path, caption="Accuracy vs. ROC-AUC Across 6 Classifiers", use_container_width=True)
-    with c_img6:
         st.markdown("""
-        <div class="insights-box">
-            <h4>🎯 Benchmark Insights (16 Pathways)</h4>
-            <ul>
-                <li><strong>Random Forest Champion</strong>: 87.50% 5-fold CV and 0.9910 ROC-AUC across all 16 categories</li>
-                <li><strong>Continuous Proficiencies</strong>: Bloom's Taxonomy mapping (0.0→1.0) improves boundary sensitivity over binary encoding</li>
-                <li><strong>XGBoost & LightGBM</strong>: Compete strongly at 86.46% and 85.42% accuracy</li>
-                <li><strong>High Separability</strong>: All top ensembles exceed 0.98 ROC-AUC</li>
-            </ul>
-        </div>
+            <div class="custom-card" style="text-align:center;">
+                <div style="font-size:2.5rem; margin-bottom:1rem;">🤖</div>
+                <div class="card-title">AI Job Matching</div>
+                <div class="card-subtitle" style="margin:0;">Semantic skill analysis matches you with roles that fit your unique profile.</div>
+            </div>
         """, unsafe_allow_html=True)
+    with c2:
+        st.markdown("""
+            <div class="custom-card" style="text-align:center;">
+                <div style="font-size:2.5rem; margin-bottom:1rem;">🎯</div>
+                <div class="card-title">Skill Gap Analysis</div>
+                <div class="card-subtitle" style="margin:0;">Pinpoint exactly what you need to learn to land your dream job.</div>
+            </div>
+        """, unsafe_allow_html=True)
+    with c3:
+        st.markdown("""
+            <div class="custom-card" style="text-align:center;">
+                <div style="font-size:2.5rem; margin-bottom:1rem;">📚</div>
+                <div class="card-title">Smart Recommendations</div>
+                <div class="card-subtitle" style="margin:0;">Curated courses designed specifically to bridge your skill gaps.</div>
+            </div>
+        """, unsafe_allow_html=True)
+        
+    st.markdown("<br>", unsafe_allow_html=True)
+    
+    num_students = len(engine.students_df)
+    num_jobs = len(engine.jobs_df)
+    num_courses = len(engine.courses_df)
+    num_skills = len(engine.master_skills)
+    
+    m1, m2, m3, m4 = st.columns(4)
+    m1.markdown(f"<div class='metric-box'><div class='metric-value'>{num_students}+</div><div class='metric-label'>Students Analyzed</div></div>", unsafe_allow_html=True)
+    m2.markdown(f"<div class='metric-box'><div class='metric-value'>{num_jobs}</div><div class='metric-label'>Job Opportunities</div></div>", unsafe_allow_html=True)
+    m3.markdown(f"<div class='metric-box'><div class='metric-value'>{num_courses}</div><div class='metric-label'>Curated Courses</div></div>", unsafe_allow_html=True)
+    m4.markdown(f"<div class='metric-box'><div class='metric-value'>{num_skills}</div><div class='metric-label'>Skills Tracked</div></div>", unsafe_allow_html=True)
 
-    st.markdown('<div class="styled-divider"></div>', unsafe_allow_html=True)
+    st.markdown("<br><br>", unsafe_allow_html=True)
+    col1, col2, col3 = st.columns([1,2,1])
+    with col2:
+        if st.button("Get Started → Find My Career Path", type="primary", use_container_width=True):
+            st.session_state.nav_page = "🎯 Find My Career Path"
+            st.rerun()
 
-    # ── Drift Monitoring ──
-    st.markdown("""
-    <div class="section-header"><span class="accent-line"></span> Production Drift Monitoring Suite</div>
-    <div class="section-desc">KS-test distribution shifts, PSI stability, and accuracy decay tracking</div>
-    """, unsafe_allow_html=True)
+def render_radar_chart(student_id, job_id):
+    student_row = engine.students_df[engine.students_df['Student_ID'] == student_id]
+    job_row = engine.jobs_df[engine.jobs_df['Job_ID'] == job_id]
+    
+    if student_row.empty or job_row.empty:
+        return None
+        
+    s_vec = student_row.iloc[0]['Skill_Vector']
+    j_vec = job_row.iloc[0]['Skill_Vector']
+    
+    # To make radar chart readable, pick top N skills relevant to the job or student
+    # Sort by importance in job + student
+    importance = np.array(s_vec) + np.array(j_vec)
+    top_indices = np.argsort(importance)[::-1][:8] # top 8 skills
+    
+    categories = [engine.master_skills[i] for i in top_indices]
+    s_vals = [s_vec[i] * 100 for i in top_indices]
+    j_vals = [j_vec[i] * 100 for i in top_indices]
+    
+    # Close the loop
+    categories.append(categories[0])
+    s_vals.append(s_vals[0])
+    j_vals.append(j_vals[0])
+    
+    fig = go.Figure()
+    fig.add_trace(go.Scatterpolar(
+        r=s_vals,
+        theta=categories,
+        fill='toself',
+        name='Your Skills',
+        line_color='#2563eb',
+        fillcolor='rgba(37, 99, 235, 0.2)'
+    ))
+    fig.add_trace(go.Scatterpolar(
+        r=j_vals,
+        theta=categories,
+        fill='toself',
+        name='Job Requirements',
+        line_color='#ef4444',
+        fillcolor='rgba(239, 68, 68, 0.2)'
+    ))
+    
+    fig.update_layout(
+        polar=dict(
+            radialaxis=dict(visible=True, range=[0, 100])
+        ),
+        showlegend=True,
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
+        margin=dict(l=40, r=40, t=20, b=20),
+        height=350,
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)'
+    )
+    return fig
 
-    drift_report_path = os.path.join(DATA_DIR, "drift_monitoring_report.csv")
-    if os.path.exists(drift_report_path):
-        try:
-            with open(drift_report_path, "r", encoding="utf-8") as f:
-                content = f.read()
-            sections = content.split("## ")
-            for sec in sections[1:]:
-                lines = sec.strip().split("\n")
-                sec_title = lines[0]
-                csv_text = "\n".join(lines[1:]).strip()
-                sec_df = pd.read_csv(io.StringIO(csv_text))
-                st.markdown(f"**{sec_title}**")
-                st.dataframe(sec_df, use_container_width=True, hide_index=True)
-        except Exception as e:
-            st.warning(f"Drift report format notice: {e}")
+def render_job_analysis(student_id, job_id, job_title, match_score):
+    st.markdown(f"### Analysis for **{job_title}** (Match: {match_score:.1f}%)")
+    
+    # 1. Skill Gap Analysis
+    skill_gaps, recommended_courses = engine.get_skill_gap_and_courses(student_id, job_id)
+    
+    c1, c2 = st.columns([1, 1])
+    with c1:
+        st.markdown("<div class='card-title'>Missing/Weak Skills</div>", unsafe_allow_html=True)
+        if not skill_gaps:
+            st.success("🎉 You have all the primary skills required for this job!")
+        else:
+            gap_html = ""
+            for gap in skill_gaps:
+                gap_html += f"<span class='skill-chip skill-chip-gap'>{gap}</span>"
+            st.markdown(gap_html, unsafe_allow_html=True)
+            
+    with c2:
+        st.markdown("<div class='card-title'>Skills Match Radar</div>", unsafe_allow_html=True)
+        fig = render_radar_chart(student_id, job_id)
+        if fig:
+            st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
-    drift_plot_path = os.path.join(PLOTS_DIR, "drift_analysis.png")
-    if os.path.exists(drift_plot_path):
-        st.image(drift_plot_path, caption="Statistical Feature Drift (KS-Test) & Concept Drift Trajectory", use_container_width=True)
-
-    st.markdown('<div class="styled-divider"></div>', unsafe_allow_html=True)
-
-    # ── Dense Semantic Search ──
-    st.markdown("""
-    <div class="section-header"><span class="accent-line"></span> Dense Semantic Vector Search (Sentence-BERT)</div>
-    <div class="section-desc">384-D dense embeddings resolving vocabulary mismatch between job skills and course curricula</div>
-    """, unsafe_allow_html=True)
-
-    col_s1, col_s2, col_s3 = st.columns(3)
-    col_s1.markdown("""
-    <div class="stat-card">
-        <div class="stat-icon">🧠</div>
-        <div class="stat-value" style="font-size: 1.1rem;">all-MiniLM-L6-v2</div>
-        <div class="stat-label">Embedding Model</div>
-    </div>
-    """, unsafe_allow_html=True)
-    col_s2.markdown("""
-    <div class="stat-card">
-        <div class="stat-icon">📐</div>
-        <div class="stat-value">384-D</div>
-        <div class="stat-label">Dense Latent Space</div>
-    </div>
-    """, unsafe_allow_html=True)
-    col_s3.markdown("""
-    <div class="stat-card">
-        <div class="stat-icon">🚀</div>
-        <div class="stat-value">+18.4%</div>
-        <div class="stat-label">Vocabulary Recall Boost</div>
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("")
-    st.markdown("""
-    | Target Skill (Query) | Course Matched | Skills in Catalog | Similarity | Type |
-    | :--- | :--- | :--- | :---: | :---: |
-    | `PyTorch` | **Deep Learning and Neural Networks** (Coursera) | Deep Learning, AI/ML, Python | **88.0%** | ✨ Dense Semantic |
-    | `PostgreSQL` | **Enterprise Database Administration** (edX) | Database Management, SQL, PostgreSQL | **100.0%** | 🎯 Exact Match |
-    | `PostgreSQL` | **SQL for Data Analysis** (Udemy) | SQL, Database Management | **88.0%** | ✨ Dense Semantic |
-    | `Kubernetes` | **DevOps Engineering: Docker, K8s & CI/CD** (Udemy) | Docker, Kubernetes, CI/CD, Linux | **100.0%** | 🎯 Exact Match |
-    | `Kubernetes` | **Cloud Computing Essentials** (Coursera) | Cloud, AWS, Azure, Docker | **85.0%** | ✨ Dense Semantic |
-    | `NLP` | **Machine Learning Specialization** (Coursera) | Machine Learning, AI/ML, Python | **86.0%** | ✨ Dense Semantic |
-    | `Figma` | **UI/UX Design Masterclass** (Coursera) | Figma, UI Design, Wireframing | **100.0%** | 🎯 Exact Match |
-    """)
-
-
-# =============================================================================
-# TAB 3: SYSTEM ARCHITECTURE BLUEPRINT
-# =============================================================================
-with tab3:
-    st.markdown("""
-    <div class="section-header"><span class="accent-line"></span> End-to-End System Architecture</div>
-    <div class="section-desc">Enterprise blueprint: data ingestion → feature store → AI engine → presentation layer</div>
-    """, unsafe_allow_html=True)
-
-    blueprint_path = os.path.join(PLOTS_DIR, "architecture_blueprint.png")
-    if os.path.exists(blueprint_path):
-        st.image(blueprint_path, caption="EduPathAI End-to-End System Architecture Blueprint", use_container_width=True)
+    # 2. Recommended Courses
+    st.markdown("### 📚 Recommended Courses to Bridge the Gap")
+    if not recommended_courses:
+        st.info("No specific courses needed based on your current skill profile.")
     else:
-        st.info("System Architecture diagram available in project presentation slides.")
+        for course in recommended_courses:
+            match_type_color = "#10b981" if "Direct" in course.get('Match_Type', '') else "#3b82f6"
+            st.markdown(f"""
+                <div class="custom-card">
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                        <div>
+                            <div style="font-size:0.8rem; color:#64748b; font-weight:600; text-transform:uppercase;">
+                                {course.get('Platform', 'Online')} • {course.get('Duration_Hours', 'N/A')} hours
+                            </div>
+                            <div class="card-title" style="margin-top:0.25rem;">{course.get('Course_Title', 'Course')}</div>
+                        </div>
+                        <div style="background-color:{match_type_color}20; color:{match_type_color}; padding:4px 8px; border-radius:4px; font-size:0.75rem; font-weight:600;">
+                            {course.get('Match_Type', 'Match')}
+                        </div>
+                    </div>
+                    <div style="font-size:0.9rem; color:#475569; margin-top:0.5rem; margin-bottom:1rem;">
+                        {course.get('Description', '')}
+                    </div>
+                    <div>
+                        <span style="font-size:0.8rem; font-weight:600; color:#64748b;">Covers Gaps:</span> 
+                        {' '.join([f"<span class='skill-chip skill-chip-strong' style='font-size:0.7rem; padding:2px 6px;'>{g.strip()}</span>" for g in str(course.get('Skills_Covered_All', course.get('Skills_Covered', ''))).split(',') if g.strip()])}
+                    </div>
+                </div>
+            """, unsafe_allow_html=True)
+            
+    # 3. Explanation
+    st.markdown("### 💡 Why this matches")
+    explanation = engine.generate_explanation(student_id, job_id, recommended_courses)
+    # Strip some technical jargon if possible, though mostly it's just formatting
+    st.markdown(f"<div style='background-color:#f1f5f9; padding:1.5rem; border-radius:12px; font-size:0.95rem; line-height:1.6;'>{explanation}</div>", unsafe_allow_html=True)
 
-    st.markdown('<div class="styled-divider"></div>', unsafe_allow_html=True)
+def render_student_dashboard(student_id, job_market="All"):
+    student_row = engine.students_df[engine.students_df['Student_ID'] == student_id].iloc[0]
+    
+    # -- Profile Summary Card --
+    if student_id == 'CUSTOM_USER':
+        cluster_name = "New User (Data Pending)"
+        wtl = 75.0 # Default positive willingness
+    else:
+        try:
+            cluster_name = engine.get_student_cluster_name(student_id)
+            wtl = engine.calculate_willingness_to_learn(student_id)
+        except:
+            cluster_name = "Standard Profile"
+            wtl = 50.0
 
-    st.markdown("""
-    <div class="section-header"><span class="accent-line"></span> Engine Breakdown & Empirical Results</div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("""
-    | Engine / Component | Model / Algorithm | Role in EduPathAI | Empirical Result |
-    | :--- | :--- | :--- | :--- |
-    | **Career Pathway Predictor** | Random Forest Classifier | Predicts 1 of 16 career pathways from academic profiles & Bloom's skill vectors | **87.50% CV, 0.9910 ROC-AUC** |
-    | **Behavioral Segmenter** | K-Means (K=3) | Groups LMS telemetry into 3 personas (High/Steady/Critical) | **Silhouette: 0.4627** |
-    | **Job Matcher** | Cosine Similarity | Geometric alignment between 66-D student vectors and 240 job postings | **85–95% precision** |
-    | **Course Bridge** | Sentence-BERT (all-MiniLM-L6-v2) | 384-D embeddings resolving vocabulary mismatch | **+18.4% recall, 76.8% gap recovery** |
-    | **XAI Engine** | Glass-Box Gap Decomposer + NLG | Set subtraction & natural-language justification | **100% auditable** |
-    | **Presentation Layer** | Streamlit + Plotly | Interactive dashboard with radar charts, filters, and benchmarks | **Sub-120ms inference** |
-    """)
-
-
-# =============================================================================
-# TAB 4: PROJECT & DATASET DOCUMENTATION
-# =============================================================================
-with tab4:
-    st.markdown("""
-    <div class="section-header"><span class="accent-line"></span> Project Overview & Dataset Statistics</div>
-    """, unsafe_allow_html=True)
-
-    d1, d2, d3, d4 = st.columns(4)
-    d1.markdown(f"""
-    <div class="stat-card">
-        <div class="stat-icon">💼</div>
-        <div class="stat-value">{len(engine.jobs_df)}</div>
-        <div class="stat-label">Live & Curated Jobs</div>
-    </div>
-    """, unsafe_allow_html=True)
-    d2.markdown(f"""
-    <div class="stat-card">
-        <div class="stat-icon">👥</div>
-        <div class="stat-value">{len(engine.students_df)}</div>
-        <div class="stat-label">Student Profiles</div>
-    </div>
-    """, unsafe_allow_html=True)
-    d3.markdown(f"""
-    <div class="stat-card">
-        <div class="stat-icon">📚</div>
-        <div class="stat-value">{len(engine.courses_df)}</div>
-        <div class="stat-label">Industry Courses</div>
-    </div>
-    """, unsafe_allow_html=True)
-    d4.markdown(f"""
-    <div class="stat-card">
-        <div class="stat-icon">🧬</div>
-        <div class="stat-value">{len(engine.master_skills)}</div>
-        <div class="stat-label">Master Skills Inventory</div>
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown('<div class="styled-divider"></div>', unsafe_allow_html=True)
-
-    st.markdown("""
-    <div class="section-header"><span class="accent-line"></span> 16 Supported Career Pathways</div>
-    """, unsafe_allow_html=True)
-
-    careers_sorted = sorted(list(engine.students_df["Career_Interest"].unique()))
-    cols_c = st.columns(4)
-    for i, c in enumerate(careers_sorted):
-        count_c = sum(engine.students_df["Career_Interest"] == c)
-        cols_c[i % 4].markdown(f"""
-        <div style="background: var(--secondary-background-color, #f8f9ff); border-radius: 8px; padding: 8px 14px; margin-bottom: 6px; border-left: 3px solid #667eea;">
-            <span style="font-weight: 600; font-size: 0.85rem; color: var(--text-color, #334155);">{c}</span>
-            <span style="float: right; font-size: 0.78rem; opacity: 0.6; color: var(--text-color, #94a3b8);">{count_c} students</span>
+    st.markdown(f"""
+        <div class="custom-card">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div>
+                    <h2 style="margin:0; color:#0f172a;">{student_row.get('Name', student_id)}</h2>
+                    <div style="color:#64748b; font-size:1rem; margin-top:0.25rem;">
+                        {student_row['Degree']} in {student_row['Specialisation']} • {student_row['Education_Level']}
+                    </div>
+                </div>
+                <div style="text-align:right;">
+                    <div style="font-size:1.5rem; font-weight:700; color:#2563eb;">GPA: {student_row['Assessment_Score']:.1f}/10</div>
+                    <div style="font-size:0.85rem; color:#64748b; margin-top:0.2rem;">Target: {student_row['Career_Interest']}</div>
+                </div>
+            </div>
+            <hr style="border-color:#e2e8f0; margin:1rem 0;">
+            <div style="display:flex; gap:2rem;">
+                <div style="flex:1;">
+                    <div style="font-size:0.85rem; font-weight:600; color:#64748b; margin-bottom:0.25rem;">Learning Style Profile</div>
+                    <div style="font-weight:500; color:#0f172a;">{cluster_name}</div>
+                </div>
+                <div style="flex:1;">
+                    <div style="font-size:0.85rem; font-weight:600; color:#64748b; margin-bottom:0.25rem;">Motivation Score ({wtl:.0f}%)</div>
+                    {get_progress_bar_html(wtl)}
+                </div>
+            </div>
         </div>
-        """, unsafe_allow_html=True)
-
-    st.markdown('<div class="styled-divider"></div>', unsafe_allow_html=True)
-
-    st.markdown("""
-    <div class="section-header"><span class="accent-line"></span> Raw Dataset Previews</div>
     """, unsafe_allow_html=True)
 
-    with st.expander("📊 Students Dataset", expanded=False):
-        st.dataframe(engine.students_df.head(10), use_container_width=True, hide_index=True)
-    with st.expander("💼 Jobs Dataset", expanded=False):
-        st.dataframe(engine.jobs_df.head(10), use_container_width=True, hide_index=True)
-    with st.expander("📚 Courses Dataset", expanded=False):
-        st.dataframe(engine.courses_df.head(10), use_container_width=True, hide_index=True)
+    # -- Your Skills --
+    st.markdown("### Your Top Skills")
+    skill_profs = student_row['Skill_Proficiencies']
+    if pd.isna(skill_profs) or not skill_profs:
+        st.info("No skills recorded.")
+    else:
+        skills = [s.strip() for s in skill_profs.split(',') if s.strip()]
+        skill_html = "<div style='display:flex; flex-wrap:wrap; gap:10px;'>"
+        for s in skills:
+            if ':' in s:
+                parts = s.split(':')
+                name = parts[0]
+                try:
+                    val = float(parts[1]) * 100
+                except:
+                    val = 50
+            else:
+                name = s
+                val = 50
+                
+            chip_class = "skill-chip-strong" if val >= 70 else "skill-chip-moderate" if val >= 40 else "skill-chip-basic"
+            skill_html += f"""
+                <div style="background:white; border:1px solid #e2e8f0; border-radius:8px; padding:10px; width:180px;">
+                    <div style="font-size:0.85rem; font-weight:600; margin-bottom:5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="{name}">{name}</div>
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <div style="flex:1;">{get_progress_bar_html(val, "4px")}</div>
+                        <div style="font-size:0.7rem; color:#64748b;">{int(val)}%</div>
+                    </div>
+                </div>
+            """
+        skill_html += "</div>"
+        st.markdown(skill_html, unsafe_allow_html=True)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    # -- Top Matched Jobs --
+    st.markdown("### 🎯 Your Top Career Matches")
+    country_filter = job_market if job_market != "All" else "All"
+    matched_jobs = engine.match_jobs(student_id, top_n=3, country_filter=country_filter)
+    
+    if not matched_jobs:
+        st.warning(f"No jobs found matching your profile in the '{country_filter}' market.")
+        return
+
+    # Create selectable buttons/radio for jobs
+    job_options = [f"#{i+1} {job['Job_Title']} ({job['Match_Score']:.1f}%)" for i, job in enumerate(matched_jobs)]
+    
+    # Store selected index in session state
+    if 'selected_job_idx' not in st.session_state:
+        st.session_state.selected_job_idx = 0
+        
+    selected_job_label = st.radio("Select a role to analyze:", job_options, horizontal=True, label_visibility="collapsed")
+    selected_idx = job_options.index(selected_job_label)
+    st.session_state.selected_job_idx = selected_idx
+    
+    selected_job = matched_jobs[selected_idx]
+    
+    # Show detailed analysis panel for selected job
+    st.markdown("---")
+    render_job_analysis(student_id, selected_job['Job_ID'], selected_job['Job_Title'], selected_job['Match_Score'])
+
+
+def render_existing_profile():
+    st.markdown("### Select Your Profile")
+    
+    # Filters
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        interests = ["All"] + sorted(list(engine.students_df['Career_Interest'].dropna().unique()))
+        selected_interest = st.selectbox("Filter by Career Interest", interests)
+        
+    filtered_df = engine.students_df
+    if selected_interest != "All":
+        filtered_df = filtered_df[filtered_df['Career_Interest'] == selected_interest]
+        
+    with col2:
+        # Format student dropdown
+        def format_student(row):
+            return f"{row['Student_ID']} — {row['Career_Interest']} ({row['Degree']}, {row['Specialisation']})"
+            
+        student_options = []
+        student_mapping = {}
+        for _, row in filtered_df.iterrows():
+            if row['Student_ID'] == 'CUSTOM_USER':
+                label = f"✨ Custom Profile — {row['Career_Interest']} ({row['Degree']})"
+            else:
+                label = format_student(row)
+            student_options.append(label)
+            student_mapping[label] = row['Student_ID']
+            
+        if not student_options:
+            st.warning("No students found with this filter.")
+            return
+            
+        selected_student_label = st.selectbox("Select Profile", student_options)
+        student_id = student_mapping[selected_student_label]
+        
+    with col3:
+        markets = ["All"] + sorted(list(engine.jobs_df['Country'].dropna().unique()))
+        job_market = st.selectbox("Job Market", markets)
+        
+    st.markdown("<br>", unsafe_allow_html=True)
+    render_student_dashboard(student_id, job_market)
+
+def render_create_profile():
+    st.markdown("### ✨ Create My Own Profile")
+    st.markdown("Tell us about your background and skills to get personalized AI career recommendations.")
+    
+    with st.form("custom_profile_form"):
+        c1, c2 = st.columns(2)
+        with c1:
+            name = st.text_input("Full Name", value="Jane Doe")
+            degree = st.selectbox("Degree", ["B.Tech", "B.Sc", "BBA", "B.Des", "MCA", "M.Tech", "MBA"])
+            gpa = st.slider("GPA / Assessment Score (Out of 10)", min_value=0.0, max_value=10.0, value=7.5, step=0.1)
+        with c2:
+            specs = sorted(list(engine.students_df['Specialisation'].dropna().unique())) if 'Specialisation' in engine.students_df.columns else ["Computer Science", "Data Science", "IT"]
+            specialization = st.selectbox("Specialization", specs)
+            interests = sorted(list(engine.students_df['Career_Interest'].dropna().unique())) if 'Career_Interest' in engine.students_df.columns else ["Software Engineering", "Data Analytics"]
+            career_interest = st.selectbox("Target Career Interest", interests)
+            
+        markets = ["All"] + sorted(list(engine.jobs_df['Country'].dropna().unique()))
+        job_market = st.selectbox("Target Job Market", markets)
+            
+        st.markdown("#### Your Skills")
+        st.markdown("<span style='font-size:0.85rem; color:#64748b;'>Select the skills you possess and your general proficiency level.</span>", unsafe_allow_html=True)
+        
+        c3, c4 = st.columns([2, 1])
+        with c3:
+            # Title case the skills for better UI
+            skill_options = [s.title() for s in engine.master_skills]
+            selected_skills_title = st.multiselect("Select Skills", skill_options, default=["Python", "Communication", "Teamwork"])
+            selected_skills = [s.lower() for s in selected_skills_title] # For matching
+            
+        with c4:
+            skill_level = st.radio("General Skill Level", ["Beginner", "Intermediate", "Advanced"], index=1)
+            
+        submitted = st.form_submit_button("Find My Career Path 🚀", type="primary")
+        
+    if submitted:
+        with st.spinner("Analyzing your profile..."):
+            custom_id = 'CUSTOM_USER'
+            level_weights = {'Beginner': 0.45, 'Intermediate': 0.70, 'Advanced': 0.90}
+            weight = level_weights[skill_level]
+            
+            # Master skills are lowercase internally typically, or matching exact case.
+            # Let's use lower for safe matching
+            ms_lower = [s.lower() for s in engine.master_skills]
+            vector = [weight if s.lower() in selected_skills else 0.0 for s in engine.master_skills]
+            
+            soft_skill_set = {'communication', 'teamwork', 'leadership', 'adaptability', 'time management', 'problem-solving', 'critical thinking', 'presentation', 'negotiation'}
+            
+            tech_s = [s.title() for s in selected_skills if s not in soft_skill_set]
+            soft_s = [s.title() for s in selected_skills if s in soft_skill_set]
+            
+            skill_profs_str = ', '.join([f"{s.title()}:{weight}" for s in selected_skills])
+            
+            custom_row_dict = {
+                'Student_ID': custom_id,
+                'Name': name,
+                'Gender': 'Not Specified',
+                'Education_Level': 'Undergraduate',
+                'Degree': degree,
+                'Specialisation': specialization,
+                'Graduation_Year': 2025,
+                'Technical_Skills': ', '.join(tech_s),
+                'Soft_Skills': ', '.join(soft_s),
+                'Skill_Proficiencies': skill_profs_str,
+                'Projects': '',
+                'Certifications': '',
+                'Assessment_Score': gpa,
+                'Career_Interest': career_interest,
+                'Skill_Vector': vector
+            }
+            
+            custom_row = pd.DataFrame([custom_row_dict])
+            
+            # Clean up existing custom user
+            engine.students_df = engine.students_df[engine.students_df['Student_ID'] != custom_id]
+            
+            # Concat
+            engine.students_df = pd.concat([engine.students_df, custom_row], ignore_index=True)
+            
+            # Reset session state for job selection
+            st.session_state.selected_job_idx = 0
+            st.session_state.custom_profile_created = True
+            st.session_state.custom_job_market = job_market
+            
+            st.success("Profile created successfully! Scrolling to results...")
+            time.sleep(0.5)
+            
+    if st.session_state.get('custom_profile_created', False):
+        st.markdown("---")
+        render_student_dashboard('CUSTOM_USER', st.session_state.get('custom_job_market', 'All'))
+
+def render_find_path():
+    mode = st.radio("Select Mode", ["Use an existing profile", "✨ Create my own profile"], horizontal=True, label_visibility="collapsed")
+    st.markdown("<br>", unsafe_allow_html=True)
+    if mode == "Use an existing profile":
+        render_existing_profile()
+    else:
+        render_create_profile()
+
+def render_explore():
+    st.markdown("## 🔍 Explore Jobs & Courses")
+    
+    tab1, tab2, tab3 = st.tabs(["💼 Job Market", "📚 Course Catalog", "🗺️ Career Pathways"])
+    
+    with tab1:
+        st.markdown("Browse all available job opportunities tracked by EduPathAI.")
+        # Filterable dataframe
+        search_job = st.text_input("Search Jobs (Title, Company, Industry)...", "")
+        
+        display_df = engine.jobs_df[['Job_ID', 'Job_Title', 'Company_Name', 'Industry', 'Location', 'Country', 'Experience_Required']].copy()
+        if search_job:
+            mask = display_df.apply(lambda row: row.astype(str).str.contains(search_job, case=False).any(), axis=1)
+            display_df = display_df[mask]
+            
+        st.dataframe(
+            display_df, 
+            use_container_width=True,
+            column_config={
+                "Job_ID": "ID",
+                "Job_Title": "Role",
+                "Company_Name": "Company",
+                "Experience_Required": "Exp. Level"
+            },
+            hide_index=True
+        )
+        
+    with tab2:
+        st.markdown("Browse recommended learning resources.")
+        search_course = st.text_input("Search Courses (Title, Platform, Skills)...", "")
+        
+        display_courses = engine.courses_df[['Course_ID', 'Course_Title', 'Platform', 'Duration_Hours', 'Skills_Developed']].copy()
+        if search_course:
+            mask = display_courses.apply(lambda row: row.astype(str).str.contains(search_course, case=False).any(), axis=1)
+            display_courses = display_courses[mask]
+            
+        st.dataframe(
+            display_courses,
+            use_container_width=True,
+            column_config={
+                "Course_ID": "ID",
+                "Course_Title": "Course Name",
+                "Duration_Hours": "Hours",
+                "Skills_Developed": "Teaches"
+            },
+            hide_index=True
+        )
+        
+    with tab3:
+        st.markdown("### Career Pathways Overview")
+        if 'Career_Interest' in engine.students_df.columns:
+            pathways = sorted(list(engine.students_df['Career_Interest'].dropna().unique()))
+            
+            # Display in grid
+            cols = st.columns(4)
+            for i, path in enumerate(pathways):
+                with cols[i % 4]:
+                    st.markdown(f"""
+                        <div class="custom-card" style="text-align:center; padding:1rem; min-height:100px; display:flex; align-items:center; justify-content:center;">
+                            <div style="font-weight:600; color:#0f172a;">{path}</div>
+                        </div>
+                    """, unsafe_allow_html=True)
+        else:
+            st.info("Career pathways data not available.")
+
+def render_about():
+    st.markdown("## ℹ️ About EduPathAI")
+    
+    st.markdown("""
+    **EduPathAI** is your personal, AI-powered career guide. We analyze your academic background, 
+    technical abilities, and soft skills to match you with real-world job opportunities.
+    
+    ### How it Works (Simply)
+    1. **Tell us about yourself**: You provide your degree, interests, and current skill levels.
+    2. **AI Matching**: Our system compares your profile against hundreds of jobs using semantic matching (understanding the *meaning* of skills, not just exact keywords).
+    3. **Find the Gaps**: We identify exactly what skills you're missing for your dream job.
+    4. **Bridge the Gap**: We recommend highly specific courses that teach exactly what you need.
+    """)
+    
+    st.markdown("<br>", unsafe_allow_html=True)
+    
+    with st.expander("🛠️ For Researchers & Developers"):
+        st.markdown(f"""
+        **System Architecture & Details:**
+        - **Embedding Model:** `{engine.semantic_matcher.get_mode_name() if hasattr(engine, 'semantic_matcher') else 'Sentence-BERT (all-MiniLM-L6-v2)'}`
+        - **Clustering:** K-Means clustering is used on student engagement data to categorize learning behaviors.
+        - **Similarity Metric:** Cosine Similarity between 384-dimensional skill vectors.
+        - **Data Dimensions:**
+          - `{len(engine.students_df)}` Students
+          - `{len(engine.jobs_df)}` Job Postings
+          - `{len(engine.courses_df)}` Courses
+          - `{len(engine.master_skills)}` Unique Skills Tracked
+        
+        *EduPathAI leverages advanced NLP to map educational outcomes directly to labor market requirements, providing a transparent, explainable recommendation pipeline.*
+        """)
+
+# ------------------------------------------------------------------------
+# 5. MAIN ROUTING
+# ------------------------------------------------------------------------
+current_page = st.session_state.get('nav_page', '🏠 Home')
+
+if current_page == "🏠 Home":
+    render_home()
+elif current_page == "🎯 Find My Career Path":
+    render_find_path()
+elif current_page == "🔍 Explore Jobs & Courses":
+    render_explore()
+elif current_page == "ℹ️ About":
+    render_about()
+    
+# Empty container to push footer down if content is short
+st.markdown("<div style='height: 50px;'></div>", unsafe_allow_html=True)
