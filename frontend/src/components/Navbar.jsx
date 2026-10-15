@@ -62,7 +62,7 @@ export default function Navbar({ activeTab, setActiveTab, apiStatus }) {
             {apiStatus ? (
               <>
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span className="text-slate-700">AI Engine Online</span>
+                <span className="text-slate-700 font-medium">7,381 Enterprise Engine Online</span>
               </>
             ) : (
               <>

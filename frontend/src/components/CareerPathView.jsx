@@ -10,6 +10,8 @@ export default function CareerPathView({ filters }) {
   
   // Existing student mode state
   const [selectedInterest, setSelectedInterest] = useState('All');
+  const [selectedSource, setSelectedSource] = useState('All');
+  const [searchQuery, setSearchQuery] = useState('');
   const [selectedMarket, setSelectedMarket] = useState('All');
   const [students, setStudents] = useState([]);
   const [selectedStudentId, setSelectedStudentId] = useState('');
@@ -32,21 +34,30 @@ export default function CareerPathView({ filters }) {
     market: 'All'
   });
 
-  // Fetch student list when career interest filter changes
+  // Fetch student list when filters change
   useEffect(() => {
     fetchStudents();
-  }, [selectedInterest]);
+  }, [selectedInterest, selectedSource, searchQuery]);
 
   const fetchStudents = async () => {
     try {
-      const url = selectedInterest === 'All' 
-        ? '/api/students' 
-        : `/api/students?career_interest=${encodeURIComponent(selectedInterest)}`;
-      const res = await fetch(url);
+      const params = new URLSearchParams();
+      if (selectedInterest && selectedInterest !== 'All') params.append('career_interest', selectedInterest);
+      if (selectedSource && selectedSource !== 'All') params.append('source_dataset', selectedSource);
+      if (searchQuery.trim()) params.append('search', searchQuery.trim());
+      params.append('limit', '300');
+
+      const res = await fetch(`/api/students?${params.toString()}`);
       const data = await res.json();
       setStudents(data);
       if (data.length > 0) {
-        setSelectedStudentId(data[0].student_id);
+        if (!data.some(s => s.student_id === selectedStudentId)) {
+          setSelectedStudentId(data[0].student_id);
+        }
+      } else {
+        setSelectedStudentId('');
+        setStudentDetails(null);
+        setMatchData(null);
       }
     } catch (err) {
       console.error('Failed to fetch students:', err);
@@ -150,45 +161,67 @@ export default function CareerPathView({ filters }) {
       {/* Mode 1: Existing Profile Selector */}
       {mode === 'existing' && (
         <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
-          <div className="flex items-center gap-2 text-slate-800 font-bold text-base">
-            <Filter className="w-4 h-4 text-blue-600" />
-            <span>Select Student Profile & Market Benchmark</span>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+            <div className="flex items-center gap-2 text-slate-800 font-bold text-base">
+              <Filter className="w-4 h-4 text-blue-600" />
+              <span>Explore Harmonized Student Catalog (7,381 Records)</span>
+            </div>
+            <div className="flex items-center gap-2 text-xs">
+              <span className="px-2.5 py-1 rounded-full font-semibold bg-blue-50 text-blue-700 border border-blue-200">
+                Core: 480
+              </span>
+              <span className="px-2.5 py-1 rounded-full font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                Benchmark: 6,901
+              </span>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {/* Filter by Dataset Source */}
+            <div>
+              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">
+                Dataset Source
+              </label>
+              <select
+                value={selectedSource}
+                onChange={(e) => setSelectedSource(e.target.value)}
+                className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="All">All Sources (7,381)</option>
+                <option value="EduPathAI_Core">EduPathAI Core (480)</option>
+                <option value="PS2_Benchmark">PS2 Benchmark (6,901)</option>
+              </select>
+            </div>
+
             {/* Filter by Career Interest */}
             <div>
               <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">
-                Career Interest Filter
+                Career Interest
               </label>
               <select
                 value={selectedInterest}
                 onChange={(e) => setSelectedInterest(e.target.value)}
                 className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
-                <option value="All">All Interests</option>
+                <option value="All">All Interests ({filters?.career_interests?.length || 28})</option>
                 {filters?.career_interests?.map((ci) => (
                   <option key={ci} value={ci}>{ci}</option>
                 ))}
               </select>
             </div>
 
-            {/* Select Profile */}
+            {/* Search Input */}
             <div>
               <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">
-                Student Record ({students.length} available)
+                Instant Search
               </label>
-              <select
-                value={selectedStudentId}
-                onChange={(e) => setSelectedStudentId(e.target.value)}
-                className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                {students.map((st) => (
-                  <option key={st.student_id} value={st.student_id}>
-                    {st.student_id} — {st.career_interest} ({st.degree}, {st.specialisation})
-                  </option>
-                ))}
-              </select>
+              <input
+                type="text"
+                placeholder="ID (e.g. STU_001, PS2_0100)..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
             </div>
 
             {/* Target Job Market */}
@@ -207,6 +240,24 @@ export default function CareerPathView({ filters }) {
                 ))}
               </select>
             </div>
+          </div>
+
+          {/* Student Profile Dropdown Picker */}
+          <div>
+            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">
+              Select Active Profile ({students.length} matches available)
+            </label>
+            <select
+              value={selectedStudentId}
+              onChange={(e) => setSelectedStudentId(e.target.value)}
+              className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              {students.map((st) => (
+                <option key={st.student_id} value={st.student_id}>
+                  [{st.source_dataset === 'PS2_Benchmark' ? 'PS2 Benchmark' : 'Core'}] {st.student_id} — {st.name} ({st.career_interest} • GPA {st.gpa})
+                </option>
+              ))}
+            </select>
           </div>
         </div>
       )}
@@ -340,11 +391,24 @@ export default function CareerPathView({ filters }) {
         <div className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm">
           <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4 border-b border-slate-100 pb-6">
             <div>
-              <div className="flex items-center gap-3">
+              <div className="flex flex-wrap items-center gap-2.5">
                 <h2 className="text-2xl font-bold text-slate-900">{studentDetails.name}</h2>
                 <span className="text-xs px-2.5 py-1 rounded-full font-semibold bg-blue-50 text-blue-700 border border-blue-200">
                   {studentDetails.student_id}
                 </span>
+                {studentDetails.student_id?.startsWith('PS2_') ? (
+                  <span className="text-xs px-2.5 py-1 rounded-full font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                    PS2 Benchmark Catalog
+                  </span>
+                ) : studentDetails.student_id?.startsWith('STU_') ? (
+                  <span className="text-xs px-2.5 py-1 rounded-full font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200">
+                    EduPathAI Core Dataset
+                  </span>
+                ) : (
+                  <span className="text-xs px-2.5 py-1 rounded-full font-semibold bg-purple-50 text-purple-700 border border-purple-200">
+                    Custom Profile
+                  </span>
+                )}
               </div>
               <p className="text-sm text-slate-500 mt-1">
                 {studentDetails.degree} in {studentDetails.specialisation} • {studentDetails.education_level}

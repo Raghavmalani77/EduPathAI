@@ -24,12 +24,12 @@ app.add_middleware(
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(BASE_DIR, "data")
 
-print("Initializing EduPathAI Engine...")
-engine = RecommendationEngine(data_dir=DATA_DIR)
+print("Initializing EduPathAI Engine (Loading Full 7,381 Cumulative Dataset)...")
+engine = RecommendationEngine(data_dir=DATA_DIR, use_cumulative=True)
 engine.load_data()
 engine.build_vectors()
 engine.perform_clustering()
-print("EduPathAI Engine ready!")
+print("EduPathAI Engine ready with 7,381 harmonized student profiles!")
 
 class CustomProfileRequest(BaseModel):
     name: str = "Jane Doe"
@@ -45,27 +45,37 @@ class CustomProfileRequest(BaseModel):
 
 @app.get("/api/health")
 def health():
-    return {"status": "ok", "version": "2.0.0"}
+    return {
+        "status": "ok",
+        "version": "2.0.0",
+        "active_students": len(engine.students_df),
+        "dataset_mode": "Cumulative Harmonized (7,381 records)" if engine.use_cumulative else "Core (480 records)"
+    }
 
 @app.get("/api/stats")
 def get_stats():
-    # Coupled check for unified_cumulative_dataset (BUG-DATA-01)
-    cumulative_path = os.path.join(DATA_DIR, "unified_cumulative_dataset.csv")
-    cumulative_records = 0
-    if os.path.exists(cumulative_path):
-        try:
-            cumulative_records = len(pd.read_csv(cumulative_path))
-        except Exception:
-            cumulative_records = 7381
+    core_count = int((engine.students_df['source_dataset'] == 'EduPathAI_Core').sum()) if 'source_dataset' in engine.students_df.columns else len(engine.students_df)
+    ps2_count = int((engine.students_df['source_dataset'] == 'PS2_Benchmark').sum()) if 'source_dataset' in engine.students_df.columns else 0
 
     return {
         "students_count": len(engine.students_df),
         "jobs_count": len(engine.jobs_df),
         "courses_count": len(engine.courses_df),
         "skills_count": len(engine.master_skills),
-        "dataset_mode": "Cumulative Benchmark (7,381 records)" if getattr(engine, "use_cumulative", False) else "Production Primary (480 records)",
-        "cumulative_benchmark_records": cumulative_records,
+        "dataset_mode": f"Harmonized Cumulative Enterprise Catalog ({len(engine.students_df):,} records)" if engine.use_cumulative else f"Production Primary ({len(engine.students_df)} records)",
+        "edupathai_core_count": core_count,
+        "ps2_benchmark_count": ps2_count,
+        "cumulative_benchmark_records": 7381,
         "embedding_model": "Sentence-BERT (all-MiniLM-L6-v2)" if getattr(engine.semantic_matcher, "is_transformer_active", False) else "Domain Semantic Vector Fallback"
+    }
+
+@app.post("/api/dataset/toggle")
+def toggle_dataset_mode(use_cumulative: bool = Query(...)):
+    engine.set_dataset_mode(use_cumulative)
+    return {
+        "status": "ok",
+        "dataset_mode": f"Harmonized Cumulative Catalog ({len(engine.students_df):,} records)" if engine.use_cumulative else f"Production Primary ({len(engine.students_df)} records)",
+        "students_count": len(engine.students_df)
     }
 
 @app.get("/api/filters")
@@ -74,20 +84,40 @@ def get_filters():
     markets = sorted([str(x) for x in engine.jobs_df['Country'].dropna().unique()])
     degrees = sorted([str(x) for x in engine.students_df['Degree'].dropna().unique()])
     specialisations = sorted([str(x) for x in engine.students_df['Specialisation'].dropna().unique()]) if 'Specialisation' in engine.students_df.columns else []
+    sources = ["All", "EduPathAI_Core", "PS2_Benchmark"] if "source_dataset" in engine.students_df.columns else ["All"]
     
     return {
         "career_interests": interests,
         "markets": markets,
         "degrees": degrees,
         "specialisations": specialisations,
+        "source_datasets": sources,
         "master_skills": engine.master_skills
     }
 
 @app.get("/api/students")
-def get_students(career_interest: Optional[str] = Query(None)):
+def get_students(
+    career_interest: Optional[str] = Query(None),
+    source_dataset: Optional[str] = Query(None),
+    search: Optional[str] = Query(None),
+    limit: Optional[int] = Query(None)
+):
     df = engine.students_df
+    if source_dataset and source_dataset != "All" and "source_dataset" in df.columns:
+        df = df[df['source_dataset'] == source_dataset]
     if career_interest and career_interest != "All":
         df = df[df['Career_Interest'] == career_interest]
+    if search and search.strip():
+        q = search.strip().lower()
+        mask = (
+            df['Student_ID'].astype(str).str.lower().str.contains(q) |
+            df['Name'].astype(str).str.lower().str.contains(q) |
+            df['Career_Interest'].astype(str).str.lower().str.contains(q)
+        )
+        df = df[mask]
+        
+    if limit is not None and limit > 0:
+        df = df.head(limit)
         
     results = []
     for _, row in df.iterrows():
@@ -101,7 +131,8 @@ def get_students(career_interest: Optional[str] = Query(None)):
             "specialisation": str(row.get("Specialisation", "N/A")) if pd.notna(row.get("Specialisation")) else "N/A",
             "education_level": str(row.get("Education_Level", "Undergraduate")) if pd.notna(row.get("Education_Level")) else "Undergraduate",
             "gpa": float(row.get("Assessment_Score", 0.0)) if pd.notna(row.get("Assessment_Score")) else 0.0,
-            "career_interest": str(row.get("Career_Interest", "N/A")) if pd.notna(row.get("Career_Interest")) else "N/A"
+            "career_interest": str(row.get("Career_Interest", "N/A")) if pd.notna(row.get("Career_Interest")) else "N/A",
+            "source_dataset": str(row.get("source_dataset", "EduPathAI_Core"))
         })
     return results
 

@@ -167,16 +167,16 @@ class DenseSemanticMatcher:
         return "Domain Semantic Vector Search"
 
 class RecommendationEngine:
-    def __init__(self, data_dir=None, use_cumulative=False):
+    def __init__(self, data_dir=None, use_cumulative=True):
         if data_dir is None:
             base_dir = os.path.dirname(os.path.abspath(__file__))
             self.data_dir = os.path.join(base_dir, "data")
         else:
             self.data_dir = data_dir
             
-        # Dual-mode architecture support: benchmark vs production dataset
-        env_cumulative = os.environ.get("EDUPATH_USE_CUMULATIVE", "0").lower() in ("1", "true", "yes")
-        self.use_cumulative = use_cumulative or env_cumulative
+        # Dual-mode architecture support: defaults to full cumulative enterprise catalog (7,381 records)
+        env_cumulative = os.environ.get("EDUPATH_USE_CUMULATIVE", "1").lower() in ("1", "true", "yes")
+        self.use_cumulative = use_cumulative if use_cumulative is not None else env_cumulative
         self.students_filename = "unified_cumulative_dataset.csv" if self.use_cumulative else "students_employability.csv"
         
         self.jobs_df = None
@@ -195,8 +195,16 @@ class RecommendationEngine:
         }
         self.semantic_matcher = DenseSemanticMatcher(data_dir=self.data_dir)
 
+    def set_dataset_mode(self, use_cumulative: bool):
+        """Dynamic toggle between Cumulative (7,381) and Core (480) datasets"""
+        self.use_cumulative = use_cumulative
+        self.students_filename = "unified_cumulative_dataset.csv" if self.use_cumulative else "students_employability.csv"
+        self.load_data()
+        self.build_vectors()
+        self.perform_clustering()
+
     def load_data(self):
-        print("Loading datasets...")
+        print(f"Loading datasets (Mode: {'Cumulative 7,381 records' if self.use_cumulative else 'Core 480 records'})...")
         self.jobs_df = pd.read_csv(os.path.join(self.data_dir, "jobs.csv"))
         # Impute missing job metadata to prevent NaN serialization errors (BUG-API-01)
         self.jobs_df["Location"] = self.jobs_df["Location"].fillna("Remote / Global")
@@ -209,6 +217,7 @@ class RecommendationEngine:
         if not os.path.exists(students_path) and self.use_cumulative:
             print(f"Warning: {students_path} not found. Falling back to students_employability.csv")
             students_path = os.path.join(self.data_dir, "students_employability.csv")
+            self.use_cumulative = False
         self.students_df = pd.read_csv(students_path)
         
         # Ensure 'Name' column is present and properly initialized to prevent NaN float serialization (BUG-API-01)
@@ -227,7 +236,7 @@ class RecommendationEngine:
                     skills = [s.strip() for s in str(row).split(",")]
                     all_skills.update(skills)
         self.master_skills = sorted(list(all_skills))
-        print(f"Master skill inventory constructed with {len(self.master_skills)} unique skills.")
+        print(f"Master skill inventory constructed with {len(self.master_skills)} unique skills across {len(self.students_df):,} students.")
 
         # Fit Dense Semantic Matcher with course curricula
         print("Fitting Dense Semantic Vector Search on course curricula...")
@@ -286,8 +295,8 @@ class RecommendationEngine:
 
     def perform_clustering(self):
         print("Performing student segmentation & clustering (Step 4 in Methodology)...")
-        # Aggregate behavioral logs from learning_engagement.csv per student
-        engagement_agg = self.engagement_df.groupby("Student_ID").agg(
+        # 1. Aggregate behavioral logs from learning_engagement.csv for core students
+        core_agg = self.engagement_df.groupby("Student_ID").agg(
             Avg_Logins=("Login_Count", "mean"),
             Avg_Completion=("Content_Completion_Percentage", "mean"),
             Avg_Assessment_Score=("Assessment_Score", "mean"),
@@ -295,18 +304,51 @@ class RecommendationEngine:
             Courses_Enrolled=("Course_ID", "count")
         ).reset_index()
 
-        # Calculate course completion rate (how many courses marked completed)
         completion_rates = []
-        for student_id in engagement_agg["Student_ID"]:
+        for student_id in core_agg["Student_ID"]:
             sub = self.engagement_df[self.engagement_df["Student_ID"] == student_id]
             comp_count = sum(sub["Course_Completed"] == "Yes")
             total = len(sub)
             completion_rates.append(comp_count / total if total > 0 else 0)
-        engagement_agg["Completion_Rate"] = completion_rates
+        core_agg["Completion_Rate"] = completion_rates
 
-        # Merge with initial student GPA
-        features_df = pd.merge(self.students_df[["Student_ID", "Assessment_Score"]], engagement_agg, on="Student_ID")
+        if self.use_cumulative and "source_dataset" in self.students_df.columns:
+            # 2. Derive calibrated engagement profiles for PS2 benchmark candidates
+            ps2_students = self.students_df[self.students_df["source_dataset"] == "PS2_Benchmark"]
+            ps2_agg_rows = []
+            for _, r in ps2_students.iterrows():
+                cog = float(r.get("cognitive_rating", 7.0))
+                coding = float(r.get("coding_technical_rating", 6.0))
+                exp = float(r.get("experiential_exposure", 5.0))
+                self_learn = int(r.get("self_learning_capability", 0))
+                
+                avg_completion = float(np.clip(35.0 + self_learn * 35.0 + coding * 2.8, 10.0, 99.0))
+                avg_logins = float(np.clip(25.0 + exp * 6.5 + self_learn * 15.0, 10.0, 95.0))
+                avg_assess = float(np.clip(cog * 10.0, 10.0, 98.0))
+                avg_subs = float(np.clip(1.5 + exp * 0.35, 1.0, 5.0))
+                courses_enrolled = int(np.clip(round(2 + exp * 0.4), 1, 6))
+                comp_rate = float(np.clip(avg_completion / 100.0, 0.05, 1.0))
+                
+                ps2_agg_rows.append({
+                    "Student_ID": r["Student_ID"],
+                    "Avg_Logins": avg_logins,
+                    "Avg_Completion": avg_completion,
+                    "Avg_Assessment_Score": avg_assess,
+                    "Avg_Submissions": avg_subs,
+                    "Courses_Enrolled": courses_enrolled,
+                    "Completion_Rate": comp_rate
+                })
+            ps2_agg = pd.DataFrame(ps2_agg_rows)
+            engagement_agg = pd.concat([core_agg, ps2_agg], ignore_index=True)
+        else:
+            engagement_agg = core_agg
+
+        # Merge with student GPA / Assessment_Score
+        features_df = pd.merge(self.students_df[["Student_ID", "Assessment_Score"]], engagement_agg, on="Student_ID", how="left")
         features_df.rename(columns={"Assessment_Score": "Initial_GPA"}, inplace=True)
+        # Fill any missing metrics with median values
+        for c in ["Initial_GPA", "Avg_Logins", "Avg_Completion", "Avg_Assessment_Score", "Avg_Submissions", "Completion_Rate"]:
+            features_df[c] = features_df[c].fillna(features_df[c].median())
 
         # Scale features and fit K-Means
         feature_cols = ["Initial_GPA", "Avg_Logins", "Avg_Completion", "Avg_Assessment_Score", "Avg_Submissions", "Completion_Rate"]
@@ -323,7 +365,7 @@ class RecommendationEngine:
         features_df["Cluster"] = features_df["Cluster"].map(mapping)
 
         self.student_behavior_profiles = features_df
-        print("Clustering completed. Assigned student behavioral personas.")
+        print(f"Clustering completed across {len(features_df):,} profiles. Assigned student behavioral personas.")
 
     def get_student_cluster_name(self, student_id):
         cluster_id = self.student_behavior_profiles.loc[

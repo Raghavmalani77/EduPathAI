@@ -93,18 +93,24 @@ export default function HomeView({ stats, onNavigate }) {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center divide-y md:divide-y-0 md:divide-x divide-slate-100">
           <div className="pt-4 md:pt-0">
             <div className="text-3xl sm:text-4xl font-extrabold text-blue-600 tracking-tight">
-              {stats?.students_count ? `${stats.students_count}+` : '480+'}
+              {stats?.students_count ? `${stats.students_count.toLocaleString()}+` : '7,381+'}
             </div>
             <div className="text-xs uppercase font-semibold text-slate-500 tracking-wider mt-1">
-              Students Analyzed
+              Harmonized Profiles
+            </div>
+            <div className="text-[11px] text-slate-400 mt-0.5">
+              480 Core · 6,901 Benchmark
             </div>
           </div>
           <div className="pt-4 md:pt-0">
             <div className="text-3xl sm:text-4xl font-extrabold text-indigo-600 tracking-tight">
-              {stats?.jobs_count || '176'}
+              {stats?.jobs_count || '240'}
             </div>
             <div className="text-xs uppercase font-semibold text-slate-500 tracking-wider mt-1">
               Job Postings Tracked
+            </div>
+            <div className="text-[11px] text-slate-400 mt-0.5">
+              India · Germany · Global
             </div>
           </div>
           <div className="pt-4 md:pt-0">

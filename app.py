@@ -591,23 +591,32 @@ def render_existing_profile():
     st.markdown("### Select Your Profile")
     
     # Filters
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        interests = ["All"] + sorted(list(engine.students_df['Career_Interest'].dropna().unique()))
-        selected_interest = st.selectbox("Filter by Career Interest", interests)
+    col0, col1, col2, col3 = st.columns([1.2, 1.2, 2, 1])
+    with col0:
+        source_options = ["All Sources (7,381)", "EduPathAI Core (480)", "PS2 Benchmark (6,901)"]
+        selected_source_label = st.selectbox("Dataset Source", source_options)
         
     filtered_df = engine.students_df
+    if "EduPathAI Core" in selected_source_label and "source_dataset" in filtered_df.columns:
+        filtered_df = filtered_df[filtered_df['source_dataset'] == 'EduPathAI_Core']
+    elif "PS2 Benchmark" in selected_source_label and "source_dataset" in filtered_df.columns:
+        filtered_df = filtered_df[filtered_df['source_dataset'] == 'PS2_Benchmark']
+
+    with col1:
+        interests = ["All"] + sorted(list(filtered_df['Career_Interest'].dropna().unique()))
+        selected_interest = st.selectbox("Filter by Career Interest", interests)
+        
     if selected_interest != "All":
         filtered_df = filtered_df[filtered_df['Career_Interest'] == selected_interest]
         
     with col2:
-        # Format student dropdown
         def format_student(row):
-            return f"{row['Student_ID']} — {row['Career_Interest']} ({row['Degree']}, {row['Specialisation']})"
+            tag = "Core" if str(row.get('source_dataset', '')).startswith('EduPath') else "Benchmark"
+            return f"[{tag}] {row['Student_ID']} — {row.get('Name', '')} ({row['Career_Interest']})"
             
         student_options = []
         student_mapping = {}
-        for _, row in filtered_df.iterrows():
+        for _, row in filtered_df.head(500).iterrows():
             if row['Student_ID'] == 'CUSTOM_USER':
                 label = f"✨ Custom Profile — {row['Career_Interest']} ({row['Degree']})"
             else:
@@ -619,7 +628,7 @@ def render_existing_profile():
             st.warning("No students found with this filter.")
             return
             
-        selected_student_label = st.selectbox("Select Profile", student_options)
+        selected_student_label = st.selectbox(f"Select Profile ({len(filtered_df)} available)", student_options)
         student_id = student_mapping[selected_student_label]
         
     with col3:
