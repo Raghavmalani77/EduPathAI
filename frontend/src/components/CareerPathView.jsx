@@ -21,6 +21,39 @@ export default function CareerPathView({ filters }) {
   const [matchData, setMatchData] = useState(null);
   const [selectedJobIndex, setSelectedJobIndex] = useState(0);
   const [loading, setLoading] = useState(false);
+
+  // Qwen Explainability state
+  const [qwenExplaining, setQwenExplaining] = useState(false);
+  const [qwenExplanations, setQwenExplanations] = useState({});
+  const [qwenStatus, setQwenStatus] = useState(null);
+
+  useEffect(() => {
+    fetch('/api/qwen/status')
+      .then(r => r.json())
+      .then(d => setQwenStatus(d))
+      .catch(() => setQwenStatus({ status: 'offline', available: false }));
+  }, []);
+
+  const handleExplainWithQwen = async (jobId) => {
+    const studentId = mode === 'existing' ? selectedStudentId : (studentDetails?.student_id || 'CUSTOM_USER');
+    if (!studentId || !jobId) return;
+
+    setQwenExplaining(true);
+    try {
+      const res = await fetch(`/api/explain/qwen/${encodeURIComponent(studentId)}/${encodeURIComponent(jobId)}?force_regenerate=true`);
+      const data = await res.json();
+      if (data && data.explanation) {
+        setQwenExplanations(prev => ({
+          ...prev,
+          [jobId]: data
+        }));
+      }
+    } catch (err) {
+      console.error('Failed to generate Qwen explanation:', err);
+    } finally {
+      setQwenExplaining(false);
+    }
+  };
   
   // Custom profile form state
   const [customForm, setCustomForm] = useState({
@@ -683,16 +716,72 @@ export default function CareerPathView({ filters }) {
                 </div>
               </div>
 
-              {/* Explainable AI (XAI) Rationale Box */}
-              <div className="bg-gradient-to-r from-blue-50/80 to-indigo-50/80 border border-blue-200/80 rounded-2xl p-6 space-y-3">
-                <div className="flex items-center gap-2 text-blue-900 font-bold text-sm">
-                  <Sparkles className="w-4 h-4 text-blue-600" />
-                  <span>Explainable AI (XAI) Recommendation Rationale</span>
-                </div>
-                <div className="text-xs sm:text-sm text-slate-700 leading-relaxed font-mono whitespace-pre-line bg-white/70 p-4 rounded-xl border border-blue-100">
-                  {currentJobMatch.explanation}
-                </div>
-              </div>
+              {/* Qwen Explainability Engine Rationale Box */}
+              {(() => {
+                const activeJobId = currentJobMatch.job.Job_ID;
+                const activeQwenExp = qwenExplanations[activeJobId];
+                const displayedExplanation = activeQwenExp ? activeQwenExp.explanation : currentJobMatch.explanation;
+                const isQwenActive = activeQwenExp?.is_qwen || currentJobMatch.is_qwen;
+
+                return (
+                  <div className="bg-gradient-to-r from-indigo-50/90 via-purple-50/50 to-blue-50/80 border border-indigo-200/80 rounded-2xl p-6 space-y-4 shadow-xs">
+                    <div className="flex flex-wrap items-center justify-between gap-3">
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white shadow-xs">
+                          <Sparkles className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <span className="text-indigo-950 font-bold text-sm sm:text-base">
+                              Qwen Explainability Engine
+                            </span>
+                            <span className={`text-2xs font-semibold px-2 py-0.5 rounded-full ${
+                              isQwenActive
+                                ? 'bg-purple-100 text-purple-800 border border-purple-200'
+                                : 'bg-blue-100 text-blue-800 border border-blue-200'
+                            }`}>
+                              {isQwenActive ? '🤖 Qwen 2.5 (7B) Neural' : 'Glass-Box Baseline'}
+                            </span>
+                          </div>
+                          <p className="text-2xs text-slate-500">
+                            Transparent natural language reasoning bridging skill profiles & market requirements
+                          </p>
+                        </div>
+                      </div>
+
+                      <button
+                        onClick={() => handleExplainWithQwen(activeJobId)}
+                        disabled={qwenExplaining}
+                        className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-white border border-indigo-200 text-indigo-700 hover:bg-indigo-50 hover:border-indigo-300 transition-all shadow-xs disabled:opacity-60 cursor-pointer"
+                        title="Generate a deep, transparent natural language explanation with Qwen 2.5"
+                      >
+                        {qwenExplaining ? (
+                          <>
+                            <RefreshCw className="w-3.5 h-3.5 animate-spin text-indigo-600" />
+                            <span>Synthesizing with Qwen...</span>
+                          </>
+                        ) : (
+                          <>
+                            <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
+                            <span>{activeQwenExp ? 'Regenerate with Qwen' : 'Deep Explain with Qwen 2.5'}</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
+
+                    <div className="text-xs sm:text-sm text-slate-800 leading-relaxed font-sans whitespace-pre-line bg-white/90 p-5 rounded-xl border border-indigo-100/80 shadow-xs">
+                      {qwenExplaining ? (
+                        <div className="flex items-center gap-3 py-4 text-indigo-700 text-xs sm:text-sm">
+                          <RefreshCw className="w-4 h-4 animate-spin text-indigo-600" />
+                          <span>Qwen 2.5 is synthesizing personalized career alignment & curriculum rationale...</span>
+                        </div>
+                      ) : (
+                        displayedExplanation
+                      )}
+                    </div>
+                  </div>
+                );
+              })()}
             </div>
           )}
         </div>

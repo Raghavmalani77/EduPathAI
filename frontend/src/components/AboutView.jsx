@@ -58,6 +58,19 @@ export default function AboutView({ stats }) {
               66-Dimensional Cosine Matcher
             </span>
           </div>
+
+          <div className="bg-gradient-to-r from-indigo-50/70 to-blue-50/70 p-5 rounded-xl border border-indigo-200/80 md:col-span-2">
+            <h4 className="font-bold text-indigo-950 text-sm mb-1 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-indigo-600 animate-pulse"></span>
+              Qwen 2.5 Explainability Engine (Neural Glass-Box Reasoning)
+            </h4>
+            <p className="text-xs text-slate-700 leading-relaxed mb-3">
+              Replaces static heuristic templates and black-box opacity with dynamic natural language reasoning via Qwen 2.5 (7B). Synthesizes transparent, personalized explanations detailing role alignment, identified skill deficits, and dense semantic course coverage.
+            </p>
+            <span className="text-2xs font-semibold px-2 py-0.5 rounded bg-indigo-100 text-indigo-800 border border-indigo-200">
+              Active LLM: Qwen 2.5 (7B) via Ollama Local Endpoint
+            </span>
+          </div>
         </div>
       </div>
 

@@ -225,6 +225,38 @@ def get_student_details(student_id: str):
         "skills": skills_list
     }
 
+@app.get("/api/qwen/status")
+def get_qwen_status():
+    available = engine.qwen_explainer.is_available()
+    return {
+        "available": available,
+        "status": "online" if available else "offline",
+        "model": engine.qwen_explainer.model_name,
+        "host": engine.qwen_explainer.host,
+        "cached_count": len(engine.qwen_explainer.cache)
+    }
+
+@app.get("/api/explain/qwen/{student_id}/{job_id}")
+def get_qwen_explanation(student_id: str, job_id: str, force_regenerate: bool = False):
+    student_rows = engine.students_df[engine.students_df['Student_ID'] == student_id]
+    if student_rows.empty:
+        raise HTTPException(status_code=404, detail="Student profile not found")
+        
+    gaps, courses = engine.get_skill_gap_and_courses(student_id, job_id)
+    detail = engine.generate_explanation_detail(
+        student_id, job_id, courses, use_qwen=True, force_regenerate=force_regenerate
+    )
+    return {
+        "student_id": student_id,
+        "job_id": job_id,
+        "explanation": detail["explanation"],
+        "provider": detail["provider"],
+        "is_qwen": detail["is_qwen"],
+        "model": detail["model"],
+        "cached": detail.get("cached", False),
+        "generation_time_s": detail.get("generation_time_s", 0.0)
+    }
+
 @app.get("/api/match/{student_id}")
 def match_student(student_id: str, market: str = "All", top_n: int = 3):
     student_rows = engine.students_df[engine.students_df['Student_ID'] == student_id]
@@ -237,14 +269,21 @@ def match_student(student_id: str, market: str = "All", top_n: int = 3):
     for job in matches:
         job_id = job["Job_ID"]
         gaps, courses = engine.get_skill_gap_and_courses(student_id, job_id)
-        explanation = engine.generate_explanation(student_id, job_id, courses)
+        # Check if Qwen explanation is already cached; otherwise render instant baseline
+        detail = engine.generate_explanation_detail(student_id, job_id, courses, use_qwen=False)
+        cache_key = f"{student_id}_{job_id}"
+        if cache_key in engine.qwen_explainer.cache:
+            detail = engine.qwen_explainer.cache[cache_key]
+
         radar = compute_radar_skills(student_id, job_id)
         
         enriched_matches.append({
             "job": job,
             "skill_gaps": gaps,
             "recommended_courses": courses[:3],
-            "explanation": explanation,
+            "explanation": detail["explanation"],
+            "explanation_provider": detail["provider"],
+            "is_qwen": detail.get("is_qwen", False),
             "radar_skills": radar
         })
         

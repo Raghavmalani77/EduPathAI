@@ -4,6 +4,7 @@ import numpy as np
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 from sklearn.feature_extraction.text import TfidfVectorizer
+from qwen_explainer import QwenExplainer
 
 class DenseSemanticMatcher:
     """
@@ -194,6 +195,7 @@ class RecommendationEngine:
             2: "Low Engagement & Critical Academic Support Needed"
         }
         self.semantic_matcher = DenseSemanticMatcher(data_dir=self.data_dir)
+        self.qwen_explainer = QwenExplainer()
 
     def set_dataset_mode(self, use_cumulative: bool):
         """Dynamic toggle between Cumulative (7,381) and Core (480) datasets"""
@@ -527,45 +529,48 @@ class RecommendationEngine:
         
         return skill_gap_title, recommended_courses
 
-    def generate_explanation(self, student_id, job_id, recommended_courses):
-        # Explainability implementation with Dense Semantic Search (Step 11 in Methodology)
+    def generate_explanation_detail(self, student_id, job_id, recommended_courses, use_qwen=True, force_regenerate=False):
+        """
+        Synthesizes an explainable recommendation rationale using the Qwen 2.5 Explainability Engine,
+        returning rich metadata including provider, model, generation time, and cached status.
+        """
         student_row = self.students_df[self.students_df["Student_ID"] == student_id]
         job_row = self.jobs_df[self.jobs_df["Job_ID"] == job_id]
-        
-        student_name = student_id
-        job_title = job_row["Job_Title"].values[0]
-        company_name = job_row["Company_Name"].values[0] if "Company_Name" in job_row else "Tech Enterprise"
-        job_loc = job_row["Location"].values[0] if "Location" in job_row else "Global"
-        
-        explanations = []
-        
-        # 1. Explain the Job matching score
+        if student_row.empty or job_row.empty:
+            return {
+                "explanation": "Profile or job data unavailable for explainability synthesis.",
+                "provider": "none",
+                "is_qwen": False,
+                "model": "none",
+                "cached": False
+            }
+
+        s_dict = student_row.iloc[0].to_dict()
+        j_dict = job_row.iloc[0].to_dict()
+
         student_skills = set([s.strip().lower() for s in (str(student_row["Technical_Skills"].values[0]) + ", " + str(student_row["Soft_Skills"].values[0])).split(",") if s.strip()])
         job_skills = set([s.strip().lower() for s in str(job_row["Skills_Required"].values[0]).split(",") if s.strip()])
         overlapping = sorted([s.title() for s in student_skills.intersection(job_skills)])
-        
-        explanations.append(
-            f"The student profile shows strong alignment with the role of **'{job_title}'** at **{company_name}** ({job_loc}). "
-            f"This is based on an existing skill overlap including: {', '.join(overlapping) if overlapping else 'Foundational qualifications'}."
+        gaps = sorted([s.title() for s in (job_skills - student_skills)])
+
+        return self.qwen_explainer.generate_explanation(
+            student_id=student_id,
+            student_profile=s_dict,
+            job_profile=j_dict,
+            overlapping_skills=overlapping,
+            skill_gaps=gaps,
+            recommended_courses=recommended_courses,
+            use_qwen=use_qwen,
+            force_regenerate=force_regenerate
         )
-        
-        # 2. Explain Course Recommendations based on specific gaps & dense semantic vector search
-        if recommended_courses:
-            mode_name = self.semantic_matcher.get_mode_name()
-            explanations.append(f"To close the detected skill gaps, the following pathways are prescribed via **{mode_name}**:")
-            for course in recommended_courses:
-                parts = []
-                if course.get("Skills_Covered"):
-                    parts.append(f"directly develops **{course['Skills_Covered']}**")
-                if course.get("Semantic_Bridges"):
-                    bridge_strs = [f"**{b['gap']}** via **{b['concept']}** ({b['similarity']}% semantic match)" for b in course["Semantic_Bridges"]]
-                    parts.append(f"semantically bridges {', '.join(bridge_strs)}")
-                
-                reason = " and ".join(parts) if parts else f"develops competencies in {course['Skills_Developed']}"
-                explanations.append(
-                    f"- **{course['Course_Title']}** ({course['Platform']}): Recommended because it {reason}, fulfilling prerequisites for the '{job_title}' role."
-                )
-        else:
-            explanations.append("The student already possesses the required skillset for this job role. No immediate course gaps identified.")
-            
-        return "\n".join(explanations)
+
+    def generate_explanation(self, student_id, job_id, recommended_courses, use_qwen=False, force_regenerate=False):
+        """
+        Explainability implementation powered by Qwen 2.5 Explainability Engine.
+        Defaults to use_qwen=False for instant synchronous baseline rendering,
+        and use_qwen=True for deep neural rationale synthesis.
+        """
+        detail = self.generate_explanation_detail(
+            student_id, job_id, recommended_courses, use_qwen=use_qwen, force_regenerate=force_regenerate
+        )
+        return detail["explanation"]

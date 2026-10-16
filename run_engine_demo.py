@@ -60,9 +60,10 @@ def main():
         else:
             print("     No courses recommended (Skills already covered).")
             
-        print("\nEXPLAINABLE AI (XAI) GENERATOR OUTPUT:")
-        explanation = engine.generate_explanation(target_student_id, best_job_id, recommended_courses)
-        print(explanation)
+        print("\nQWEN EXPLAINABILITY ENGINE (AI RATIONALE) OUTPUT:")
+        detail = engine.generate_explanation_detail(target_student_id, best_job_id, recommended_courses, use_qwen=False)
+        print(f"Provider: {detail['provider']} (Model: {detail['model']})")
+        print(detail["explanation"])
         print_separator("-")
     
     print_separator()

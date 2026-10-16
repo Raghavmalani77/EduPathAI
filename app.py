@@ -476,10 +476,30 @@ def render_job_analysis(student_id, job_id, job_title, match_score):
                 </div>
             """, unsafe_allow_html=True)
             
-    # 3. Explanation
-    st.markdown("### 💡 Why this matches")
-    explanation = engine.generate_explanation(student_id, job_id, recommended_courses)
-    # Strip some technical jargon if possible, though mostly it's just formatting
+    # 3. Qwen Explainability Engine
+    st.markdown("### 💡 Qwen Explainability Engine (AI Rationale)")
+    qwen_avail = engine.qwen_explainer.is_available()
+    
+    col_exp_info, col_exp_btn = st.columns([3, 1])
+    with col_exp_info:
+        if qwen_avail:
+            st.caption("🤖 Model: **Qwen 2.5 (7B)** via Ollama — Generates neural glass-box explanations of matching strengths & gap remediation.")
+        else:
+            st.caption("ℹ️ Mode: **Glass-Box Baseline** — Transparent rule-based skill mapping.")
+    with col_exp_btn:
+        generate_qwen = st.button("✨ Explain with Qwen", key=f"qwen_btn_{student_id}_{job_id}")
+
+    if generate_qwen:
+        with st.spinner("Qwen 2.5 is synthesizing personalized career alignment rationale..."):
+            detail = engine.generate_explanation_detail(student_id, job_id, recommended_courses, use_qwen=True, force_regenerate=True)
+            explanation = detail["explanation"]
+    else:
+        cache_key = f"{student_id}_{job_id}"
+        if cache_key in engine.qwen_explainer.cache:
+            explanation = engine.qwen_explainer.cache[cache_key]["explanation"]
+        else:
+            explanation = engine.generate_explanation(student_id, job_id, recommended_courses, use_qwen=False)
+
     st.markdown(f"<div style='background-color:#f1f5f9; padding:1.5rem; border-radius:12px; font-size:0.95rem; line-height:1.6;'>{explanation}</div>", unsafe_allow_html=True)
 
 def render_student_dashboard(student_id, job_market="All"):

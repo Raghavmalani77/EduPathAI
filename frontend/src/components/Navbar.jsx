@@ -7,7 +7,7 @@ export default function Navbar({ activeTab, setActiveTab, apiStatus }) {
     { id: 'pathway', label: 'Find Career Path', icon: Compass },
     { id: 'jobs', label: 'Job Market', icon: Briefcase },
     { id: 'courses', label: 'Course Catalog', icon: BookOpen },
-    { id: 'about', label: 'About & XAI', icon: Info },
+    { id: 'about', label: 'About & Qwen XAI', icon: Info },
   ];
 
   return (
