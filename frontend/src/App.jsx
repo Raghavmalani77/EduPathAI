@@ -1,54 +1,75 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from './components/Navbar';
 import HomeView from './components/HomeView';
 import CareerPathView from './components/CareerPathView';
 import JobMarketView from './components/JobMarketView';
 import CourseCatalogView from './components/CourseCatalogView';
 import AboutView from './components/AboutView';
+import { FloatingDock } from './components/ui/FloatingDock';
+import {
+  IconHome,
+  IconRoute,
+  IconBriefcase,
+  IconBooks,
+  IconInfoCircle,
+} from '@tabler/icons-react';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('home');
-  const [stats, setStats] = useState(null);
   const [filters, setFilters] = useState(null);
-  const [apiStatus, setApiStatus] = useState(false);
+  const [stats, setStats] = useState(null);
 
   useEffect(() => {
-    checkHealthAndFetchStats();
+    fetch('/api/filters')
+      .then((r) => r.json())
+      .then((data) => setFilters(data))
+      .catch((err) => console.warn('Could not load filters:', err));
+
+    fetch('/api/stats')
+      .then((r) => r.json())
+      .then((data) => setStats(data))
+      .catch((err) => console.warn('Could not load stats:', err));
   }, []);
 
-  const checkHealthAndFetchStats = async () => {
-    try {
-      const [healthRes, statsRes, filterRes] = await Promise.all([
-        fetch('/api/health'),
-        fetch('/api/stats'),
-        fetch('/api/filters')
-      ]);
-
-      if (healthRes.ok) setApiStatus(true);
-      const statsData = await statsRes.json();
-      const filterData = await filterRes.json();
-
-      setStats(statsData);
-      setFilters(filterData);
-    } catch (err) {
-      console.warn('API not ready yet, will retry...', err);
-      setApiStatus(false);
-    }
-  };
+  // ── Aceternity Floating Dock navigation items ──────────────────────
+  const dockItems = [
+    {
+      title: "Home",
+      icon: <IconHome className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
+      href: "#",
+      onClick: () => setActiveTab('home'),
+    },
+    {
+      title: "Career Path",
+      icon: <IconRoute className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
+      href: "#",
+      onClick: () => setActiveTab('pathway'),
+    },
+    {
+      title: "Job Market",
+      icon: <IconBriefcase className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
+      href: "#",
+      onClick: () => setActiveTab('jobs'),
+    },
+    {
+      title: "Courses",
+      icon: <IconBooks className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
+      href: "#",
+      onClick: () => setActiveTab('courses'),
+    },
+    {
+      title: "About",
+      icon: <IconInfoCircle className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
+      href: "#",
+      onClick: () => setActiveTab('about'),
+    },
+  ];
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
-      {/* Top Navigation */}
-      <Navbar 
-        activeTab={activeTab} 
-        setActiveTab={setActiveTab} 
-        apiStatus={apiStatus} 
-      />
-
-      {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+    <div className="min-h-screen bg-slate-50 dark:bg-neutral-950 flex flex-col font-sans transition-colors duration-200">
+      {/* Main View Area */}
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-28">
         {activeTab === 'home' && (
-          <HomeView stats={stats} onNavigate={setActiveTab} />
+          <HomeView />
         )}
         {activeTab === 'pathway' && (
           <CareerPathView filters={filters} />
@@ -64,17 +85,14 @@ export default function App() {
         )}
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-slate-200 bg-white py-6">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-          <div>
-            <span className="font-semibold text-slate-700">EduPathAI Platform</span> — AI Student Learning, Employability & Career Pathway System
-          </div>
-          <div>
-            Phase 7 ML Architecture • Sentence-BERT • React 19 + Vite + Tailwind
-          </div>
-        </div>
-      </footer>
+      {/* ── Aceternity UI Floating Dock ─────────────────────────────────
+           Fixed at the bottom-center of the viewport, z-50.
+           Desktop: horizontal spring-magnifying icon bar
+           Mobile:  collapsible radial toggle button
+      ─────────────────────────────────────────────────────────────────── */}
+      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
+        <FloatingDock items={dockItems} />
+      </div>
     </div>
   );
 }
