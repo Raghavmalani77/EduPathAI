@@ -723,6 +723,66 @@ export default function CareerPathView({ filters }) {
                 const displayedExplanation = activeQwenExp ? activeQwenExp.explanation : currentJobMatch.explanation;
                 const isQwenActive = activeQwenExp?.is_qwen || currentJobMatch.is_qwen;
 
+                const renderInlineMarkdown = (line) => {
+                  const tokens = String(line || '').split(/(\*\*[^*]+\*\*|`[^`]+`)/g);
+                  return tokens.map((tok, i) => {
+                    if (tok.startsWith('**') && tok.endsWith('**')) {
+                      return (
+                        <strong key={i} className="font-semibold text-slate-900">
+                          {tok.slice(2, -2)}
+                        </strong>
+                      );
+                    }
+                    if (tok.startsWith('`') && tok.endsWith('`')) {
+                      return (
+                        <span
+                          key={i}
+                          className="inline-block px-1.5 py-0.5 mx-0.5 rounded bg-indigo-50 text-indigo-700 font-medium text-[0.9em] border border-indigo-100"
+                        >
+                          {tok.slice(1, -1)}
+                        </span>
+                      );
+                    }
+                    return tok.replace(/\*\*/g, '');
+                  });
+                };
+
+                const renderFormattedExplanation = (text) => {
+                  if (!text) return null;
+                  const lines = String(text)
+                    .split('\n')
+                    .map((l) => l.trim())
+                    .filter(Boolean);
+
+                  return (
+                    <div className="space-y-2.5">
+                      {lines.map((line, idx) => {
+                        const isSubBullet = line.startsWith('* ');
+                        const isMainBullet = line.startsWith('- ');
+                        const cleanLine = isSubBullet || isMainBullet ? line.slice(2).trim() : line;
+
+                        if (isSubBullet) {
+                          return (
+                            <div key={idx} className="flex items-start gap-2 pl-4 text-slate-700">
+                              <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-indigo-400 shrink-0" />
+                              <div>{renderInlineMarkdown(cleanLine)}</div>
+                            </div>
+                          );
+                        }
+                        if (isMainBullet) {
+                          return (
+                            <div key={idx} className="flex items-start gap-2">
+                              <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-indigo-600 shrink-0" />
+                              <div>{renderInlineMarkdown(cleanLine)}</div>
+                            </div>
+                          );
+                        }
+                        return <p key={idx}>{renderInlineMarkdown(cleanLine)}</p>;
+                      })}
+                    </div>
+                  );
+                };
+
                 return (
                   <div className="bg-gradient-to-r from-indigo-50/90 via-purple-50/50 to-blue-50/80 border border-indigo-200/80 rounded-2xl p-6 space-y-4 shadow-xs">
                     <div className="flex flex-wrap items-center justify-between gap-3">
@@ -769,14 +829,14 @@ export default function CareerPathView({ filters }) {
                       </button>
                     </div>
 
-                    <div className="text-xs sm:text-sm text-slate-800 leading-relaxed font-sans whitespace-pre-line bg-white/90 p-5 rounded-xl border border-indigo-100/80 shadow-xs">
+                    <div className="text-xs sm:text-sm text-slate-800 leading-relaxed font-sans bg-white/90 p-5 rounded-xl border border-indigo-100/80 shadow-xs">
                       {qwenExplaining ? (
                         <div className="flex items-center gap-3 py-4 text-indigo-700 text-xs sm:text-sm">
                           <RefreshCw className="w-4 h-4 animate-spin text-indigo-600" />
                           <span>Qwen 2.5 is synthesizing personalized career alignment & curriculum rationale...</span>
                         </div>
                       ) : (
-                        displayedExplanation
+                        renderFormattedExplanation(displayedExplanation)
                       )}
                     </div>
                   </div>

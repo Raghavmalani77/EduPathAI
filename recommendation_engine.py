@@ -398,6 +398,55 @@ class RecommendationEngine:
             return 0.0
         return dot_product / (norm_a * norm_b)
 
+    # Career Interest → keywords that should appear in matching job titles
+    CAREER_INTEREST_KEYWORDS = {
+        "ai engineer":          ["ai", "machine learning", "ml", "data scientist", "deep learning", "nlp", "computer vision", "ai/ml"],
+        "machine learning":     ["machine learning", "ml", "ai", "data scientist", "deep learning", "ai/ml"],
+        "data scientist":       ["data scientist", "data science", "machine learning", "ml", "ai", "analytics"],
+        "data analyst":         ["data analyst", "analytics", "business intelligence", "bi", "data"],
+        "frontend developer":   ["frontend", "front-end", "front end", "ui", "react", "angular", "vue"],
+        "frontend engineer":    ["frontend", "front-end", "front end", "ui", "react", "angular", "vue"],
+        "frontend":             ["frontend", "front-end", "front end", "ui", "react", "angular", "vue"],
+        "backend developer":    ["backend", "back-end", "server", "api", "node", "django", "spring", "java", "go"],
+        "backend engineer":     ["backend", "back-end", "server", "api", "node", "django", "spring", "java", "go"],
+        "full stack":           ["full stack", "fullstack", "full-stack", "web developer"],
+        "devops":               ["devops", "sre", "cloud", "infrastructure", "kubernetes", "docker", "platform"],
+        "cybersecurity":        ["security", "cybersecurity", "penetration", "soc", "infosec", "network security"],
+        "cloud engineer":       ["cloud", "aws", "azure", "gcp", "infrastructure", "devops", "sre"],
+        "product manager":      ["product manager", "product management", "pm", "product owner"],
+        "ui/ux":                ["ui", "ux", "design", "figma", "product designer", "interaction"],
+        "business analyst":     ["business analyst", "business intelligence", "analyst", "strategy"],
+        "software engineer":    ["software engineer", "software developer", "swe", "developer"],
+    }
+
+    def _get_career_interest_boost(self, job_title: str, career_interest: str) -> float:
+        """
+        Returns a score boost [0.0, 0.25] when a job title aligns with the student's
+        declared Career_Interest. Uses word-boundary matching to avoid false positives
+        (e.g. 'ai' inside 'retail' or 'ml' inside 'html').
+        """
+        if not career_interest:
+            return 0.0
+        import re
+        ci_lower = career_interest.strip().lower()
+        job_lower = job_title.strip().lower()
+
+        # Find the best matching career interest category
+        best_keywords = []
+        for ci_key, keywords in self.CAREER_INTEREST_KEYWORDS.items():
+            if ci_key in ci_lower or ci_lower in ci_key:
+                best_keywords = keywords
+                break
+        # Fallback: use words from the career interest string directly
+        if not best_keywords:
+            best_keywords = ci_lower.replace("/", " ").replace("-", " ").split()
+
+        hits = sum(1 for kw in best_keywords if re.search(r'(?<![a-z0-9])' + re.escape(kw) + r'(?![a-z0-9])', job_lower))
+        if hits == 0:
+            return 0.0
+        # Scale: 1 keyword hit → +0.35, 2+ hits → +0.45
+        return min(0.45, 0.25 + hits * 0.10)
+
     def match_jobs(self, student_id, top_n=3, country_filter="All"):
         # Career pathway classification and Job-Role matching (Steps 7 & 8)
         student_row = self.students_df[self.students_df["Student_ID"] == student_id]
@@ -405,7 +454,17 @@ class RecommendationEngine:
             return []
 
         student_vector = student_row["Skill_Vector"].values[0]
-        
+        student_skills = set([
+            s.strip().lower()
+            for s in (str(student_row["Technical_Skills"].values[0]) + ", " + str(student_row["Soft_Skills"].values[0])).split(",")
+            if s.strip()
+        ])
+
+        # Read the student's declared career interest for affinity boosting
+        career_interest = str(student_row["Career_Interest"].values[0]) if "Career_Interest" in student_row.columns else ""
+        if career_interest.lower() in ("nan", "none", ""):
+            career_interest = ""
+
         target_jobs = self.jobs_df
         if country_filter and country_filter != "All":
             cf = country_filter.lower()
@@ -417,7 +476,7 @@ class RecommendationEngine:
                 target_jobs = target_jobs[target_jobs["Country"].str.lower() == "united kingdom"]
             elif "remote" in cf:
                 target_jobs = target_jobs[(target_jobs["Location"].str.lower().str.contains("remote", na=False)) | (target_jobs["Country"].str.lower() == "remote / global")]
-            
+
             # Fallback if filtered subset is empty
             if target_jobs.empty:
                 target_jobs = self.jobs_df
@@ -425,7 +484,19 @@ class RecommendationEngine:
         matches = []
         for _, job in target_jobs.iterrows():
             job_vector = job["Skill_Vector"]
-            similarity = self.cosine_similarity(student_vector, job_vector)
+            skill_similarity = self.cosine_similarity(student_vector, job_vector)
+
+            # --- Career Interest Affinity Boost + Gap-Aware Cap ---
+            # Prevents skill-overlap coincidences from outranking role-relevant jobs,
+            # while ensuring a job with missing skill gaps NEVER displays 100% suitability.
+            job_skills = set([s.strip().lower() for s in str(job["Skills_Required"]).split(",") if s.strip()])
+            missing_count = len(job_skills - student_skills)
+            coverage_ratio = len(job_skills & student_skills) / max(len(job_skills), 1)
+            max_cap = 1.0 if missing_count == 0 else min(0.92, 0.72 + 0.22 * coverage_ratio)
+
+            affinity_boost = self._get_career_interest_boost(str(job["Job_Title"]), career_interest)
+            final_score = min(max_cap, skill_similarity + affinity_boost)
+
             loc_val = job.get("Location", "Remote / Global")
             if pd.isna(loc_val) or not str(loc_val).strip():
                 loc_val = "Remote / Global"
@@ -446,10 +517,10 @@ class RecommendationEngine:
                 "Location": str(loc_val),
                 "Country": str(cntry_val),
                 "Skills_Required": str(job["Skills_Required"]),
-                "Match_Score": round(similarity * 100, 1)
+                "Match_Score": round(final_score * 100, 1)
             })
 
-        # Sort jobs by matching similarity score descending
+        # Sort jobs by final score descending (skill similarity + career interest affinity)
         matches = sorted(matches, key=lambda x: x["Match_Score"], reverse=True)
         return matches[:top_n]
 
@@ -467,14 +538,29 @@ class RecommendationEngine:
         # Skill Gap (skills in job but missing from student)
         skill_gap = sorted(list(job_skills - student_skills))
         
-        # Map missing skills to courses using Hybrid (Lexical Exact + Dense Semantic) matching
-        recommended_courses = []
+        # -----------------------------------------------------------------------
+        # PHASE 1: Build a per-gap best-course map using Hybrid Matching.
+        #
+        # Problem with the old count-based score:
+        #   exact_score = len(exact_matches) * 2.0
+        # A React course covering 3 broad gaps (score 6.0) always outranked a
+        # specialised Figma/UI-Design course covering 1 targeted gap (score 2.0),
+        # even though Figma is THE key tool a Frontend Engineer needs for UI Design.
+        #
+        # Fix: For each individual gap skill, elect the single best matching course
+        # (the "gap champion").  Then collect ALL champion courses (deduped) plus any
+        # multi-gap courses that cover 2+ gaps.  Finally score with a balanced
+        # formula that rewards BOTH breadth (recall) AND focus (precision).
+        # -----------------------------------------------------------------------
+
+        # --- Step A: collect per-course match metadata -----------------------
+        course_meta = []  # list of dicts with match info for every qualifying course
         for idx, course in self.courses_df.iterrows():
             course_skills = set([s.strip().lower() for s in str(course["Skills_Developed"]).split(",") if s.strip()])
-            
+
             # 1. Exact Lexical intersection
             exact_matches = course_skills.intersection(set(skill_gap))
-            
+
             # 2. Dense Semantic Vector Search for gaps not exact-matched
             semantic_bridges = []
             for gap in skill_gap:
@@ -486,47 +572,162 @@ class RecommendationEngine:
                             "concept": concept if concept else course["Course_Title"],
                             "similarity": round(sim * 100, 1)
                         })
-            
-            # If the course covers skills either lexically or semantically:
+
             if exact_matches or semantic_bridges:
-                # Composite Score: Exact Matches weighted 2.0x, Semantic Bridges weighted 1.2x * similarity
-                exact_score = len(exact_matches) * 2.0
-                semantic_score = sum(b["similarity"] / 100.0 for b in semantic_bridges) * 1.2
-                duration_penalty = 0.005 * float(course.get("Duration_Hours", 20))
-                total_score = exact_score + semantic_score - duration_penalty
-                
-                # Match Type Classification
-                if exact_matches and semantic_bridges:
-                    match_type = "Hybrid (Exact + Semantic)"
-                elif exact_matches:
-                    match_type = "Exact Match"
-                else:
-                    match_type = "Dense Semantic Bridge"
-                
-                covered_exact_list = sorted([s.title() for s in exact_matches])
-                covered_all_list = list(covered_exact_list)
-                for b in semantic_bridges:
-                    covered_all_list.append(f"{b['gap']} (via {b['concept']})")
-                
-                recommended_courses.append({
-                    "Course_ID": course["Course_ID"],
-                    "Course_Title": course["Course_Title"],
-                    "Platform": course["Platform"],
-                    "Skills_Developed": course["Skills_Developed"],
-                    "Skills_Covered": ", ".join(covered_exact_list),
-                    "Skills_Covered_All": ", ".join(covered_all_list),
-                    "Semantic_Bridges": semantic_bridges,
-                    "Match_Type": match_type,
-                    "Composite_Score": round(total_score, 3),
-                    "Duration_Hours": course["Duration_Hours"],
-                    "Description": course["Description"]
+                course_meta.append({
+                    "idx": idx,
+                    "course": course,
+                    "exact_matches": exact_matches,
+                    "semantic_bridges": semantic_bridges,
+                    "course_skills": course_skills,
                 })
+
+        # --- Step B: elect a "gap champion" for every individual gap skill ----
+        # For each gap find the course with the best exact/semantic fit.
+        champion_course_ids = set()
+        num_gaps = max(len(skill_gap), 1)
+        for gap in skill_gap:
+            best_score = -1
+            best_id = None
+            for cm in course_meta:
+                if gap in cm["exact_matches"]:
+                    # Exact champion: prefer focused courses (high precision)
+                    precision = 1.0 / max(len(cm["course_skills"]), 1)
+                    score = 1.0 + precision  # exact = 1.0 base + precision bonus
+                else:
+                    # Semantic champion
+                    score = 0.0
+                    for b in cm["semantic_bridges"]:
+                        if b["gap"].lower() == gap.lower():
+                            score = b["similarity"] / 100.0
+                            break
+                if score > best_score:
+                    best_score = score
+                    best_id = cm["course"]["Course_ID"]
+            if best_id is not None:
+                champion_course_ids.add(best_id)
+
+        # --- Step C: build final scored list ----------------------------------
+        recommended_courses = []
+        for cm in course_meta:
+            course = cm["course"]
+            exact_matches = cm["exact_matches"]
+            semantic_bridges = cm["semantic_bridges"]
+            course_skills = cm["course_skills"]
+
+            # Gap coverage recall: how many gaps does this course address?
+            gap_coverage_ratio = len(exact_matches) / num_gaps
+            # Precision: what fraction of the course's own skills are relevant to the gap?
+            precision_ratio = len(exact_matches) / max(len(course_skills), 1)
+
+            # Harmonic mean (F1) of recall and precision so both matter equally
+            if gap_coverage_ratio + precision_ratio > 0:
+                f1 = 2 * gap_coverage_ratio * precision_ratio / (gap_coverage_ratio + precision_ratio)
+            else:
+                f1 = 0.0
+
+            semantic_score = sum(b["similarity"] / 100.0 for b in semantic_bridges) / num_gaps * 1.2
+            duration_penalty = 0.005 * float(course.get("Duration_Hours", 20))
+
+            # Champion bonus: if this course is the elected best for any individual gap,
+            # give it a guaranteed minimum visibility boost so specialised courses
+            # (e.g. Figma for UI Design) are never buried by broad multi-skill courses.
+            is_champion = course["Course_ID"] in champion_course_ids
+            champion_bonus = 0.5 if is_champion else 0.0
+
+            # Final composite score (0–10 scale)
+            total_score = (f1 * 7.0 + semantic_score * 3.0 + champion_bonus) - duration_penalty
+
+            # Match Type Classification
+            if exact_matches and semantic_bridges:
+                match_type = "Hybrid (Exact + Semantic)"
+            elif exact_matches:
+                match_type = "Exact Match"
+            else:
+                match_type = "Dense Semantic Bridge"
+
+            covered_exact_list = sorted([s.title() for s in exact_matches])
+            covered_all_list = list(covered_exact_list)
+            for b in semantic_bridges:
+                covered_all_list.append(f"{b['gap']} (via {b['concept']})")
+
+            recommended_courses.append({
+                "Course_ID": course["Course_ID"],
+                "Course_Title": course["Course_Title"],
+                "Platform": course["Platform"],
+                "Skills_Developed": course["Skills_Developed"],
+                "Skills_Covered": ", ".join(covered_exact_list),
+                "Skills_Covered_All": ", ".join(covered_all_list),
+                "Semantic_Bridges": semantic_bridges,
+                "Match_Type": match_type,
+                "Composite_Score": round(total_score, 3),
+                "Duration_Hours": course["Duration_Hours"],
+                "Description": course["Description"]
+            })
                 
         # Sort courses by Composite Score descending (Greedy Maximum Coverage)
         recommended_courses = sorted(recommended_courses, key=lambda x: x["Composite_Score"], reverse=True)
+
+        # --- Step D: Champion Guarantee -------------------------------------------
+        # Ensure EVERY gap has its "best course" (champion) visible in the top results.
+        # Problem: when there are 5+ gaps, a broad course covering 3 of them will always
+        # score higher than a specialised course covering 1 key skill (e.g. Figma for
+        # UI Design), even though that specialised course is THE most targeted resource
+        # for that gap. Without this step, Figma/UI-Design courses get buried.
+        #
+        # Solution: build an ordered list of unique gap-champion courses (one per gap),
+        # then guarantee each champion appears within the first MAX_DISPLAY slots.
+        # Courses that cover multiple gaps appear once only (as champion for the gap
+        # they score highest on). Non-champion surplus courses fill remaining slots.
+        MAX_DISPLAY = 8  # maximum courses shown in the UI
+
+        # Map: gap -> best champion course entry (by exact match first, then semantic)
+        gap_champion_entries = {}
+        for gap in skill_gap:
+            best_score = -1
+            best_entry = None
+            for entry in recommended_courses:
+                # Check exact match
+                exact_set = set(s.strip().lower() for s in entry["Skills_Covered"].split(",") if s.strip())
+                if gap in exact_set:
+                    # Prefer the entry with best composite score for this gap
+                    if entry["Composite_Score"] > best_score:
+                        best_score = entry["Composite_Score"]
+                        best_entry = entry
+            if best_entry is None:
+                # Fall back to semantic bridge
+                for entry in recommended_courses:
+                    for bridge in entry.get("Semantic_Bridges", []):
+                        if bridge["gap"].lower() == gap.lower():
+                            if entry["Composite_Score"] > best_score:
+                                best_score = entry["Composite_Score"]
+                                best_entry = entry
+            if best_entry is not None:
+                gap_champion_entries[gap] = best_entry
+
+        # Build ordered output: champions first (deduplicated), then remaining by score
+        seen_ids = set()
+        ordered_output = []
+
+        # Add unique champions in gap order
+        for gap in skill_gap:
+            entry = gap_champion_entries.get(gap)
+            if entry and entry["Course_ID"] not in seen_ids:
+                ordered_output.append(entry)
+                seen_ids.add(entry["Course_ID"])
+
+        # Fill remaining slots with the best non-champion courses
+        for entry in recommended_courses:
+            if entry["Course_ID"] not in seen_ids:
+                ordered_output.append(entry)
+                seen_ids.add(entry["Course_ID"])
+
+        recommended_courses = ordered_output[:MAX_DISPLAY]
+        # --------------------------------------------------------------------------
+
         # Format skill gap list to title case for output
         skill_gap_title = [s.title() for s in skill_gap]
-        
+
         return skill_gap_title, recommended_courses
 
     def generate_explanation_detail(self, student_id, job_id, recommended_courses, use_qwen=True, force_regenerate=False):
